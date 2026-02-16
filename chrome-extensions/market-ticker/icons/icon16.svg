@@ -1,0 +1,8 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 128 128">
+  <rect width="128" height="128" rx="24" fill="#111116"/>
+  <path d="M 20 90 L 45 60 L 65 72 L 90 35 L 108 50" 
+        stroke="#34A853" stroke-width="8" fill="none" stroke-linecap="round" stroke-linejoin="round"/>
+  <circle cx="90" cy="35" r="6" fill="#34A853"/>
+  <path d="M 85 35 L 90 35 L 90 40" stroke="#34A853" stroke-width="4" fill="none" stroke-linecap="round"/>
+  <text x="64" y="115" text-anchor="middle" fill="#71717a" font-size="18" font-family="sans-serif">SABQ</text>
+</svg>

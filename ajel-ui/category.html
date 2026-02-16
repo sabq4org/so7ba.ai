@@ -1,0 +1,317 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>عاجل — محلي</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Kufi+Arabic:wght@400;500;600;700;800;900&family=Noto+Sans+Arabic:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        ajel: { red: '#E31837', redDark: '#B8132D', black: '#1A1A1A', dark: '#111111', gray: '#F5F5F5', grayMed: '#E0E0E0', grayText: '#6B7280' }
+                    },
+                    fontFamily: { kufi: ['Noto Kufi Arabic', 'sans-serif'], sans: ['Noto Sans Arabic', 'sans-serif'] }
+                }
+            }
+        }
+    </script>
+    <style>
+        * { font-family: 'Noto Sans Arabic', sans-serif; }
+        .font-kufi { font-family: 'Noto Kufi Arabic', sans-serif; }
+        .news-card { transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1); }
+        .news-card:hover { transform: translateY(-4px); box-shadow: 0 12px 40px rgba(0,0,0,0.12); }
+        .news-card:hover .card-img { transform: scale(1.05); }
+        .card-img-wrapper { overflow: hidden; }
+        .card-img { transition: transform 0.5s cubic-bezier(0.4, 0, 0.2, 1); }
+        .accent-line { position: relative; }
+        .accent-line::after { content:''; position:absolute; bottom:-2px; right:0; width:0; height:3px; background:#E31837; transition:width 0.3s ease; }
+        .accent-line:hover::after { width:100%; }
+        .hero-gradient { background: linear-gradient(to top, rgba(0,0,0,0.85) 0%, rgba(0,0,0,0.4) 40%, transparent 100%); }
+        @keyframes pulse-live { 0%,100%{opacity:1} 50%{opacity:0.4} }
+        .live-pulse { animation: pulse-live 1.5s ease-in-out infinite; }
+    </style>
+</head>
+<body class="bg-white text-ajel-black">
+
+    <!-- TOP BAR -->
+    <div class="bg-ajel-dark text-white">
+        <div class="max-w-7xl mx-auto px-4 py-2 flex items-center justify-between text-sm">
+            <div class="flex items-center gap-6">
+                <span class="text-ajel-grayText">السبت 14 فبراير 2026</span>
+                <span class="text-ajel-grayText">|</span>
+                <span class="text-ajel-grayText">16 شعبان 1447</span>
+            </div>
+            <div class="flex items-center gap-4">
+                <a href="#" class="text-ajel-grayText hover:text-white transition">تسجيل دخول</a>
+                <a href="#" class="text-ajel-grayText hover:text-white transition">English</a>
+            </div>
+        </div>
+    </div>
+
+    <!-- HEADER -->
+    <header class="bg-white border-b border-ajel-grayMed sticky top-0 z-50 shadow-sm">
+        <div class="max-w-7xl mx-auto px-4">
+            <div class="flex items-center justify-between h-16">
+                <a href="index.html" class="flex items-center gap-3">
+                    <div class="bg-ajel-red rounded-lg w-10 h-10 flex items-center justify-center">
+                        <div class="flex gap-0.5">
+                            <div class="w-1 h-5 bg-white rounded-full"></div>
+                            <div class="w-1 h-4 bg-white rounded-full"></div>
+                            <div class="w-1 h-5 bg-white rounded-full"></div>
+                        </div>
+                    </div>
+                    <div>
+                        <h1 class="font-kufi text-2xl font-900 text-ajel-black leading-none">عاجل</h1>
+                        <span class="text-[10px] tracking-[0.2em] text-ajel-grayText font-medium">AJEL.SA</span>
+                    </div>
+                </a>
+                <nav class="hidden lg:flex items-center gap-1">
+                    <a href="index.html" class="accent-line px-3 py-2 text-sm font-medium text-ajel-black hover:text-ajel-red transition">الرئيسية</a>
+                    <a href="category.html" class="px-3 py-2 text-sm font-semibold text-ajel-red">محلي</a>
+                    <a href="#" class="accent-line px-3 py-2 text-sm font-medium text-ajel-black hover:text-ajel-red transition">دولي</a>
+                    <a href="#" class="accent-line px-3 py-2 text-sm font-medium text-ajel-black hover:text-ajel-red transition">اقتصاد</a>
+                    <a href="#" class="accent-line px-3 py-2 text-sm font-medium text-ajel-black hover:text-ajel-red transition">رياضة</a>
+                    <a href="#" class="accent-line px-3 py-2 text-sm font-medium text-ajel-black hover:text-ajel-red transition">تقنية</a>
+                    <a href="#" class="accent-line px-3 py-2 text-sm font-medium text-ajel-black hover:text-ajel-red transition">ثقافة</a>
+                </nav>
+                <button class="lg:hidden text-ajel-black">
+                    <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16"/></svg>
+                </button>
+            </div>
+        </div>
+    </header>
+
+    <!-- CATEGORY HEADER -->
+    <section class="bg-ajel-gray border-b border-ajel-grayMed/50">
+        <div class="max-w-7xl mx-auto px-4 py-8">
+            <div class="flex items-center gap-2 text-sm text-ajel-grayText mb-3">
+                <a href="index.html" class="hover:text-ajel-red transition">الرئيسية</a>
+                <span>/</span>
+                <span class="text-ajel-black font-semibold">محلي</span>
+            </div>
+            <div class="flex items-center justify-between">
+                <div class="flex items-center gap-4">
+                    <div class="w-1.5 h-10 bg-ajel-red rounded-full"></div>
+                    <div>
+                        <h1 class="font-kufi text-3xl font-bold">محلي</h1>
+                        <p class="text-ajel-grayText text-sm mt-1">آخر الأخبار والتطورات المحلية في المملكة العربية السعودية</p>
+                    </div>
+                </div>
+                <!-- Sort/Filter -->
+                <div class="hidden sm:flex items-center gap-3">
+                    <button class="px-4 py-2 bg-ajel-red text-white text-sm rounded-lg font-medium">الأحدث</button>
+                    <button class="px-4 py-2 bg-white text-ajel-black text-sm rounded-lg font-medium border border-ajel-grayMed hover:border-ajel-red transition">الأكثر قراءة</button>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- FEATURED IN CATEGORY -->
+    <section class="max-w-7xl mx-auto px-4 mt-8">
+        <div class="grid grid-cols-1 lg:grid-cols-2 gap-4">
+            <!-- Big featured -->
+            <a href="article.html" class="relative group cursor-pointer block">
+                <div class="card-img-wrapper rounded-xl overflow-hidden aspect-[16/10]">
+                    <img src="https://images.unsplash.com/photo-1466611653911-95081537e5b7?w=700&h=440&fit=crop" alt="" class="card-img w-full h-full object-cover">
+                </div>
+                <div class="absolute inset-0 hero-gradient rounded-xl"></div>
+                <div class="absolute bottom-0 right-0 left-0 p-6">
+                    <span class="inline-flex items-center gap-1.5 bg-ajel-red text-white text-xs font-bold px-3 py-1 rounded-full mb-3">
+                        <span class="w-1.5 h-1.5 bg-white rounded-full live-pulse"></span>
+                        عاجل
+                    </span>
+                    <h2 class="font-kufi text-xl lg:text-2xl font-bold text-white leading-relaxed">مجلس الوزراء يعتمد استراتيجية التحول الرقمي الشاملة للمملكة 2030</h2>
+                    <div class="flex items-center gap-3 mt-2 text-white/50 text-xs">
+                        <span>محمد الأحمدي</span>
+                        <span>•</span>
+                        <span>منذ 35 دقيقة</span>
+                    </div>
+                </div>
+            </a>
+            <!-- Two side -->
+            <div class="flex flex-col gap-4">
+                <a href="article.html" class="relative group cursor-pointer block flex-1">
+                    <div class="card-img-wrapper rounded-xl overflow-hidden h-full min-h-[180px]">
+                        <img src="https://images.unsplash.com/photo-1577563908411-5077b6dc7624?w=600&h=300&fit=crop" alt="" class="card-img w-full h-full object-cover">
+                    </div>
+                    <div class="absolute inset-0 hero-gradient rounded-xl"></div>
+                    <div class="absolute bottom-0 right-0 left-0 p-5">
+                        <h3 class="font-kufi text-base font-bold text-white leading-relaxed">وزارة الداخلية تطلق خدمات رقمية جديدة عبر أبشر</h3>
+                        <span class="text-white/50 text-xs">منذ ساعة</span>
+                    </div>
+                </a>
+                <a href="article.html" class="relative group cursor-pointer block flex-1">
+                    <div class="card-img-wrapper rounded-xl overflow-hidden h-full min-h-[180px]">
+                        <img src="https://images.unsplash.com/photo-1529107386315-e1a2ed48a620?w=600&h=300&fit=crop" alt="" class="card-img w-full h-full object-cover">
+                    </div>
+                    <div class="absolute inset-0 hero-gradient rounded-xl"></div>
+                    <div class="absolute bottom-0 right-0 left-0 p-5">
+                        <h3 class="font-kufi text-base font-bold text-white leading-relaxed">الهيئة الملكية للرياض تكشف عن مخطط تطوير شمال العاصمة</h3>
+                        <span class="text-white/50 text-xs">منذ ساعتين</span>
+                    </div>
+                </a>
+            </div>
+        </div>
+    </section>
+
+    <!-- NEWS GRID -->
+    <section class="max-w-7xl mx-auto px-4 mt-10">
+        <div class="grid grid-cols-1 lg:grid-cols-12 gap-8">
+            
+            <!-- Main Grid -->
+            <div class="lg:col-span-8">
+                <div class="grid grid-cols-1 sm:grid-cols-2 gap-5">
+                    <!-- Card 1 -->
+                    <a href="article.html" class="news-card bg-white rounded-xl overflow-hidden border border-ajel-grayMed/40 cursor-pointer">
+                        <div class="card-img-wrapper aspect-[16/10]">
+                            <img src="https://images.unsplash.com/photo-1486406146926-c627a92ad1ab?w=400&h=250&fit=crop" alt="" class="card-img w-full h-full object-cover">
+                        </div>
+                        <div class="p-4">
+                            <h3 class="font-kufi text-sm font-bold leading-relaxed line-clamp-2">هيئة الرقابة ومكافحة الفساد تباشر عدداً من القضايا الجنائية</h3>
+                            <p class="text-ajel-grayText text-xs mt-2 line-clamp-2">شملت القضايا رشوة واستغلال نفوذ الوظيفة العامة في عدة جهات حكومية</p>
+                            <span class="text-ajel-grayText text-xs mt-2 block">منذ 3 ساعات</span>
+                        </div>
+                    </a>
+                    <!-- Card 2 -->
+                    <a href="article.html" class="news-card bg-white rounded-xl overflow-hidden border border-ajel-grayMed/40 cursor-pointer">
+                        <div class="card-img-wrapper aspect-[16/10]">
+                            <img src="https://images.unsplash.com/photo-1576091160399-112ba8d25d1d?w=400&h=250&fit=crop" alt="" class="card-img w-full h-full object-cover">
+                        </div>
+                        <div class="p-4">
+                            <h3 class="font-kufi text-sm font-bold leading-relaxed line-clamp-2">وزارة الصحة تعلن عن 5 مراكز طبية متخصصة جديدة في المناطق</h3>
+                            <p class="text-ajel-grayText text-xs mt-2 line-clamp-2">المراكز ستخدم أكثر من 2 مليون مستفيد في المناطق النائية</p>
+                            <span class="text-ajel-grayText text-xs mt-2 block">منذ 4 ساعات</span>
+                        </div>
+                    </a>
+                    <!-- Card 3 -->
+                    <a href="article.html" class="news-card bg-white rounded-xl overflow-hidden border border-ajel-grayMed/40 cursor-pointer">
+                        <div class="card-img-wrapper aspect-[16/10]">
+                            <img src="https://images.unsplash.com/photo-1558618666-fcd25c85f82e?w=400&h=250&fit=crop" alt="" class="card-img w-full h-full object-cover">
+                        </div>
+                        <div class="p-4">
+                            <h3 class="font-kufi text-sm font-bold leading-relaxed line-clamp-2">هيئة الترفيه تعلن جدول فعاليات موسم رمضان في 5 مدن</h3>
+                            <p class="text-ajel-grayText text-xs mt-2 line-clamp-2">تشمل الفعاليات حفلات وعروض مسرحية ومناطق ترفيهية للعائلات</p>
+                            <span class="text-ajel-grayText text-xs mt-2 block">منذ 5 ساعات</span>
+                        </div>
+                    </a>
+                    <!-- Card 4 -->
+                    <a href="article.html" class="news-card bg-white rounded-xl overflow-hidden border border-ajel-grayMed/40 cursor-pointer">
+                        <div class="card-img-wrapper aspect-[16/10]">
+                            <img src="https://images.unsplash.com/photo-1504384308090-c894fdcc538d?w=400&h=250&fit=crop" alt="" class="card-img w-full h-full object-cover">
+                        </div>
+                        <div class="p-4">
+                            <h3 class="font-kufi text-sm font-bold leading-relaxed line-clamp-2">وزارة التعليم: بدء التسجيل في الابتعاث الخارجي للعام الجديد</h3>
+                            <p class="text-ajel-grayText text-xs mt-2 line-clamp-2">البرنامج يستهدف 15 ألف طالب وطالبة في تخصصات نوعية</p>
+                            <span class="text-ajel-grayText text-xs mt-2 block">منذ 6 ساعات</span>
+                        </div>
+                    </a>
+                    <!-- Card 5 -->
+                    <a href="article.html" class="news-card bg-white rounded-xl overflow-hidden border border-ajel-grayMed/40 cursor-pointer">
+                        <div class="card-img-wrapper aspect-[16/10]">
+                            <img src="https://images.unsplash.com/photo-1519389950473-47ba0277781c?w=400&h=250&fit=crop" alt="" class="card-img w-full h-full object-cover">
+                        </div>
+                        <div class="p-4">
+                            <h3 class="font-kufi text-sm font-bold leading-relaxed line-clamp-2">المرور يطلق حملة مرورية مكثفة في الرياض وجدة والدمام</h3>
+                            <p class="text-ajel-grayText text-xs mt-2 line-clamp-2">تستهدف الحملة مخالفات السرعة واستخدام الجوال أثناء القيادة</p>
+                            <span class="text-ajel-grayText text-xs mt-2 block">منذ 7 ساعات</span>
+                        </div>
+                    </a>
+                    <!-- Card 6 -->
+                    <a href="article.html" class="news-card bg-white rounded-xl overflow-hidden border border-ajel-grayMed/40 cursor-pointer">
+                        <div class="card-img-wrapper aspect-[16/10]">
+                            <img src="https://images.unsplash.com/photo-1451187580459-43490279c0fa?w=400&h=250&fit=crop" alt="" class="card-img w-full h-full object-cover">
+                        </div>
+                        <div class="p-4">
+                            <h3 class="font-kufi text-sm font-bold leading-relaxed line-clamp-2">الأمير محمد بن سلمان يستقبل وفداً من رجال الأعمال الدوليين</h3>
+                            <p class="text-ajel-grayText text-xs mt-2 line-clamp-2">تم استعراض الفرص الاستثمارية في المملكة ومشاريع رؤية 2030</p>
+                            <span class="text-ajel-grayText text-xs mt-2 block">منذ 8 ساعات</span>
+                        </div>
+                    </a>
+                </div>
+
+                <!-- Load More -->
+                <div class="text-center mt-8">
+                    <button class="px-8 py-3 border-2 border-ajel-red text-ajel-red font-kufi font-bold text-sm rounded-xl hover:bg-ajel-red hover:text-white transition">
+                        تحميل المزيد
+                    </button>
+                </div>
+            </div>
+
+            <!-- Sidebar -->
+            <aside class="lg:col-span-4">
+                <div class="sticky top-20 space-y-6">
+                    <!-- Trending -->
+                    <div class="bg-ajel-gray rounded-xl p-5">
+                        <div class="flex items-center gap-3 mb-5">
+                            <div class="w-1 h-6 bg-ajel-red rounded-full"></div>
+                            <h3 class="font-kufi text-lg font-bold">الأكثر قراءة</h3>
+                        </div>
+                        <div class="space-y-0">
+                            <a href="#" class="flex items-start gap-3 py-3 border-b border-ajel-grayMed/50 group">
+                                <span class="font-kufi text-2xl font-900 text-ajel-red/20 group-hover:text-ajel-red/50 transition leading-none mt-1">01</span>
+                                <div>
+                                    <h4 class="font-kufi text-sm font-bold leading-relaxed group-hover:text-ajel-red transition line-clamp-2">السعودية تتصدر مؤشر التنافسية الرقمية</h4>
+                                    <span class="text-ajel-grayText text-xs">منذ ساعتين</span>
+                                </div>
+                            </a>
+                            <a href="#" class="flex items-start gap-3 py-3 border-b border-ajel-grayMed/50 group">
+                                <span class="font-kufi text-2xl font-900 text-ajel-red/20 group-hover:text-ajel-red/50 transition leading-none mt-1">02</span>
+                                <div>
+                                    <h4 class="font-kufi text-sm font-bold leading-relaxed group-hover:text-ajel-red transition line-clamp-2">تحديثات حساب المواطن الجديدة</h4>
+                                    <span class="text-ajel-grayText text-xs">منذ 3 ساعات</span>
+                                </div>
+                            </a>
+                            <a href="#" class="flex items-start gap-3 py-3 border-b border-ajel-grayMed/50 group">
+                                <span class="font-kufi text-2xl font-900 text-ajel-red/20 group-hover:text-ajel-red/50 transition leading-none mt-1">03</span>
+                                <div>
+                                    <h4 class="font-kufi text-sm font-bold leading-relaxed group-hover:text-ajel-red transition line-clamp-2">أمطار غزيرة على عدة مناطق</h4>
+                                    <span class="text-ajel-grayText text-xs">منذ 4 ساعات</span>
+                                </div>
+                            </a>
+                            <a href="#" class="flex items-start gap-3 py-3 group">
+                                <span class="font-kufi text-2xl font-900 text-ajel-red/20 group-hover:text-ajel-red/50 transition leading-none mt-1">04</span>
+                                <div>
+                                    <h4 class="font-kufi text-sm font-bold leading-relaxed group-hover:text-ajel-red transition line-clamp-2">الاختبارات النهائية للفصل الثاني</h4>
+                                    <span class="text-ajel-grayText text-xs">منذ 5 ساعات</span>
+                                </div>
+                            </a>
+                        </div>
+                    </div>
+
+                    <!-- Ad placeholder -->
+                    <div class="bg-ajel-gray rounded-xl p-8 text-center border-2 border-dashed border-ajel-grayMed">
+                        <span class="text-ajel-grayText text-sm">مساحة إعلانية</span>
+                    </div>
+
+                    <!-- Newsletter -->
+                    <div class="bg-ajel-dark rounded-xl p-5 text-white">
+                        <h3 class="font-kufi text-lg font-bold mb-2">📬 النشرة البريدية</h3>
+                        <p class="text-sm text-ajel-grayText mb-4">أهم الأخبار في بريدك يومياً</p>
+                        <input type="email" placeholder="بريدك الإلكتروني" class="w-full px-4 py-2.5 bg-white/10 border border-white/20 rounded-lg text-sm placeholder:text-ajel-grayText focus:outline-none focus:border-ajel-red mb-3">
+                        <button class="w-full py-2.5 bg-ajel-red text-white font-bold text-sm rounded-lg hover:bg-ajel-redDark transition">اشتراك</button>
+                    </div>
+                </div>
+            </aside>
+        </div>
+    </section>
+
+    <!-- FOOTER -->
+    <footer class="bg-ajel-dark mt-16">
+        <div class="max-w-7xl mx-auto px-4 py-10">
+            <div class="flex flex-col sm:flex-row items-center justify-between gap-4">
+                <div class="flex items-center gap-3">
+                    <div class="bg-ajel-red rounded-lg w-8 h-8 flex items-center justify-center">
+                        <div class="flex gap-0.5"><div class="w-0.5 h-3 bg-white rounded-full"></div><div class="w-0.5 h-2.5 bg-white rounded-full"></div><div class="w-0.5 h-3 bg-white rounded-full"></div></div>
+                    </div>
+                    <span class="font-kufi text-lg font-bold text-white">عاجل</span>
+                </div>
+                <span class="text-ajel-grayText text-xs">© 2026 عاجل — جميع الحقوق محفوظة</span>
+            </div>
+        </div>
+    </footer>
+
+</body>
+</html>

@@ -1,0 +1,575 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>عاجل — الرئيسية</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Kufi+Arabic:wght@400;500;600;700;800;900&family=Noto+Sans+Arabic:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        ajel: {
+                            red: '#E31837',
+                            redDark: '#B8132D',
+                            redLight: '#FF1F42',
+                            black: '#1A1A1A',
+                            dark: '#111111',
+                            gray: '#F5F5F5',
+                            grayMed: '#E0E0E0',
+                            grayText: '#6B7280',
+                        }
+                    },
+                    fontFamily: {
+                        kufi: ['Noto Kufi Arabic', 'sans-serif'],
+                        sans: ['Noto Sans Arabic', 'sans-serif'],
+                    }
+                }
+            }
+        }
+    </script>
+    <style>
+        * { font-family: 'Noto Sans Arabic', sans-serif; }
+        .font-kufi { font-family: 'Noto Kufi Arabic', sans-serif; }
+        
+        /* Breaking News Ticker */
+        @keyframes ticker {
+            0% { transform: translateX(-100%); }
+            100% { transform: translateX(100%); }
+        }
+        .ticker-animate {
+            animation: ticker 30s linear infinite;
+        }
+        
+        /* Smooth hover effects */
+        .news-card {
+            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+        .news-card:hover {
+            transform: translateY(-4px);
+            box-shadow: 0 12px 40px rgba(0,0,0,0.12);
+        }
+        .news-card:hover .card-img {
+            transform: scale(1.05);
+        }
+        .card-img-wrapper {
+            overflow: hidden;
+        }
+        .card-img {
+            transition: transform 0.5s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+        
+        /* Red accent line animation */
+        .accent-line {
+            position: relative;
+        }
+        .accent-line::after {
+            content: '';
+            position: absolute;
+            bottom: -2px;
+            right: 0;
+            width: 0;
+            height: 3px;
+            background: #E31837;
+            transition: width 0.3s ease;
+        }
+        .accent-line:hover::after {
+            width: 100%;
+        }
+        
+        /* Live pulse */
+        @keyframes pulse-live {
+            0%, 100% { opacity: 1; }
+            50% { opacity: 0.4; }
+        }
+        .live-pulse {
+            animation: pulse-live 1.5s ease-in-out infinite;
+        }
+        
+        /* Gradient overlay for hero */
+        .hero-gradient {
+            background: linear-gradient(to top, rgba(0,0,0,0.85) 0%, rgba(0,0,0,0.4) 40%, transparent 100%);
+        }
+        
+        /* Scrollbar */
+        ::-webkit-scrollbar { width: 6px; }
+        ::-webkit-scrollbar-track { background: #f5f5f5; }
+        ::-webkit-scrollbar-thumb { background: #ccc; border-radius: 3px; }
+        ::-webkit-scrollbar-thumb:hover { background: #E31837; }
+    </style>
+</head>
+<body class="bg-white text-ajel-black">
+
+    <!-- ===== TOP BAR ===== -->
+    <div class="bg-ajel-dark text-white">
+        <div class="max-w-7xl mx-auto px-4 py-2 flex items-center justify-between text-sm">
+            <div class="flex items-center gap-6">
+                <span class="text-ajel-grayText">السبت 14 فبراير 2026</span>
+                <span class="text-ajel-grayText">|</span>
+                <span class="text-ajel-grayText">16 شعبان 1447</span>
+            </div>
+            <div class="flex items-center gap-4">
+                <a href="#" class="text-ajel-grayText hover:text-white transition">تسجيل دخول</a>
+                <a href="#" class="text-ajel-grayText hover:text-white transition">English</a>
+                <button class="text-ajel-grayText hover:text-white transition">
+                    <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"/></svg>
+                </button>
+            </div>
+        </div>
+    </div>
+
+    <!-- ===== HEADER ===== -->
+    <header class="bg-white border-b border-ajel-grayMed sticky top-0 z-50 shadow-sm">
+        <div class="max-w-7xl mx-auto px-4">
+            <div class="flex items-center justify-between h-16">
+                <!-- Logo -->
+                <a href="index.html" class="flex items-center gap-3">
+                    <div class="bg-ajel-red rounded-lg w-10 h-10 flex items-center justify-center">
+                        <div class="flex gap-0.5">
+                            <div class="w-1 h-5 bg-white rounded-full"></div>
+                            <div class="w-1 h-4 bg-white rounded-full"></div>
+                            <div class="w-1 h-5 bg-white rounded-full"></div>
+                        </div>
+                    </div>
+                    <div>
+                        <h1 class="font-kufi text-2xl font-900 text-ajel-black leading-none">عاجل</h1>
+                        <span class="text-[10px] tracking-[0.2em] text-ajel-grayText font-medium">AJEL.SA</span>
+                    </div>
+                </a>
+
+                <!-- Navigation -->
+                <nav class="hidden lg:flex items-center gap-1">
+                    <a href="index.html" class="px-3 py-2 text-sm font-semibold text-ajel-red">الرئيسية</a>
+                    <a href="category.html" class="accent-line px-3 py-2 text-sm font-medium text-ajel-black hover:text-ajel-red transition">محلي</a>
+                    <a href="#" class="accent-line px-3 py-2 text-sm font-medium text-ajel-black hover:text-ajel-red transition">دولي</a>
+                    <a href="#" class="accent-line px-3 py-2 text-sm font-medium text-ajel-black hover:text-ajel-red transition">اقتصاد</a>
+                    <a href="#" class="accent-line px-3 py-2 text-sm font-medium text-ajel-black hover:text-ajel-red transition">رياضة</a>
+                    <a href="#" class="accent-line px-3 py-2 text-sm font-medium text-ajel-black hover:text-ajel-red transition">تقنية</a>
+                    <a href="#" class="accent-line px-3 py-2 text-sm font-medium text-ajel-black hover:text-ajel-red transition">ثقافة</a>
+                    <a href="#" class="accent-line px-3 py-2 text-sm font-medium text-ajel-black hover:text-ajel-red transition">صحة</a>
+                    <a href="#" class="accent-line px-3 py-2 text-sm font-medium text-ajel-black hover:text-ajel-red transition">فيديو</a>
+                </nav>
+
+                <!-- Mobile menu -->
+                <button class="lg:hidden text-ajel-black">
+                    <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16"/></svg>
+                </button>
+            </div>
+        </div>
+    </header>
+
+    <!-- ===== BREAKING NEWS TICKER ===== -->
+    <div class="bg-ajel-red text-white overflow-hidden">
+        <div class="max-w-7xl mx-auto flex items-center">
+            <div class="bg-ajel-redDark px-4 py-2 flex items-center gap-2 shrink-0 z-10">
+                <span class="w-2 h-2 bg-white rounded-full live-pulse"></span>
+                <span class="font-kufi text-sm font-bold">عاجل</span>
+            </div>
+            <div class="overflow-hidden flex-1 py-2">
+                <div class="ticker-animate whitespace-nowrap text-sm">
+                    مجلس الوزراء يوافق على تعديلات نظام العمل الجديد &nbsp;•&nbsp; 
+                    ولي العهد يستقبل وزير الخارجية الأمريكي في الرياض &nbsp;•&nbsp; 
+                    هيئة الترفيه تعلن عن فعاليات موسم رمضان 1447 &nbsp;•&nbsp;
+                    أرامكو تحقق أرباحاً بقيمة 121 مليار دولار في 2025
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- ===== HERO SECTION ===== -->
+    <section class="max-w-7xl mx-auto px-4 mt-6">
+        <div class="grid grid-cols-1 lg:grid-cols-12 gap-4">
+            
+            <!-- Main Hero -->
+            <div class="lg:col-span-7 relative group cursor-pointer">
+                <a href="article.html" class="block">
+                    <div class="card-img-wrapper rounded-xl overflow-hidden aspect-[16/10]">
+                        <img src="https://images.unsplash.com/photo-1466611653911-95081537e5b7?w=900&h=560&fit=crop" alt="" class="card-img w-full h-full object-cover">
+                    </div>
+                    <div class="absolute inset-0 hero-gradient rounded-xl"></div>
+                    <div class="absolute bottom-0 right-0 left-0 p-6 lg:p-8">
+                        <span class="inline-block bg-ajel-red text-white text-xs font-bold px-3 py-1 rounded-full mb-3">محلي</span>
+                        <h2 class="font-kufi text-2xl lg:text-3xl font-bold text-white leading-relaxed mb-2">
+                            مجلس الوزراء يعتمد استراتيجية التحول الرقمي الشاملة للمملكة 2030
+                        </h2>
+                        <p class="text-white/70 text-sm hidden sm:block">يتضمن القرار تخصيص 50 مليار ريال لدعم البنية التحتية الرقمية وتطوير الخدمات الحكومية الإلكترونية خلال السنوات الخمس القادمة</p>
+                        <div class="flex items-center gap-3 mt-3 text-white/50 text-xs">
+                            <span>محمد الأحمدي</span>
+                            <span>•</span>
+                            <span>منذ 35 دقيقة</span>
+                        </div>
+                    </div>
+                </a>
+            </div>
+
+            <!-- Side stories -->
+            <div class="lg:col-span-5 flex flex-col gap-4">
+                <!-- Story 1 -->
+                <a href="article.html" class="news-card flex gap-4 bg-white rounded-xl border border-ajel-grayMed/50 p-3 cursor-pointer">
+                    <div class="card-img-wrapper rounded-lg w-32 h-24 shrink-0 overflow-hidden">
+                        <img src="https://images.unsplash.com/photo-1526304640581-d334cdbbf45e?w=300&h=200&fit=crop" alt="" class="card-img w-full h-full object-cover">
+                    </div>
+                    <div class="flex-1 min-w-0">
+                        <span class="text-ajel-red text-xs font-bold">اقتصاد</span>
+                        <h3 class="font-kufi text-sm font-bold leading-relaxed mt-1 line-clamp-2">أرامكو تعلن نتائجها المالية للربع الرابع بأرباح تتجاوز التوقعات</h3>
+                        <span class="text-ajel-grayText text-xs mt-2 block">منذ ساعة</span>
+                    </div>
+                </a>
+                <!-- Story 2 -->
+                <a href="article.html" class="news-card flex gap-4 bg-white rounded-xl border border-ajel-grayMed/50 p-3 cursor-pointer">
+                    <div class="card-img-wrapper rounded-lg w-32 h-24 shrink-0 overflow-hidden">
+                        <img src="https://images.unsplash.com/photo-1540747913346-19e32dc3e97e?w=300&h=200&fit=crop" alt="" class="card-img w-full h-full object-cover">
+                    </div>
+                    <div class="flex-1 min-w-0">
+                        <span class="text-ajel-red text-xs font-bold">رياضة</span>
+                        <h3 class="font-kufi text-sm font-bold leading-relaxed mt-1 line-clamp-2">الهلال يتأهل لنهائي دوري أبطال آسيا بفوز تاريخي</h3>
+                        <span class="text-ajel-grayText text-xs mt-2 block">منذ ساعتين</span>
+                    </div>
+                </a>
+                <!-- Story 3 -->
+                <a href="article.html" class="news-card flex gap-4 bg-white rounded-xl border border-ajel-grayMed/50 p-3 cursor-pointer">
+                    <div class="card-img-wrapper rounded-lg w-32 h-24 shrink-0 overflow-hidden">
+                        <img src="https://images.unsplash.com/photo-1451187580459-43490279c0fa?w=300&h=200&fit=crop" alt="" class="card-img w-full h-full object-cover">
+                    </div>
+                    <div class="flex-1 min-w-0">
+                        <span class="text-ajel-red text-xs font-bold">تقنية</span>
+                        <h3 class="font-kufi text-sm font-bold leading-relaxed mt-1 line-clamp-2">السعودية تطلق أول قمر صناعي للذكاء الاصطناعي في المنطقة</h3>
+                        <span class="text-ajel-grayText text-xs mt-2 block">منذ 3 ساعات</span>
+                    </div>
+                </a>
+                <!-- Story 4 -->
+                <a href="article.html" class="news-card flex gap-4 bg-white rounded-xl border border-ajel-grayMed/50 p-3 cursor-pointer">
+                    <div class="card-img-wrapper rounded-lg w-32 h-24 shrink-0 overflow-hidden">
+                        <img src="https://images.unsplash.com/photo-1519389950473-47ba0277781c?w=300&h=200&fit=crop" alt="" class="card-img w-full h-full object-cover">
+                    </div>
+                    <div class="flex-1 min-w-0">
+                        <span class="text-ajel-red text-xs font-bold">دولي</span>
+                        <h3 class="font-kufi text-sm font-bold leading-relaxed mt-1 line-clamp-2">قمة G20 تختتم أعمالها بإعلان مشترك حول الاقتصاد العالمي</h3>
+                        <span class="text-ajel-grayText text-xs mt-2 block">منذ 4 ساعات</span>
+                    </div>
+                </a>
+            </div>
+        </div>
+    </section>
+
+    <!-- ===== LATEST NEWS SECTION ===== -->
+    <section class="max-w-7xl mx-auto px-4 mt-12">
+        <div class="flex items-center justify-between mb-6">
+            <div class="flex items-center gap-3">
+                <div class="w-1 h-8 bg-ajel-red rounded-full"></div>
+                <h2 class="font-kufi text-xl font-bold">آخر الأخبار</h2>
+            </div>
+            <a href="category.html" class="text-ajel-red text-sm font-medium hover:underline">عرض الكل ←</a>
+        </div>
+
+        <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-5">
+            <!-- Card 1 -->
+            <a href="article.html" class="news-card bg-white rounded-xl overflow-hidden border border-ajel-grayMed/40 cursor-pointer">
+                <div class="card-img-wrapper aspect-[16/10]">
+                    <img src="https://images.unsplash.com/photo-1486406146926-c627a92ad1ab?w=400&h=250&fit=crop" alt="" class="card-img w-full h-full object-cover">
+                </div>
+                <div class="p-4">
+                    <span class="text-ajel-red text-xs font-bold">اقتصاد</span>
+                    <h3 class="font-kufi text-sm font-bold leading-relaxed mt-2 line-clamp-2">البنك المركزي السعودي يرفع احتياطياته إلى مستويات تاريخية جديدة</h3>
+                    <p class="text-ajel-grayText text-xs mt-2 line-clamp-2">سجلت احتياطيات المملكة من النقد الأجنبي ارتفاعاً بنسبة 8% خلال الربع الأخير</p>
+                    <div class="flex items-center gap-2 mt-3 text-ajel-grayText text-xs">
+                        <span>خالد المطيري</span>
+                        <span>•</span>
+                        <span>منذ 5 ساعات</span>
+                    </div>
+                </div>
+            </a>
+            <!-- Card 2 -->
+            <a href="article.html" class="news-card bg-white rounded-xl overflow-hidden border border-ajel-grayMed/40 cursor-pointer">
+                <div class="card-img-wrapper aspect-[16/10]">
+                    <img src="https://images.unsplash.com/photo-1576091160399-112ba8d25d1d?w=400&h=250&fit=crop" alt="" class="card-img w-full h-full object-cover">
+                </div>
+                <div class="p-4">
+                    <span class="text-ajel-red text-xs font-bold">صحة</span>
+                    <h3 class="font-kufi text-sm font-bold leading-relaxed mt-2 line-clamp-2">وزارة الصحة تطلق حملة التطعيمات الموسعة استعداداً لرمضان</h3>
+                    <p class="text-ajel-grayText text-xs mt-2 line-clamp-2">تستهدف الحملة تطعيم 5 ملايين شخص في المناطق ذات الكثافة العالية</p>
+                    <div class="flex items-center gap-2 mt-3 text-ajel-grayText text-xs">
+                        <span>سارة العتيبي</span>
+                        <span>•</span>
+                        <span>منذ 6 ساعات</span>
+                    </div>
+                </div>
+            </a>
+            <!-- Card 3 -->
+            <a href="article.html" class="news-card bg-white rounded-xl overflow-hidden border border-ajel-grayMed/40 cursor-pointer">
+                <div class="card-img-wrapper aspect-[16/10]">
+                    <img src="https://images.unsplash.com/photo-1558618666-fcd25c85f82e?w=400&h=250&fit=crop" alt="" class="card-img w-full h-full object-cover">
+                </div>
+                <div class="p-4">
+                    <span class="text-ajel-red text-xs font-bold">ثقافة</span>
+                    <h3 class="font-kufi text-sm font-bold leading-relaxed mt-2 line-clamp-2">معرض الرياض الدولي للكتاب يسجل رقماً قياسياً بمليون زائر</h3>
+                    <p class="text-ajel-grayText text-xs mt-2 line-clamp-2">شهد المعرض مشاركة 1200 دار نشر من 80 دولة في نسخته الجديدة</p>
+                    <div class="flex items-center gap-2 mt-3 text-ajel-grayText text-xs">
+                        <span>نورة الشمري</span>
+                        <span>•</span>
+                        <span>منذ 7 ساعات</span>
+                    </div>
+                </div>
+            </a>
+            <!-- Card 4 -->
+            <a href="article.html" class="news-card bg-white rounded-xl overflow-hidden border border-ajel-grayMed/40 cursor-pointer">
+                <div class="card-img-wrapper aspect-[16/10]">
+                    <img src="https://images.unsplash.com/photo-1504384308090-c894fdcc538d?w=400&h=250&fit=crop" alt="" class="card-img w-full h-full object-cover">
+                </div>
+                <div class="p-4">
+                    <span class="text-ajel-red text-xs font-bold">تقنية</span>
+                    <h3 class="font-kufi text-sm font-bold leading-relaxed mt-2 line-clamp-2">نيوم تكشف عن أول مدينة ذكية تعمل بالكامل بالطاقة المتجددة</h3>
+                    <p class="text-ajel-grayText text-xs mt-2 line-clamp-2">المشروع يضم أحدث تقنيات إنترنت الأشياء والذكاء الاصطناعي</p>
+                    <div class="flex items-center gap-2 mt-3 text-ajel-grayText text-xs">
+                        <span>فهد الدوسري</span>
+                        <span>•</span>
+                        <span>منذ 8 ساعات</span>
+                    </div>
+                </div>
+            </a>
+        </div>
+    </section>
+
+    <!-- ===== VIDEO SECTION ===== -->
+    <section class="bg-ajel-dark mt-12">
+        <div class="max-w-7xl mx-auto px-4 py-10">
+            <div class="flex items-center justify-between mb-6">
+                <div class="flex items-center gap-3">
+                    <div class="w-1 h-8 bg-ajel-red rounded-full"></div>
+                    <h2 class="font-kufi text-xl font-bold text-white">فيديو</h2>
+                    <span class="flex items-center gap-1 bg-ajel-red/20 text-ajel-red text-xs px-2 py-0.5 rounded-full">
+                        <span class="w-1.5 h-1.5 bg-ajel-red rounded-full live-pulse"></span>
+                        مباشر
+                    </span>
+                </div>
+                <a href="#" class="text-ajel-red text-sm font-medium hover:underline">المزيد ←</a>
+            </div>
+
+            <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-5">
+                <a href="#" class="group cursor-pointer">
+                    <div class="relative rounded-xl overflow-hidden aspect-video">
+                        <img src="https://images.unsplash.com/photo-1529107386315-e1a2ed48a620?w=500&h=280&fit=crop" alt="" class="w-full h-full object-cover group-hover:scale-105 transition duration-500">
+                        <div class="absolute inset-0 bg-black/30 flex items-center justify-center">
+                            <div class="w-14 h-14 bg-ajel-red/90 rounded-full flex items-center justify-center group-hover:scale-110 transition">
+                                <svg class="w-6 h-6 text-white mr-[-2px]" fill="currentColor" viewBox="0 0 24 24"><path d="M8 5v14l11-7z"/></svg>
+                            </div>
+                        </div>
+                    </div>
+                    <h3 class="font-kufi text-sm font-bold text-white mt-3 leading-relaxed">لقاء خاص مع وزير الاقتصاد حول رؤية 2030</h3>
+                    <span class="text-ajel-grayText text-xs">12:30 دقيقة</span>
+                </a>
+                <a href="#" class="group cursor-pointer">
+                    <div class="relative rounded-xl overflow-hidden aspect-video">
+                        <img src="https://images.unsplash.com/photo-1577563908411-5077b6dc7624?w=500&h=280&fit=crop" alt="" class="w-full h-full object-cover group-hover:scale-105 transition duration-500">
+                        <div class="absolute inset-0 bg-black/30 flex items-center justify-center">
+                            <div class="w-14 h-14 bg-ajel-red/90 rounded-full flex items-center justify-center group-hover:scale-110 transition">
+                                <svg class="w-6 h-6 text-white mr-[-2px]" fill="currentColor" viewBox="0 0 24 24"><path d="M8 5v14l11-7z"/></svg>
+                            </div>
+                        </div>
+                    </div>
+                    <h3 class="font-kufi text-sm font-bold text-white mt-3 leading-relaxed">تقرير مصور من قلب مشروع ذا لاين في نيوم</h3>
+                    <span class="text-ajel-grayText text-xs">8:45 دقيقة</span>
+                </a>
+                <a href="#" class="group cursor-pointer">
+                    <div class="relative rounded-xl overflow-hidden aspect-video">
+                        <img src="https://images.unsplash.com/photo-1574629810360-7efbbe195018?w=500&h=280&fit=crop" alt="" class="w-full h-full object-cover group-hover:scale-105 transition duration-500">
+                        <div class="absolute inset-0 bg-black/30 flex items-center justify-center">
+                            <div class="w-14 h-14 bg-ajel-red/90 rounded-full flex items-center justify-center group-hover:scale-110 transition">
+                                <svg class="w-6 h-6 text-white mr-[-2px]" fill="currentColor" viewBox="0 0 24 24"><path d="M8 5v14l11-7z"/></svg>
+                            </div>
+                        </div>
+                    </div>
+                    <h3 class="font-kufi text-sm font-bold text-white mt-3 leading-relaxed">أهداف الجولة 20 من دوري روشن السعودي</h3>
+                    <span class="text-ajel-grayText text-xs">5:20 دقيقة</span>
+                </a>
+            </div>
+        </div>
+    </section>
+
+    <!-- ===== TRENDING + OPINIONS ===== -->
+    <section class="max-w-7xl mx-auto px-4 mt-12">
+        <div class="grid grid-cols-1 lg:grid-cols-12 gap-8">
+            
+            <!-- Trending -->
+            <div class="lg:col-span-5">
+                <div class="flex items-center gap-3 mb-6">
+                    <div class="w-1 h-8 bg-ajel-red rounded-full"></div>
+                    <h2 class="font-kufi text-xl font-bold">الأكثر قراءة</h2>
+                </div>
+                <div class="space-y-0">
+                    <a href="article.html" class="flex items-start gap-4 py-4 border-b border-ajel-grayMed/50 hover:bg-ajel-gray/50 px-2 rounded transition group">
+                        <span class="font-kufi text-3xl font-900 text-ajel-red/20 group-hover:text-ajel-red/40 transition leading-none mt-1">01</span>
+                        <div>
+                            <h3 class="font-kufi text-sm font-bold leading-relaxed group-hover:text-ajel-red transition">السعودية تتصدر مؤشر التنافسية الرقمية في الشرق الأوسط</h3>
+                            <span class="text-ajel-grayText text-xs">منذ ساعتين • اقتصاد</span>
+                        </div>
+                    </a>
+                    <a href="#" class="flex items-start gap-4 py-4 border-b border-ajel-grayMed/50 hover:bg-ajel-gray/50 px-2 rounded transition group">
+                        <span class="font-kufi text-3xl font-900 text-ajel-red/20 group-hover:text-ajel-red/40 transition leading-none mt-1">02</span>
+                        <div>
+                            <h3 class="font-kufi text-sm font-bold leading-relaxed group-hover:text-ajel-red transition">تحديثات جديدة في نظام حساب المواطن تشمل شريحة أوسع</h3>
+                            <span class="text-ajel-grayText text-xs">منذ 3 ساعات • محلي</span>
+                        </div>
+                    </a>
+                    <a href="#" class="flex items-start gap-4 py-4 border-b border-ajel-grayMed/50 hover:bg-ajel-gray/50 px-2 rounded transition group">
+                        <span class="font-kufi text-3xl font-900 text-ajel-red/20 group-hover:text-ajel-red/40 transition leading-none mt-1">03</span>
+                        <div>
+                            <h3 class="font-kufi text-sm font-bold leading-relaxed group-hover:text-ajel-red transition">الأرصاد تحذر من أمطار غزيرة على عدة مناطق خلال الأيام القادمة</h3>
+                            <span class="text-ajel-grayText text-xs">منذ 4 ساعات • طقس</span>
+                        </div>
+                    </a>
+                    <a href="#" class="flex items-start gap-4 py-4 border-b border-ajel-grayMed/50 hover:bg-ajel-gray/50 px-2 rounded transition group">
+                        <span class="font-kufi text-3xl font-900 text-ajel-red/20 group-hover:text-ajel-red/40 transition leading-none mt-1">04</span>
+                        <div>
+                            <h3 class="font-kufi text-sm font-bold leading-relaxed group-hover:text-ajel-red transition">وزارة التعليم تعلن موعد الاختبارات النهائية للفصل الثاني</h3>
+                            <span class="text-ajel-grayText text-xs">منذ 5 ساعات • تعليم</span>
+                        </div>
+                    </a>
+                    <a href="#" class="flex items-start gap-4 py-4 hover:bg-ajel-gray/50 px-2 rounded transition group">
+                        <span class="font-kufi text-3xl font-900 text-ajel-red/20 group-hover:text-ajel-red/40 transition leading-none mt-1">05</span>
+                        <div>
+                            <h3 class="font-kufi text-sm font-bold leading-relaxed group-hover:text-ajel-red transition">انطلاق فعاليات مهرجان البحر الأحمر السينمائي في جدة</h3>
+                            <span class="text-ajel-grayText text-xs">منذ 6 ساعات • ثقافة</span>
+                        </div>
+                    </a>
+                </div>
+            </div>
+
+            <!-- Opinions -->
+            <div class="lg:col-span-7">
+                <div class="flex items-center gap-3 mb-6">
+                    <div class="w-1 h-8 bg-ajel-red rounded-full"></div>
+                    <h2 class="font-kufi text-xl font-bold">آراء وتحليلات</h2>
+                </div>
+                <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
+                    <a href="#" class="news-card p-5 border border-ajel-grayMed/50 rounded-xl hover:border-ajel-red/30 transition cursor-pointer">
+                        <div class="flex items-center gap-3 mb-3">
+                            <div class="w-10 h-10 rounded-full bg-ajel-gray flex items-center justify-center">
+                                <span class="font-kufi text-sm font-bold text-ajel-grayText">ع.س</span>
+                            </div>
+                            <div>
+                                <span class="font-kufi text-sm font-bold">عبدالله السلمان</span>
+                                <span class="block text-xs text-ajel-grayText">كاتب اقتصادي</span>
+                            </div>
+                        </div>
+                        <h3 class="font-kufi text-sm font-bold leading-relaxed">لماذا يعتبر 2026 عام التحول الحقيقي للاقتصاد السعودي؟</h3>
+                        <p class="text-ajel-grayText text-xs mt-2 line-clamp-2">المؤشرات الاقتصادية تشير إلى نقلة نوعية في القطاع غير النفطي</p>
+                    </a>
+                    <a href="#" class="news-card p-5 border border-ajel-grayMed/50 rounded-xl hover:border-ajel-red/30 transition cursor-pointer">
+                        <div class="flex items-center gap-3 mb-3">
+                            <div class="w-10 h-10 rounded-full bg-ajel-gray flex items-center justify-center">
+                                <span class="font-kufi text-sm font-bold text-ajel-grayText">ن.ق</span>
+                            </div>
+                            <div>
+                                <span class="font-kufi text-sm font-bold">نوف القحطاني</span>
+                                <span class="block text-xs text-ajel-grayText">محللة تقنية</span>
+                            </div>
+                        </div>
+                        <h3 class="font-kufi text-sm font-bold leading-relaxed">الذكاء الاصطناعي في الإعلام: بين الفرصة والمسؤولية</h3>
+                        <p class="text-ajel-grayText text-xs mt-2 line-clamp-2">كيف يمكن للمؤسسات الإعلامية الاستفادة من AI دون فقدان المصداقية</p>
+                    </a>
+                    <a href="#" class="news-card p-5 border border-ajel-grayMed/50 rounded-xl hover:border-ajel-red/30 transition cursor-pointer">
+                        <div class="flex items-center gap-3 mb-3">
+                            <div class="w-10 h-10 rounded-full bg-ajel-gray flex items-center justify-center">
+                                <span class="font-kufi text-sm font-bold text-ajel-grayText">م.ع</span>
+                            </div>
+                            <div>
+                                <span class="font-kufi text-sm font-bold">ماجد العمري</span>
+                                <span class="block text-xs text-ajel-grayText">كاتب سياسي</span>
+                            </div>
+                        </div>
+                        <h3 class="font-kufi text-sm font-bold leading-relaxed">المشهد الجيوسياسي في 2026: قراءة في التحولات الإقليمية</h3>
+                        <p class="text-ajel-grayText text-xs mt-2 line-clamp-2">التطورات الأخيرة تعيد رسم خريطة التحالفات في المنطقة</p>
+                    </a>
+                    <a href="#" class="news-card p-5 border border-ajel-grayMed/50 rounded-xl hover:border-ajel-red/30 transition cursor-pointer">
+                        <div class="flex items-center gap-3 mb-3">
+                            <div class="w-10 h-10 rounded-full bg-ajel-gray flex items-center justify-center">
+                                <span class="font-kufi text-sm font-bold text-ajel-grayText">ه.ز</span>
+                            </div>
+                            <div>
+                                <span class="font-kufi text-sm font-bold">هند الزهراني</span>
+                                <span class="block text-xs text-ajel-grayText">كاتبة رياضية</span>
+                            </div>
+                        </div>
+                        <h3 class="font-kufi text-sm font-bold leading-relaxed">صفقات الدوري السعودي: هل نحن أمام فقاعة أم استثمار حقيقي؟</h3>
+                        <p class="text-ajel-grayText text-xs mt-2 line-clamp-2">نظرة تحليلية على أرقام الانتقالات وتأثيرها على مستوى المنافسة</p>
+                    </a>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- ===== FOOTER ===== -->
+    <footer class="bg-ajel-dark mt-16">
+        <div class="max-w-7xl mx-auto px-4 py-12">
+            <div class="grid grid-cols-2 md:grid-cols-4 gap-8">
+                <!-- Logo & About -->
+                <div class="col-span-2 md:col-span-1">
+                    <div class="flex items-center gap-3 mb-4">
+                        <div class="bg-ajel-red rounded-lg w-10 h-10 flex items-center justify-center">
+                            <div class="flex gap-0.5">
+                                <div class="w-1 h-5 bg-white rounded-full"></div>
+                                <div class="w-1 h-4 bg-white rounded-full"></div>
+                                <div class="w-1 h-5 bg-white rounded-full"></div>
+                            </div>
+                        </div>
+                        <div>
+                            <h3 class="font-kufi text-xl font-bold text-white">عاجل</h3>
+                            <span class="text-[10px] tracking-[0.2em] text-ajel-grayText">AJEL.SA</span>
+                        </div>
+                    </div>
+                    <p class="text-ajel-grayText text-sm leading-relaxed">منصة إخبارية سعودية ذكية تقدم الأخبار العاجلة والتحليلات المعمقة على مدار الساعة.</p>
+                </div>
+
+                <!-- Sections -->
+                <div>
+                    <h4 class="font-kufi text-sm font-bold text-white mb-4">الأقسام</h4>
+                    <ul class="space-y-2 text-sm text-ajel-grayText">
+                        <li><a href="#" class="hover:text-white transition">محلي</a></li>
+                        <li><a href="#" class="hover:text-white transition">دولي</a></li>
+                        <li><a href="#" class="hover:text-white transition">اقتصاد</a></li>
+                        <li><a href="#" class="hover:text-white transition">رياضة</a></li>
+                        <li><a href="#" class="hover:text-white transition">تقنية</a></li>
+                    </ul>
+                </div>
+
+                <!-- About -->
+                <div>
+                    <h4 class="font-kufi text-sm font-bold text-white mb-4">عن عاجل</h4>
+                    <ul class="space-y-2 text-sm text-ajel-grayText">
+                        <li><a href="#" class="hover:text-white transition">من نحن</a></li>
+                        <li><a href="#" class="hover:text-white transition">فريق العمل</a></li>
+                        <li><a href="#" class="hover:text-white transition">اتصل بنا</a></li>
+                        <li><a href="#" class="hover:text-white transition">سياسة الخصوصية</a></li>
+                    </ul>
+                </div>
+
+                <!-- Social -->
+                <div>
+                    <h4 class="font-kufi text-sm font-bold text-white mb-4">تابعنا</h4>
+                    <div class="flex gap-3">
+                        <a href="#" class="w-10 h-10 bg-white/10 rounded-lg flex items-center justify-center hover:bg-ajel-red transition">
+                            <span class="text-white text-sm font-bold">𝕏</span>
+                        </a>
+                        <a href="#" class="w-10 h-10 bg-white/10 rounded-lg flex items-center justify-center hover:bg-ajel-red transition">
+                            <span class="text-white text-sm">📱</span>
+                        </a>
+                        <a href="#" class="w-10 h-10 bg-white/10 rounded-lg flex items-center justify-center hover:bg-ajel-red transition">
+                            <span class="text-white text-sm">📧</span>
+                        </a>
+                    </div>
+                </div>
+            </div>
+
+            <div class="border-t border-white/10 mt-10 pt-6 flex flex-col sm:flex-row items-center justify-between gap-4">
+                <span class="text-ajel-grayText text-xs">© 2026 عاجل — جميع الحقوق محفوظة</span>
+                <span class="text-ajel-grayText text-xs">صنع بـ ❤️ في المملكة العربية السعودية</span>
+            </div>
+        </div>
+    </footer>
+
+</body>
+</html>

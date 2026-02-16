@@ -1,0 +1,25 @@
+# Node
+node_modules/
+
+# Temp files
+*.tmp
+*.swp
+.DS_Store
+
+# Media (too large)
+*.png
+*.jpg
+*.jpeg
+*.gif
+*.mp3
+*.mp4
+*.wav
+*.ogg
+
+# Build artifacts
+__pycache__/
+*.pyc
+
+# Sensitive (handled separately)
+.openclaw/
+publisher-credits/

@@ -1,0 +1,3 @@
+
+Connected.
+[ERROR] 2026-02-14T10:06:52Z SessionCipher.go:310 ▶  Unable to get or create message keys: received message with old counter (index: 2, count: 1)

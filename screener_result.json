@@ -1,0 +1,363 @@
+{
+  "timestamp": "2026-02-13T14:30:41.471311Z",
+  "schedule": "12:00 UTC / 3:00 PM Riyadh",
+  "scanner_counts": {
+    "finviz_bullish": 3,
+    "finviz_bearish": 2,
+    "uw_bullish": 0,
+    "uw_bearish": 0
+  },
+  "market_tide": {
+    "timestamp": "2026-02-13T09:30:00-05:00",
+    "date": "2026-02-13",
+    "net_call_premium": "-4413778.0000",
+    "net_put_premium": "4226454.0000",
+    "net_volume": -5059
+  },
+  "gex": {
+    "gamma": "positive",
+    "delta": "bearish",
+    "supports_calls": false,
+    "supports_puts": true,
+    "gamma_value": 0.0,
+    "call_delta": 0.0,
+    "put_delta": 0.0
+  },
+  "darkpool": [
+    {
+      "size": 4000,
+      "ticker": "GLD",
+      "price": "459.62",
+      "volume": 777190,
+      "executed_at": "2026-02-13T14:30:00Z",
+      "premium": "1838480.00",
+      "nbbo_bid": "459.62",
+      "nbbo_ask": "459.75",
+      "canceled": false,
+      "ext_hour_sold_codes": null,
+      "market_center": "L",
+      "nbbo_ask_quantity": 160,
+      "nbbo_bid_quantity": 1460,
+      "sale_cond_codes": null,
+      "tracking_id": 10363808286235,
+      "trade_code": null,
+      "trade_settlement": "regular",
+      "_size": 1838480.0
+    },
+    {
+      "size": 3298,
+      "ticker": "JPM",
+      "price": "297.9702",
+      "volume": 253162,
+      "executed_at": "2026-02-13T14:30:01Z",
+      "premium": "982705.7196",
+      "nbbo_bid": "297.77",
+      "nbbo_ask": "298.26",
+      "canceled": false,
+      "ext_hour_sold_codes": null,
+      "market_center": "L",
+      "nbbo_ask_quantity": 1,
+      "nbbo_bid_quantity": 60,
+      "sale_cond_codes": null,
+      "tracking_id": 25305999509220,
+      "trade_code": null,
+      "trade_settlement": "regular",
+      "_size": 982705.7196
+    },
+    {
+      "size": 900,
+      "ticker": "LLY",
+      "price": "1038.88",
+      "volume": 49863,
+      "executed_at": "2026-02-13T14:30:01Z",
+      "premium": "934992.00",
+      "nbbo_bid": "1038.95",
+      "nbbo_ask": "1042.48",
+      "canceled": false,
+      "ext_hour_sold_codes": null,
+      "market_center": "L",
+      "nbbo_ask_quantity": 1,
+      "nbbo_bid_quantity": 1,
+      "sale_cond_codes": null,
+      "tracking_id": 25911589897955,
+      "trade_code": null,
+      "trade_settlement": "regular",
+      "_size": 934992.0
+    },
+    {
+      "size": 1360,
+      "ticker": "SPY",
+      "price": "681.67",
+      "volume": 3612545,
+      "executed_at": "2026-02-13T14:30:00Z",
+      "premium": "927071.20",
+      "nbbo_bid": "681.69",
+      "nbbo_ask": "681.72",
+      "canceled": false,
+      "ext_hour_sold_codes": null,
+      "market_center": "L",
+      "nbbo_ask_quantity": 40,
+      "nbbo_bid_quantity": 284,
+      "sale_cond_codes": null,
+      "tracking_id": 10509837174302,
+      "trade_code": null,
+      "trade_settlement": "regular",
+      "_size": 927071.2
+    },
+    {
+      "size": 960,
+      "ticker": "IVV",
+      "price": "684.72",
+      "volume": 273956,
+      "executed_at": "2026-02-13T14:30:00Z",
+      "premium": "657331.20",
+      "nbbo_bid": "684.73",
+      "nbbo_ask": "684.79",
+      "canceled": false,
+      "ext_hour_sold_codes": null,
+      "market_center": "L",
+      "nbbo_ask_quantity": 120,
+      "nbbo_bid_quantity": 80,
+      "sale_cond_codes": null,
+      "tracking_id": 11716722984475,
+      "trade_code": null,
+      "trade_settlement": "regular",
+      "_size": 657331.2
+    }
+  ],
+  "congress": [
+    {
+      "name": "John McGuire",
+      "ticker": "MSFT",
+      "issuer": "spouse",
+      "is_active": true,
+      "politician_id": "418725a9-db3b-4df5-acde-b5052fa83c03",
+      "amounts": "$1,001 - $15,000",
+      "txn_type": "Sell",
+      "filed_at_date": "2026-02-10",
+      "transaction_date": "2026-01-30",
+      "reporter": "Hon. John McGuire",
+      "notes": "Microsoft Corporation - Common Stock (MSFT) [ST] FILING STATUS: New",
+      "member_type": "house"
+    },
+    {
+      "name": "John McGuire",
+      "ticker": "NVDA",
+      "issuer": "spouse",
+      "is_active": true,
+      "politician_id": "418725a9-db3b-4df5-acde-b5052fa83c03",
+      "amounts": "$1,001 - $15,000",
+      "txn_type": "Buy",
+      "filed_at_date": "2026-02-10",
+      "transaction_date": "2026-01-30",
+      "reporter": "Hon. John McGuire",
+      "notes": "NVIDIA Corporation - Common Stock\n(NVDA) [ST] FILING STATUS: New",
+      "member_type": "house"
+    },
+    {
+      "name": "April Delaney",
+      "ticker": "PTC",
+      "issuer": "child",
+      "is_active": true,
+      "politician_id": "36b29b09-31d2-4ff4-a9d0-220ea79ee025",
+      "amounts": "$1,001 - $15,000",
+      "txn_type": "Sell",
+      "filed_at_date": "2026-02-02",
+      "transaction_date": "2026-01-30",
+      "reporter": "Hon. April McClain Delaney",
+      "notes": "PTC Inc. - Common Stock (PTC) [ST]",
+      "member_type": "house"
+    },
+    {
+      "name": "April Delaney",
+      "ticker": "WAB",
+      "issuer": "child",
+      "is_active": true,
+      "politician_id": "36b29b09-31d2-4ff4-a9d0-220ea79ee025",
+      "amounts": "$1,001 - $15,000",
+      "txn_type": "Sell",
+      "filed_at_date": "2026-02-02",
+      "transaction_date": "2026-01-30",
+      "reporter": "Hon. April McClain Delaney",
+      "notes": "Westinghouse Air Brake Technologies\nCorporation Common Stock (WAB) [ST] FILING STATUS: New",
+      "member_type": "house"
+    },
+    {
+      "name": "Kelly Morrison",
+      "ticker": null,
+      "issuer": "undisclosed",
+      "is_active": true,
+      "politician_id": "c3d3d795-b21a-4942-9c86-d4cb0739c661",
+      "amounts": "$15,001 - $50,000",
+      "txn_type": "Buy",
+      "filed_at_date": "2026-02-04",
+      "transaction_date": "2026-01-29",
+      "reporter": "Hon. Kelly Louise Morrison",
+      "notes": "Sygaldry Technologies, Inc. [OI]",
+      "member_type": "house"
+    }
+  ],
+  "total_candidates": 5,
+  "recommendations": [
+    {
+      "ticker": "DKNG",
+      "price": 21.34,
+      "change": -15.19,
+      "direction": "PUT",
+      "source": "finviz_bearish",
+      "scorecard": 5,
+      "scorecard_max": 9,
+      "scorecard_details": [
+        "Scanner \u2705",
+        "News \u2705",
+        "Flow \u2705",
+        "Sweep \u274c",
+        "IV Rank \u274c (100%)",
+        "GEX \u2705",
+        "No Earnings \u2705",
+        "Spread \u274c"
+      ],
+      "decision": "\ud83d\udfe1 \u062d\u062c\u0645 \u0623\u0635\u063a\u0631",
+      "news": [
+        "DraftKings Expands Prediction Markets Catalog in Deal With Crypto.com",
+        "Dave\u2019s Hot Chicken Turns Up the Heat for the Big Game With First-Ever Super Bowl Ad, Major Sports Partnerships, and Fan-Fueled Moments",
+        "DraftKings, Abbott, And Applovin Are Among Top 10 Large Cap Losers Last Week (Jan. 19-Jan. 23): Are the Others in Your Portfolio?"
+      ],
+      "flow_details": [
+        "Call$1.2M vs Put$1.4M",
+        "Flow mildly supports direction"
+      ],
+      "iv_rank": 100.0,
+      "earnings_risk": false,
+      "contract": null
+    },
+    {
+      "ticker": "ANET",
+      "price": 142.24,
+      "change": 5.27,
+      "direction": "CALL",
+      "source": "finviz_bullish",
+      "scorecard": 3,
+      "scorecard_max": 9,
+      "scorecard_details": [
+        "Scanner \u2705",
+        "News \u2705",
+        "Flow \u274c",
+        "Sweep \u274c",
+        "IV Rank \u2705 (54%)",
+        "GEX \u274c",
+        "No Earnings \u26a0\ufe0f",
+        "Spread \u274c"
+      ],
+      "decision": "\u274c \u0644\u0627 \u062a\u062f\u062e\u0644",
+      "news": [
+        "Stock Market Today: Dow Jones, Nasdaq, S&P 500 Futures Tick Up After January Inflation Data \u2014 Tri Pointe Homes, Roku, Expedia In Focus (UPDATED)",
+        "Arista Networks Stock Climbs After Strong Q4 Results: Details",
+        "The Hidden Gem AI Networking Stock That Could Own the Next 5 Years"
+      ],
+      "flow_details": [
+        "Call$1.2M vs Put$1.4M",
+        "Flow does not support direction \u274c"
+      ],
+      "iv_rank": 53.5718,
+      "earnings_risk": true,
+      "contract": null
+    },
+    {
+      "ticker": "BROS",
+      "price": 58.92,
+      "change": 15.94,
+      "direction": "CALL",
+      "source": "finviz_bullish",
+      "scorecard": 3,
+      "scorecard_max": 9,
+      "scorecard_details": [
+        "Scanner \u2705",
+        "News \u2705",
+        "Flow \u274c",
+        "Sweep \u274c",
+        "IV Rank \u2705 (50%)",
+        "GEX \u274c",
+        "No Earnings \u26a0\ufe0f",
+        "Spread \u274c"
+      ],
+      "decision": "\u274c \u0644\u0627 \u062a\u062f\u062e\u0644",
+      "news": [
+        "Dutch Bros Just Delivered Results That Were as Strong as Its Coffee",
+        "Why Dutch Bros Stock Fell 11% in January",
+        "The Best Stocks to Buy Right Now for February"
+      ],
+      "flow_details": [
+        "Call$1.2M vs Put$1.4M",
+        "Flow does not support direction \u274c"
+      ],
+      "iv_rank": 49.8797,
+      "earnings_risk": true,
+      "contract": null
+    },
+    {
+      "ticker": "HWM",
+      "price": 248.4,
+      "change": 1.47,
+      "direction": "CALL",
+      "source": "finviz_bullish",
+      "scorecard": 3,
+      "scorecard_max": 9,
+      "scorecard_details": [
+        "Scanner \u2705",
+        "News \u2705",
+        "Flow \u274c",
+        "Sweep \u274c",
+        "IV Rank \u274c (25%)",
+        "GEX \u274c",
+        "No Earnings \u2705",
+        "Spread \u274c"
+      ],
+      "decision": "\u274c \u0644\u0627 \u062a\u062f\u062e\u0644",
+      "news": [
+        "Investor Days to Watch: Insights From Utilities, Energy, Industrials, and Banks",
+        "Howmet Aerospace Board Approves Common Stock Dividend",
+        "Will These 5 Stocks Repeat Their 39%-100% Dividend Raises This Year?"
+      ],
+      "flow_details": [
+        "Call$1.2M vs Put$1.4M",
+        "Flow does not support direction \u274c"
+      ],
+      "iv_rank": 24.7425,
+      "earnings_risk": false,
+      "contract": null
+    },
+    {
+      "ticker": "EXPE",
+      "price": 210.2,
+      "change": -7.5,
+      "direction": "PUT",
+      "source": "finviz_bearish",
+      "scorecard": 3,
+      "scorecard_max": 9,
+      "scorecard_details": [
+        "Scanner \u2705",
+        "News \u274c",
+        "Flow \u2705",
+        "Sweep \u274c",
+        "IV Rank \u274c (86%)",
+        "GEX \u2705",
+        "No Earnings \u26a0\ufe0f",
+        "Spread \u274c"
+      ],
+      "decision": "\u274c \u0644\u0627 \u062a\u062f\u062e\u0644",
+      "news": [
+        "Expedia CFO Flags 'Dynamic' Economy, Dials Down Expectations On Margins",
+        "Stock Market Today: Dow Jones, Nasdaq, S&P 500 Futures Tick Up After January Inflation Data \u2014 Tri Pointe Homes, Roku, Expedia In Focus (UPDATED)",
+        "Trip.com Faces China's Probe Into Anti-Competitive Practices"
+      ],
+      "flow_details": [
+        "Call$1.2M vs Put$1.4M",
+        "Flow mildly supports direction"
+      ],
+      "iv_rank": 86.4896,
+      "earnings_risk": true,
+      "contract": null
+    }
+  ]
+}

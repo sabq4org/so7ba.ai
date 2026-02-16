@@ -1,0 +1,554 @@
+// © Zalatan x So7ba — Ultimate SPX Indicator
+// Combines: Zalatan Levels (Pivots + VWAP + ATR + ORB) + Auto Fib Extension
+// v2.0
+//@version=6
+indicator("⚡ Zalatan Ultimate", overlay=true, max_lines_count=200, max_labels_count=100, max_boxes_count=40)
+
+// ═══════════════════════════════════════════════════════════════════════════
+// INPUTS — PIVOTS & LEVELS
+// ═══════════════════════════════════════════════════════════════════════════
+showPivots      = input.bool(true, "Show Pivot Levels", group="📊 Pivots")
+pivotType       = input.string("Camarilla", "Pivot Type", options=["Classic", "Camarilla", "Fibonacci", "Woodie"], group="📊 Pivots")
+showVWAPLevels  = input.bool(true, "Show VWAP ± Bands", group="📊 Pivots")
+showATRTargets  = input.bool(true, "Show ATR Targets", group="📊 Pivots")
+showORB         = input.bool(true, "Show Opening Range", group="📊 Pivots")
+orbMinutes      = input.int(15, "OR Minutes", options=[5, 15, 30], group="📊 Pivots")
+showPDHL        = input.bool(true, "Show Prev Day High/Low", group="📊 Pivots")
+showSessionHL   = input.bool(true, "Show Session High/Low", group="📊 Pivots")
+
+// ═══════════════════════════════════════════════════════════════════════════
+// INPUTS — AUTO FIB EXTENSION
+// ═══════════════════════════════════════════════════════════════════════════
+showFib         = input.bool(true, "Show Auto Fib Extension", group="🔢 Fibonacci")
+fibDepth        = input.int(10, "Fib Depth", minval=2, group="🔢 Fibonacci")
+fibReverse      = input.bool(false, "Reverse Fib", group="🔢 Fibonacci")
+fibExtendRight  = input.bool(true, "Extend Fib Right", group="🔢 Fibonacci")
+fibShowPrices   = input.bool(true, "Show Fib Prices", group="🔢 Fibonacci")
+fibShowLevels   = input.bool(true, "Show Fib Level Values", group="🔢 Fibonacci")
+fibBgTransp     = input.int(90, "Fib Background Transparency", minval=0, maxval=100, group="🔢 Fibonacci")
+
+// Fib levels toggle
+fib_0       = input.bool(true, "0", inline="f0", group="🔢 Fib Levels")
+fib_0236    = input.bool(true, "0.236", inline="f0", group="🔢 Fib Levels")
+fib_0382    = input.bool(true, "0.382", inline="f1", group="🔢 Fib Levels")
+fib_05      = input.bool(true, "0.5", inline="f1", group="🔢 Fib Levels")
+fib_0618    = input.bool(true, "0.618", inline="f2", group="🔢 Fib Levels")
+fib_0786    = input.bool(true, "0.786", inline="f2", group="🔢 Fib Levels")
+fib_1       = input.bool(true, "1.0", inline="f3", group="🔢 Fib Levels")
+fib_1618    = input.bool(true, "1.618", inline="f3", group="🔢 Fib Levels")
+fib_2618    = input.bool(true, "2.618", inline="f4", group="🔢 Fib Levels")
+fib_3618    = input.bool(true, "3.618", inline="f4", group="🔢 Fib Levels")
+fib_4236    = input.bool(true, "4.236", inline="f5", group="🔢 Fib Levels")
+
+// ═══════════════════════════════════════════════════════════════════════════
+// INPUTS — ZONES & STYLE
+// ═══════════════════════════════════════════════════════════════════════════
+showZones       = input.bool(true, "Show S/R Zones", group="🎯 Zones")
+zoneWidth       = input.float(0.5, "Zone Width (pts)", step=0.25, group="🎯 Zones")
+
+showDash        = input.bool(true, "Show Dashboard", group="📋 Dashboard")
+dashPosition    = input.string("Bottom Right", "Position", options=["Top Right", "Bottom Right", "Top Left", "Bottom Left"], group="📋 Dashboard")
+
+lineStyleInput  = input.string("Solid", "Line Style", options=["Solid", "Dashed", "Dotted"], group="🎨 Style")
+showLabels      = input.bool(true, "Show Price Labels", group="🎨 Style")
+extendLines     = input.bool(true, "Extend Lines Right", group="🎨 Style")
+
+// Colors
+colResistance   = input.color(color.new(#FF5252, 0), "Resistance", group="🎨 Colors")
+colSupport      = input.color(color.new(#4CAF50, 0), "Support", group="🎨 Colors")
+colTarget       = input.color(color.new(#FFC107, 0), "Targets", group="🎨 Colors")
+colVWAP         = input.color(color.new(#FF9800, 0), "VWAP", group="🎨 Colors")
+colORB          = input.color(color.new(#00BCD4, 0), "Opening Range", group="🎨 Colors")
+colPDHL         = input.color(color.new(#AB47BC, 0), "Prev Day H/L", group="🎨 Colors")
+colSessionHL    = input.color(color.new(#78909C, 0), "Session H/L", group="🎨 Colors")
+
+// ═══════════════════════════════════════════════════════════════════════════
+// HELPERS
+// ═══════════════════════════════════════════════════════════════════════════
+getLS() => lineStyleInput == "Dashed" ? line.style_dashed : lineStyleInput == "Dotted" ? line.style_dotted : line.style_solid
+getExt() => extendLines ? extend.right : extend.none
+
+// ═══════════════════════════════════════════════════════════════════════════
+// PREVIOUS DAY DATA
+// ═══════════════════════════════════════════════════════════════════════════
+[pdH, pdL, pdC, pdO] = request.security(syminfo.tickerid, "D", [high[1], low[1], close[1], open[1]], barmerge.gaps_off, barmerge.lookahead_on)
+todayO  = request.security(syminfo.tickerid, "D", open, barmerge.gaps_off, barmerge.lookahead_on)
+pdRange = pdH - pdL
+
+// ═══════════════════════════════════════════════════════════════════════════
+// PIVOT CALCULATIONS
+// ═══════════════════════════════════════════════════════════════════════════
+pp_classic = (pdH + pdL + pdC) / 3
+r1_classic = 2 * pp_classic - pdL
+s1_classic = 2 * pp_classic - pdH
+r2_classic = pp_classic + pdRange
+s2_classic = pp_classic - pdRange
+r3_classic = pdH + 2 * (pp_classic - pdL)
+s3_classic = pdL - 2 * (pdH - pp_classic)
+
+pp_cam = (pdH + pdL + pdC) / 3
+r1_cam = pdC + pdRange * 1.1 / 12
+s1_cam = pdC - pdRange * 1.1 / 12
+r2_cam = pdC + pdRange * 1.1 / 6
+s2_cam = pdC - pdRange * 1.1 / 6
+r3_cam = pdC + pdRange * 1.1 / 4
+s3_cam = pdC - pdRange * 1.1 / 4
+r4_cam = pdC + pdRange * 1.1 / 2
+s4_cam = pdC - pdRange * 1.1 / 2
+
+pp_fib = (pdH + pdL + pdC) / 3
+r1_fib = pp_fib + 0.382 * pdRange
+s1_fib = pp_fib - 0.382 * pdRange
+r2_fib = pp_fib + 0.618 * pdRange
+s2_fib = pp_fib - 0.618 * pdRange
+r3_fib = pp_fib + 1.000 * pdRange
+s3_fib = pp_fib - 1.000 * pdRange
+
+pp_wood = (pdH + pdL + 2 * todayO) / 4
+r1_wood = 2 * pp_wood - pdL
+s1_wood = 2 * pp_wood - pdH
+r2_wood = pp_wood + pdRange
+s2_wood = pp_wood - pdRange
+
+float pp = na, float r1 = na, float r2 = na, float r3 = na
+float s1 = na, float s2 = na, float s3 = na
+
+if pivotType == "Classic"
+    pp := pp_classic, r1 := r1_classic, r2 := r2_classic, r3 := r3_classic
+    s1 := s1_classic, s2 := s2_classic, s3 := s3_classic
+else if pivotType == "Camarilla"
+    pp := pp_cam, r1 := r1_cam, r2 := r2_cam, r3 := r3_cam
+    s1 := s1_cam, s2 := s2_cam, s3 := s3_cam
+else if pivotType == "Fibonacci"
+    pp := pp_fib, r1 := r1_fib, r2 := r2_fib, r3 := r3_fib
+    s1 := s1_fib, s2 := s2_fib, s3 := s3_fib
+else
+    pp := pp_wood, r1 := r1_wood, r2 := r2_wood, r3 := r3_classic
+    s1 := s1_wood, s2 := s2_wood, s3 := s3_classic
+
+// ═══════════════════════════════════════════════════════════════════════════
+// VWAP + BANDS
+// ═══════════════════════════════════════════════════════════════════════════
+vwapVal = ta.vwap(hlc3)
+vwapDev = ta.stdev(hlc3, 20)
+vwapU1  = vwapVal + vwapDev
+vwapL1  = vwapVal - vwapDev
+vwapU2  = vwapVal + vwapDev * 2
+vwapL2  = vwapVal - vwapDev * 2
+
+// ═══════════════════════════════════════════════════════════════════════════
+// ATR TARGETS
+// ═══════════════════════════════════════════════════════════════════════════
+atr14       = ta.atr(14)
+atrTargetUp1 = todayO + atr14 * 0.5
+atrTargetUp2 = todayO + atr14 * 1.0
+atrTargetDn1 = todayO - atr14 * 0.5
+atrTargetDn2 = todayO - atr14 * 1.0
+
+// ═══════════════════════════════════════════════════════════════════════════
+// OPENING RANGE
+// ═══════════════════════════════════════════════════════════════════════════
+var float orbHigh = na
+var float orbLow  = na
+var bool  orbDone = false
+
+isMarketOpen = hour == 9 and minute == 30 and timeframe.isintraday
+if isMarketOpen
+    orbHigh := high
+    orbLow  := low
+    orbDone := false
+
+orbEndCondition = (orbMinutes == 5 and hour == 9 and minute == 35) or
+                  (orbMinutes == 15 and hour == 9 and minute == 45) or
+                  (orbMinutes == 30 and hour == 10 and minute == 0)
+
+if not orbDone and hour == 9 and minute >= 30
+    orbHigh := math.max(nz(orbHigh, high), high)
+    orbLow  := math.min(nz(orbLow, low), low)
+
+if orbEndCondition
+    orbDone := true
+
+orbRange    = orbHigh - orbLow
+orbTargetUp = orbHigh + orbRange
+orbTargetDn = orbLow  - orbRange
+
+// ═══════════════════════════════════════════════════════════════════════════
+// SESSION HIGH/LOW
+// ═══════════════════════════════════════════════════════════════════════════
+var float sessH = na
+var float sessL = na
+if ta.change(time("D"))
+    sessH := high
+    sessL := low
+else
+    sessH := math.max(nz(sessH, high), high)
+    sessL := math.min(nz(sessL, low), low)
+
+// ═══════════════════════════════════════════════════════════════════════════
+// BIAS ENGINE
+// ═══════════════════════════════════════════════════════════════════════════
+ema9  = ta.ema(close, 9)
+ema21 = ta.ema(close, 21)
+rsi   = ta.rsi(close, 14)
+
+float score = 0
+score += close > pp      ? 1 : -1
+score += close > vwapVal ? 1 : -1
+score += orbDone ? (close > orbHigh ? 1 : close < orbLow ? -1 : 0) : 0
+score += ema9 > ema21    ? 1 : -1
+score += rsi > 55        ? 1 : rsi < 45 ? -1 : 0
+
+string bias     = score >= 2 ? "CALLS ⬆️" : score <= -2 ? "PUTS ⬇️" : "NEUTRAL ➡️"
+color  biasColor = score >= 2 ? color.lime : score <= -2 ? color.red : color.yellow
+
+float nextTarget = na
+string nextTargetName = ""
+if score >= 2
+    if close < r1
+        nextTarget := r1, nextTargetName := "R1"
+    else if close < r2
+        nextTarget := r2, nextTargetName := "R2"
+    else
+        nextTarget := r3, nextTargetName := "R3"
+else if score <= -2
+    if close > s1
+        nextTarget := s1, nextTargetName := "S1"
+    else if close > s2
+        nextTarget := s2, nextTargetName := "S2"
+    else
+        nextTarget := s3, nextTargetName := "S3"
+
+// ═══════════════════════════════════════════════════════════════════════════
+// AUTO FIB EXTENSION ENGINE
+// ═══════════════════════════════════════════════════════════════════════════
+fibExtending = fibExtendRight ? extend.right : extend.none
+
+pivotsFib(src, length, isHigh) =>
+    if bar_index >= length
+        price = nz(src[length])
+        found = true
+        for i = 0 to length * 2
+            if (isHigh and src[i] > price) or (not isHigh and src[i] < price)
+                found := false
+                break
+        if found
+            chart.point.from_time(time[length], price)
+
+var line fibLineHL = na
+var line fibLineLH = na
+var line fibLineLast = na
+
+updateFib() =>
+    var chart.point[] pivotsH = array.new<chart.point>()
+    var chart.point lastH = na
+    var chart.point[] pivotsL = array.new<chart.point>()
+    var chart.point lastL = na
+    var bool isHighLast = false
+    var float startPrice = na
+    var float endPriceFib = na
+
+    H = pivotsFib(high, fibDepth / 2, true)
+    L = pivotsFib(low, fibDepth / 2, false)
+
+    countH = array.size(pivotsH)
+    countL = array.size(pivotsL)
+
+    if countH > 0 and countL > 0
+        lastH := array.get(pivotsH, countH - 1)
+        lastL := array.get(pivotsL, countL - 1)
+        isHighLast := lastH.time > lastL.time
+        if isHighLast
+            if not na(H)
+                if H.price > lastH.price
+                    array.set(pivotsH, countH - 1, H)
+                    H := na
+        else
+            if not na(L)
+                if L.price < lastL.price
+                    array.set(pivotsL, countL - 1, L)
+                    L := na
+
+    if not na(H)
+        array.push(pivotsH, H)
+    if not na(L)
+        array.push(pivotsL, L)
+
+    if barstate.islast and array.size(pivotsH) > 0 and array.size(pivotsL) > 0
+        pivotsHC = array.copy(pivotsH)
+        pivotsLC = array.copy(pivotsL)
+        while array.size(pivotsHC) > 0 and array.size(pivotsLC) > 0
+            lastH := array.pop(pivotsHC)
+            lastL := array.pop(pivotsLC)
+            isHighLast := lastH.time > lastL.time
+            pivArr = isHighLast ? pivotsHC : pivotsLC
+            for i = array.size(pivArr) - 1 to 0
+                if i < 0
+                    break
+                p = array.get(pivArr, i)
+                if p.time < lastL.time
+                    break
+                if p.price > lastH.price
+                    lastH := array.pop(pivArr)
+                else
+                    array.remove(pivArr, i)
+            if array.size(pivotsHC) == 0 or array.size(pivotsLC) == 0
+                break
+            isHighLast := lastH.time > lastL.time
+            pivArr2 = isHighLast ? pivotsHC : pivotsLC
+            prevPivot = array.get(pivArr2, array.size(pivArr2) - 1)
+            startPrice := prevPivot.price
+            if isHighLast
+                endPriceFib := lastL.price
+                diff2 = math.abs(startPrice - endPriceFib)
+                if lastH.price > endPriceFib + diff2 * 1.0 or lastH.price < endPriceFib + diff2 * 0.236
+                    array.push(pivotsLC, lastL)
+                    continue
+                line.delete(fibLineHL)
+                line.delete(fibLineLH)
+                fibLineHL := line.new(prevPivot, lastL, color=color.red, width=1, style=line.style_dashed, xloc=xloc.bar_time)
+                fibLineLH := line.new(lastL, lastH, color=color.green, width=1, style=line.style_dashed, xloc=xloc.bar_time)
+                fibLineLast := fibLineLH
+            else
+                endPriceFib := lastH.price
+                diff2 = math.abs(startPrice - endPriceFib)
+                if lastL.price < endPriceFib - diff2 * 1.0 or lastL.price > endPriceFib - diff2 * 0.236
+                    array.push(pivotsHC, lastH)
+                    continue
+                line.delete(fibLineHL)
+                line.delete(fibLineLH)
+                fibLineLH := line.new(prevPivot, lastH, color=color.red, width=1, style=line.style_dashed, xloc=xloc.bar_time)
+                fibLineHL := line.new(lastH, lastL, color=color.green, width=1, style=line.style_dashed, xloc=xloc.bar_time)
+                fibLineLast := fibLineHL
+            break
+        diff3 = (isHighLast ? -1 : 1) * math.abs(startPrice - endPriceFib)
+        [endPriceFib, diff3, fibLineLast]
+    else
+        [float(na), float(na), line(na)]
+
+var float fibEnd = na
+var float fibDiff = na
+var line  fibRef = na
+
+if showFib
+    [e, d, l] = updateFib()
+    fibEnd  := e
+    fibDiff := d
+    fibRef  := l
+
+// Fib drawing helper
+drawFibLevel(show, val, col, prevLineId) =>
+    if show and showFib and not na(fibRef) and not na(fibEnd) and not na(fibDiff)
+        r2 = fibEnd + ((fibReverse ? -1 : 1) * fibDiff * val)
+        var lineId = line.new(time, r2, time, r2, color=col, width=1, extend=fibExtending, xloc=xloc.bar_time)
+        line.set_xy1(lineId, line.get_x1(fibRef), r2)
+        line.set_xy2(lineId, line.get_x2(fibRef), r2)
+        if fibShowLevels or fibShowPrices
+            txt = ""
+            if fibShowLevels
+                txt += str.tostring(val)
+            if fibShowPrices
+                txt += " (" + str.tostring(r2, format.mintick) + ")"
+            var lbl = label.new(time, r2, txt, style=label.style_label_left, textcolor=col, color=#00000000, xloc=xloc.bar_time, size=size.tiny)
+            label.set_xy(lbl, line.get_x2(fibRef), r2)
+            label.set_text(lbl, txt)
+            label.set_textcolor(lbl, col)
+        if not na(prevLineId)
+            linefill.new(lineId, prevLineId, color=color.new(col, fibBgTransp))
+        lineId
+    else
+        prevLineId
+
+// Draw fib levels
+fL0  = drawFibLevel(fib_0,    0,     #787b86,  line(na))
+fL1  = drawFibLevel(fib_0236, 0.236, #f44336,  fL0)
+fL2  = drawFibLevel(fib_0382, 0.382, #81c784,  fL1)
+fL3  = drawFibLevel(fib_05,   0.5,   #4caf50,  fL2)
+fL4  = drawFibLevel(fib_0618, 0.618, #009688,  fL3)
+fL5  = drawFibLevel(fib_0786, 0.786, #64b5f6,  fL4)
+fL6  = drawFibLevel(fib_1,    1.0,   #787b86,  fL5)
+fL7  = drawFibLevel(fib_1618, 1.618, #2962ff,  fL6)
+fL8  = drawFibLevel(fib_2618, 2.618, #f44336,  fL7)
+fL9  = drawFibLevel(fib_3618, 3.618, #9c27b0,  fL8)
+fL10 = drawFibLevel(fib_4236, 4.236, #e91e63,  fL9)
+
+// ═══════════════════════════════════════════════════════════════════════════
+// DRAW LEVELS (Pivots + VWAP + ATR + ORB + PDH/L + Session H/L)
+// ═══════════════════════════════════════════════════════════════════════════
+var line[] pvtLines   = array.new_line()
+var label[] pvtLabels = array.new_label()
+var box[] pvtBoxes    = array.new_box()
+
+if barstate.islast
+    for l in pvtLines
+        line.delete(l)
+    array.clear(pvtLines)
+    for lb in pvtLabels
+        label.delete(lb)
+    array.clear(pvtLabels)
+    for b in pvtBoxes
+        box.delete(b)
+    array.clear(pvtBoxes)
+
+    ls  = getLS()
+    ext = getExt()
+    int sB = bar_index - 50
+    int eB = bar_index + 20
+    int lB = bar_index + 22
+
+    // === PIVOTS ===
+    if showPivots
+        array.push(pvtLines, line.new(sB, pp, eB, pp, color=color.new(color.white, 30), style=ls, width=2, extend=ext))
+        array.push(pvtLines, line.new(sB, r1, eB, r1, color=color.new(colResistance, 20), style=ls, width=2, extend=ext))
+        array.push(pvtLines, line.new(sB, r2, eB, r2, color=color.new(colResistance, 10), style=ls, width=2, extend=ext))
+        array.push(pvtLines, line.new(sB, r3, eB, r3, color=colResistance, style=line.style_solid, width=3, extend=ext))
+        array.push(pvtLines, line.new(sB, s1, eB, s1, color=color.new(colSupport, 20), style=ls, width=2, extend=ext))
+        array.push(pvtLines, line.new(sB, s2, eB, s2, color=color.new(colSupport, 10), style=ls, width=2, extend=ext))
+        array.push(pvtLines, line.new(sB, s3, eB, s3, color=colSupport, style=line.style_solid, width=3, extend=ext))
+        if showLabels
+            array.push(pvtLabels, label.new(lB, pp, "PP " + str.tostring(pp, "#.#"), style=label.style_none, textcolor=color.white, size=size.small))
+            array.push(pvtLabels, label.new(lB, r1, "R1 " + str.tostring(r1, "#.#"), style=label.style_none, textcolor=colResistance, size=size.small))
+            array.push(pvtLabels, label.new(lB, r2, "R2 " + str.tostring(r2, "#.#"), style=label.style_none, textcolor=colResistance, size=size.small))
+            array.push(pvtLabels, label.new(lB, r3, "R3 " + str.tostring(r3, "#.#"), style=label.style_none, textcolor=colResistance, size=size.small))
+            array.push(pvtLabels, label.new(lB, s1, "S1 " + str.tostring(s1, "#.#"), style=label.style_none, textcolor=colSupport, size=size.small))
+            array.push(pvtLabels, label.new(lB, s2, "S2 " + str.tostring(s2, "#.#"), style=label.style_none, textcolor=colSupport, size=size.small))
+            array.push(pvtLabels, label.new(lB, s3, "S3 " + str.tostring(s3, "#.#"), style=label.style_none, textcolor=colSupport, size=size.small))
+        if showZones
+            zw = zoneWidth
+            array.push(pvtBoxes, box.new(sB, r1+zw, eB, r1-zw, border_color=color.new(colResistance, 70), bgcolor=color.new(colResistance, 90), extend=ext))
+            array.push(pvtBoxes, box.new(sB, r2+zw, eB, r2-zw, border_color=color.new(colResistance, 60), bgcolor=color.new(colResistance, 85), extend=ext))
+            array.push(pvtBoxes, box.new(sB, r3+zw, eB, r3-zw, border_color=color.new(colResistance, 50), bgcolor=color.new(colResistance, 80), extend=ext))
+            array.push(pvtBoxes, box.new(sB, s1+zw, eB, s1-zw, border_color=color.new(colSupport, 70), bgcolor=color.new(colSupport, 90), extend=ext))
+            array.push(pvtBoxes, box.new(sB, s2+zw, eB, s2-zw, border_color=color.new(colSupport, 60), bgcolor=color.new(colSupport, 85), extend=ext))
+            array.push(pvtBoxes, box.new(sB, s3+zw, eB, s3-zw, border_color=color.new(colSupport, 50), bgcolor=color.new(colSupport, 80), extend=ext))
+
+    // === PREV DAY HIGH/LOW ===
+    if showPDHL
+        array.push(pvtLines, line.new(sB, pdH, eB, pdH, color=colPDHL, style=line.style_dashed, width=2, extend=ext))
+        array.push(pvtLines, line.new(sB, pdL, eB, pdL, color=colPDHL, style=line.style_dashed, width=2, extend=ext))
+        if showLabels
+            array.push(pvtLabels, label.new(lB, pdH, "PDH " + str.tostring(pdH, "#.#"), style=label.style_none, textcolor=colPDHL, size=size.small))
+            array.push(pvtLabels, label.new(lB, pdL, "PDL " + str.tostring(pdL, "#.#"), style=label.style_none, textcolor=colPDHL, size=size.small))
+
+    // === SESSION HIGH/LOW ===
+    if showSessionHL
+        array.push(pvtLines, line.new(sB, sessH, eB, sessH, color=colSessionHL, style=line.style_dotted, width=1, extend=ext))
+        array.push(pvtLines, line.new(sB, sessL, eB, sessL, color=colSessionHL, style=line.style_dotted, width=1, extend=ext))
+        if showLabels
+            array.push(pvtLabels, label.new(lB, sessH, "SH " + str.tostring(sessH, "#.#"), style=label.style_none, textcolor=colSessionHL, size=size.small))
+            array.push(pvtLabels, label.new(lB, sessL, "SL " + str.tostring(sessL, "#.#"), style=label.style_none, textcolor=colSessionHL, size=size.small))
+
+    // === VWAP ===
+    if showVWAPLevels
+        array.push(pvtLines, line.new(sB, vwapVal, eB, vwapVal, color=colVWAP, style=line.style_solid, width=2, extend=ext))
+        array.push(pvtLines, line.new(sB, vwapU1, eB, vwapU1, color=color.new(colVWAP, 40), style=line.style_dashed, width=1, extend=ext))
+        array.push(pvtLines, line.new(sB, vwapL1, eB, vwapL1, color=color.new(colVWAP, 40), style=line.style_dashed, width=1, extend=ext))
+        array.push(pvtLines, line.new(sB, vwapU2, eB, vwapU2, color=color.new(colVWAP, 60), style=line.style_dotted, width=1, extend=ext))
+        array.push(pvtLines, line.new(sB, vwapL2, eB, vwapL2, color=color.new(colVWAP, 60), style=line.style_dotted, width=1, extend=ext))
+        if showLabels
+            array.push(pvtLabels, label.new(lB, vwapVal, "VWAP", style=label.style_none, textcolor=colVWAP, size=size.small))
+            array.push(pvtLabels, label.new(lB, vwapU1, "+1σ", style=label.style_none, textcolor=color.new(colVWAP, 30), size=size.tiny))
+            array.push(pvtLabels, label.new(lB, vwapL1, "-1σ", style=label.style_none, textcolor=color.new(colVWAP, 30), size=size.tiny))
+
+    // === ATR TARGETS ===
+    if showATRTargets
+        array.push(pvtLines, line.new(sB, atrTargetUp1, eB, atrTargetUp1, color=color.new(colTarget, 30), style=line.style_dashed, width=1, extend=ext))
+        array.push(pvtLines, line.new(sB, atrTargetUp2, eB, atrTargetUp2, color=color.new(colTarget, 10), style=line.style_dashed, width=2, extend=ext))
+        array.push(pvtLines, line.new(sB, atrTargetDn1, eB, atrTargetDn1, color=color.new(colTarget, 30), style=line.style_dashed, width=1, extend=ext))
+        array.push(pvtLines, line.new(sB, atrTargetDn2, eB, atrTargetDn2, color=color.new(colTarget, 10), style=line.style_dashed, width=2, extend=ext))
+        if showLabels
+            array.push(pvtLabels, label.new(lB, atrTargetUp1, "🎯T1↑ " + str.tostring(atrTargetUp1, "#.#"), style=label.style_none, textcolor=colTarget, size=size.small))
+            array.push(pvtLabels, label.new(lB, atrTargetUp2, "🎯T2↑ " + str.tostring(atrTargetUp2, "#.#"), style=label.style_none, textcolor=colTarget, size=size.small))
+            array.push(pvtLabels, label.new(lB, atrTargetDn1, "🎯T1↓ " + str.tostring(atrTargetDn1, "#.#"), style=label.style_none, textcolor=colTarget, size=size.small))
+            array.push(pvtLabels, label.new(lB, atrTargetDn2, "🎯T2↓ " + str.tostring(atrTargetDn2, "#.#"), style=label.style_none, textcolor=colTarget, size=size.small))
+
+    // === OPENING RANGE ===
+    if showORB and orbDone
+        array.push(pvtLines, line.new(sB, orbHigh, eB, orbHigh, color=colORB, style=line.style_solid, width=2, extend=ext))
+        array.push(pvtLines, line.new(sB, orbLow, eB, orbLow, color=colORB, style=line.style_solid, width=2, extend=ext))
+        array.push(pvtLines, line.new(sB, orbTargetUp, eB, orbTargetUp, color=color.new(colORB, 30), style=line.style_dashed, width=1, extend=ext))
+        array.push(pvtLines, line.new(sB, orbTargetDn, eB, orbTargetDn, color=color.new(colORB, 30), style=line.style_dashed, width=1, extend=ext))
+        if showLabels
+            array.push(pvtLabels, label.new(lB, orbHigh, "ORB H " + str.tostring(orbHigh, "#.#"), style=label.style_none, textcolor=colORB, size=size.small))
+            array.push(pvtLabels, label.new(lB, orbLow, "ORB L " + str.tostring(orbLow, "#.#"), style=label.style_none, textcolor=colORB, size=size.small))
+        if showZones
+            array.push(pvtBoxes, box.new(sB, orbHigh, eB, orbLow, border_color=color.new(colORB, 60), bgcolor=color.new(colORB, 92), extend=ext))
+
+// ═══════════════════════════════════════════════════════════════════════════
+// ALERTS
+// ═══════════════════════════════════════════════════════════════════════════
+crossR1 = ta.crossover(high, r1)
+crossR2 = ta.crossover(high, r2)
+crossS1 = ta.crossunder(low, s1)
+crossS2 = ta.crossunder(low, s2)
+crossVWAP_up = ta.crossover(close, vwapVal)
+crossVWAP_dn = ta.crossunder(close, vwapVal)
+
+plotshape(crossR1, "Hit R1", shape.xcross, location.abovebar, colResistance, size=size.tiny)
+plotshape(crossR2, "Hit R2", shape.xcross, location.abovebar, colResistance, size=size.small)
+plotshape(crossS1, "Hit S1", shape.xcross, location.belowbar, colSupport, size=size.tiny)
+plotshape(crossS2, "Hit S2", shape.xcross, location.belowbar, colSupport, size=size.small)
+
+alertcondition(crossR1, "R1 Hit", "🔴 Price hit R1")
+alertcondition(crossR2, "R2 Hit", "🔴 Price hit R2")
+alertcondition(crossR1 and volume > ta.sma(volume, 20) * 1.5, "R1 Breakout", "🚀 R1 Breakout + Volume!")
+alertcondition(crossS1, "S1 Hit", "🟢 Price hit S1")
+alertcondition(crossS2, "S2 Hit", "🟢 Price hit S2")
+alertcondition(crossS1 and volume > ta.sma(volume, 20) * 1.5, "S1 Breakdown", "💥 S1 Breakdown + Volume!")
+alertcondition(crossVWAP_up, "VWAP Cross Up", "⬆️ Above VWAP")
+alertcondition(crossVWAP_dn, "VWAP Cross Down", "⬇️ Below VWAP")
+
+// ═══════════════════════════════════════════════════════════════════════════
+// DASHBOARD
+// ═══════════════════════════════════════════════════════════════════════════
+var table dash = na
+if showDash
+    pos = dashPosition == "Top Right" ? position.top_right : dashPosition == "Bottom Right" ? position.bottom_right : dashPosition == "Top Left" ? position.top_left : position.bottom_left
+    dash := table.new(pos, 2, 14, bgcolor=color.new(#1a1a2e, 10), border_color=color.new(color.white, 80), border_width=1)
+
+if showDash and barstate.islast
+    table.cell(dash, 0, 0, "⚡ Zalatan Ultimate", text_color=#FFC107, text_size=size.small, bgcolor=color.new(#1a1a2e, 0))
+    table.cell(dash, 1, 0, pivotType + " + Fib", text_color=color.gray, text_size=size.tiny, bgcolor=color.new(#1a1a2e, 0))
+    
+    table.cell(dash, 0, 1, "BIAS", text_color=color.white, text_size=size.tiny, bgcolor=color.new(#1a1a2e, 0))
+    table.cell(dash, 1, 1, bias + " (" + str.tostring(score, "#") + ")", text_color=biasColor, text_size=size.tiny, bgcolor=color.new(#1a1a2e, 0))
+    
+    table.cell(dash, 0, 2, "R3 🔴", text_color=colResistance, text_size=size.tiny, bgcolor=color.new(#1a1a2e, 0))
+    table.cell(dash, 1, 2, str.tostring(r3, "#.#"), text_color=color.white, text_size=size.tiny, bgcolor=color.new(#1a1a2e, 0))
+    table.cell(dash, 0, 3, "R2", text_color=color.new(colResistance, 20), text_size=size.tiny, bgcolor=color.new(#1a1a2e, 0))
+    table.cell(dash, 1, 3, str.tostring(r2, "#.#"), text_color=color.white, text_size=size.tiny, bgcolor=color.new(#1a1a2e, 0))
+    table.cell(dash, 0, 4, "R1", text_color=color.new(colResistance, 40), text_size=size.tiny, bgcolor=color.new(#1a1a2e, 0))
+    table.cell(dash, 1, 4, str.tostring(r1, "#.#"), text_color=color.white, text_size=size.tiny, bgcolor=color.new(#1a1a2e, 0))
+    
+    table.cell(dash, 0, 5, "PP", text_color=color.white, text_size=size.tiny, bgcolor=color.new(#1a1a2e, 0))
+    table.cell(dash, 1, 5, str.tostring(pp, "#.#"), text_color=color.white, text_size=size.tiny, bgcolor=color.new(#1a1a2e, 0))
+    
+    table.cell(dash, 0, 6, "S1", text_color=color.new(colSupport, 40), text_size=size.tiny, bgcolor=color.new(#1a1a2e, 0))
+    table.cell(dash, 1, 6, str.tostring(s1, "#.#"), text_color=color.white, text_size=size.tiny, bgcolor=color.new(#1a1a2e, 0))
+    table.cell(dash, 0, 7, "S2", text_color=color.new(colSupport, 20), text_size=size.tiny, bgcolor=color.new(#1a1a2e, 0))
+    table.cell(dash, 1, 7, str.tostring(s2, "#.#"), text_color=color.white, text_size=size.tiny, bgcolor=color.new(#1a1a2e, 0))
+    table.cell(dash, 0, 8, "S3 🟢", text_color=colSupport, text_size=size.tiny, bgcolor=color.new(#1a1a2e, 0))
+    table.cell(dash, 1, 8, str.tostring(s3, "#.#"), text_color=color.white, text_size=size.tiny, bgcolor=color.new(#1a1a2e, 0))
+    
+    table.cell(dash, 0, 9, "VWAP", text_color=colVWAP, text_size=size.tiny, bgcolor=color.new(#1a1a2e, 0))
+    table.cell(dash, 1, 9, str.tostring(vwapVal, "#.#"), text_color=color.white, text_size=size.tiny, bgcolor=color.new(#1a1a2e, 0))
+    
+    table.cell(dash, 0, 10, "PDH", text_color=colPDHL, text_size=size.tiny, bgcolor=color.new(#1a1a2e, 0))
+    table.cell(dash, 1, 10, str.tostring(pdH, "#.#"), text_color=color.white, text_size=size.tiny, bgcolor=color.new(#1a1a2e, 0))
+    table.cell(dash, 0, 11, "PDL", text_color=colPDHL, text_size=size.tiny, bgcolor=color.new(#1a1a2e, 0))
+    table.cell(dash, 1, 11, str.tostring(pdL, "#.#"), text_color=color.white, text_size=size.tiny, bgcolor=color.new(#1a1a2e, 0))
+    
+    table.cell(dash, 0, 12, "🎯 Next", text_color=colTarget, text_size=size.tiny, bgcolor=color.new(#1a1a2e, 0))
+    ntt = na(nextTarget) ? "—" : nextTargetName + " " + str.tostring(nextTarget, "#.#")
+    table.cell(dash, 1, 12, ntt, text_color=colTarget, text_size=size.tiny, bgcolor=color.new(#1a1a2e, 0))
+    
+    float dist = na(nextTarget) ? na : nextTarget - close
+    dt = na(dist) ? "—" : str.tostring(dist, "+#.#;-#.#") + " pts"
+    table.cell(dash, 0, 13, "Distance", text_color=color.gray, text_size=size.tiny, bgcolor=color.new(#1a1a2e, 0))
+    table.cell(dash, 1, 13, dt, text_color=color.white, text_size=size.tiny, bgcolor=color.new(#1a1a2e, 0))
+
+// ═══════════════════════════════════════════════════════════════════════════
+// BACKGROUND
+// ═══════════════════════════════════════════════════════════════════════════
+bgCol = close > r2 ? color.new(colResistance, 95) : close > r1 ? color.new(colResistance, 97) : close < s2 ? color.new(colSupport, 95) : close < s1 ? color.new(colSupport, 97) : na
+bgcolor(bgCol)

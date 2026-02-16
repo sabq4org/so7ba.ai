@@ -1,0 +1,135 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+  <meta charset="UTF-8">
+  <style>
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+    
+    body {
+      width: 320px;
+      font-family: -apple-system, 'Segoe UI', Tahoma, sans-serif;
+      background: #0a0a0f;
+      color: #f4f4f5;
+      direction: rtl;
+    }
+    
+    .header {
+      padding: 16px;
+      background: linear-gradient(135deg, #111116, #18181d);
+      border-bottom: 1px solid rgba(255,255,255,0.06);
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+    
+    .header h1 {
+      font-size: 16px;
+      font-weight: 700;
+    }
+    
+    .header .subtitle {
+      font-size: 11px;
+      color: #71717a;
+    }
+    
+    .markets {
+      padding: 8px;
+    }
+    
+    .market-card {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 14px 12px;
+      margin: 4px 0;
+      border-radius: 10px;
+      background: #111116;
+      border: 1px solid rgba(255,255,255,0.04);
+      transition: background 0.2s;
+    }
+    
+    .market-card:hover {
+      background: #18181d;
+    }
+    
+    .market-info {
+      display: flex;
+      flex-direction: column;
+      gap: 2px;
+    }
+    
+    .market-name {
+      font-size: 14px;
+      font-weight: 600;
+    }
+    
+    .market-label {
+      font-size: 11px;
+      color: #71717a;
+    }
+    
+    .market-data {
+      text-align: left;
+      display: flex;
+      flex-direction: column;
+      align-items: flex-end;
+      gap: 2px;
+    }
+    
+    .market-price {
+      font-size: 16px;
+      font-weight: 700;
+      font-variant-numeric: tabular-nums;
+    }
+    
+    .market-change {
+      font-size: 12px;
+      font-weight: 600;
+      padding: 2px 8px;
+      border-radius: 6px;
+      font-variant-numeric: tabular-nums;
+    }
+    
+    .up .market-price { color: #34A853; }
+    .up .market-change { background: rgba(52,168,83,0.15); color: #34A853; }
+    
+    .down .market-price { color: #EA4335; }
+    .down .market-change { background: rgba(234,67,53,0.15); color: #EA4335; }
+    
+    .footer {
+      padding: 10px 16px;
+      text-align: center;
+      font-size: 10px;
+      color: #52525b;
+      border-top: 1px solid rgba(255,255,255,0.04);
+    }
+    
+    .loading {
+      text-align: center;
+      padding: 40px;
+      color: #71717a;
+    }
+    
+    .emoji { font-size: 20px; }
+  </style>
+</head>
+<body>
+  <div class="header">
+    <span class="emoji">📊</span>
+    <div>
+      <h1>سبق أسواق</h1>
+      <div class="subtitle">مؤشرات حية — تحديث كل دقيقة</div>
+    </div>
+  </div>
+  
+  <div class="markets" id="markets">
+    <div class="loading">جاري التحميل...</div>
+  </div>
+  
+  <div class="footer">
+    صُحبة 🧠🤝 — مساعد أبو محمد
+  </div>
+
+  <script src="popup.js"></script>
+</body>
+</html>

@@ -1,0 +1,27 @@
+{
+  "manifest_version": 3,
+  "name": "سبق أسواق - Market Ticker",
+  "version": "1.0.0",
+  "description": "مؤشرات الأسواق الحية في شريط المتصفح — S&P 500, Gold, Oil, TASI",
+  "permissions": ["alarms", "storage"],
+  "host_permissions": [
+    "https://query1.finance.yahoo.com/*",
+    "https://www.google.com/finance/*"
+  ],
+  "background": {
+    "service_worker": "background.js"
+  },
+  "action": {
+    "default_popup": "popup.html",
+    "default_icon": {
+      "16": "icons/icon16.png",
+      "48": "icons/icon48.png",
+      "128": "icons/icon128.png"
+    }
+  },
+  "icons": {
+    "16": "icons/icon16.png",
+    "48": "icons/icon48.png",
+    "128": "icons/icon128.png"
+  }
+}

@@ -1,0 +1,314 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>عاجل — صفحة الخبر</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Kufi+Arabic:wght@400;500;600;700;800;900&family=Noto+Sans+Arabic:wght@400;500;600;700&family=Noto+Naskh+Arabic:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        ajel: { red: '#E31837', redDark: '#B8132D', black: '#1A1A1A', dark: '#111111', gray: '#F5F5F5', grayMed: '#E0E0E0', grayText: '#6B7280' }
+                    },
+                    fontFamily: { kufi: ['Noto Kufi Arabic', 'sans-serif'], sans: ['Noto Sans Arabic', 'sans-serif'], naskh: ['Noto Naskh Arabic', 'sans-serif'] }
+                }
+            }
+        }
+    </script>
+    <style>
+        * { font-family: 'Noto Sans Arabic', sans-serif; }
+        .font-kufi { font-family: 'Noto Kufi Arabic', sans-serif; }
+        .font-naskh { font-family: 'Noto Naskh Arabic', sans-serif; }
+        .accent-line { position: relative; }
+        .accent-line::after { content:''; position:absolute; bottom:-2px; right:0; width:0; height:3px; background:#E31837; transition:width 0.3s ease; }
+        .accent-line:hover::after { width:100%; }
+        @keyframes pulse-live { 0%,100%{opacity:1} 50%{opacity:0.4} }
+        .live-pulse { animation: pulse-live 1.5s ease-in-out infinite; }
+        .article-body p { margin-bottom: 1.5rem; line-height: 2; }
+        .article-body h2 { font-family: 'Noto Kufi Arabic', sans-serif; font-weight: 700; font-size: 1.25rem; margin: 2rem 0 1rem; color: #1A1A1A; }
+        .article-body blockquote { border-right: 4px solid #E31837; padding: 1rem 1.5rem; margin: 1.5rem 0; background: #F5F5F5; border-radius: 0.5rem; font-style: italic; }
+    </style>
+</head>
+<body class="bg-white text-ajel-black">
+
+    <!-- TOP BAR -->
+    <div class="bg-ajel-dark text-white">
+        <div class="max-w-7xl mx-auto px-4 py-2 flex items-center justify-between text-sm">
+            <div class="flex items-center gap-6">
+                <span class="text-ajel-grayText">السبت 14 فبراير 2026</span>
+                <span class="text-ajel-grayText">|</span>
+                <span class="text-ajel-grayText">16 شعبان 1447</span>
+            </div>
+            <div class="flex items-center gap-4">
+                <a href="#" class="text-ajel-grayText hover:text-white transition">تسجيل دخول</a>
+                <a href="#" class="text-ajel-grayText hover:text-white transition">English</a>
+            </div>
+        </div>
+    </div>
+
+    <!-- HEADER -->
+    <header class="bg-white border-b border-ajel-grayMed sticky top-0 z-50 shadow-sm">
+        <div class="max-w-7xl mx-auto px-4">
+            <div class="flex items-center justify-between h-16">
+                <a href="index.html" class="flex items-center gap-3">
+                    <div class="bg-ajel-red rounded-lg w-10 h-10 flex items-center justify-center">
+                        <div class="flex gap-0.5">
+                            <div class="w-1 h-5 bg-white rounded-full"></div>
+                            <div class="w-1 h-4 bg-white rounded-full"></div>
+                            <div class="w-1 h-5 bg-white rounded-full"></div>
+                        </div>
+                    </div>
+                    <div>
+                        <h1 class="font-kufi text-2xl font-900 text-ajel-black leading-none">عاجل</h1>
+                        <span class="text-[10px] tracking-[0.2em] text-ajel-grayText font-medium">AJEL.SA</span>
+                    </div>
+                </a>
+                <nav class="hidden lg:flex items-center gap-1">
+                    <a href="index.html" class="accent-line px-3 py-2 text-sm font-medium text-ajel-black hover:text-ajel-red transition">الرئيسية</a>
+                    <a href="category.html" class="accent-line px-3 py-2 text-sm font-semibold text-ajel-red">محلي</a>
+                    <a href="#" class="accent-line px-3 py-2 text-sm font-medium text-ajel-black hover:text-ajel-red transition">دولي</a>
+                    <a href="#" class="accent-line px-3 py-2 text-sm font-medium text-ajel-black hover:text-ajel-red transition">اقتصاد</a>
+                    <a href="#" class="accent-line px-3 py-2 text-sm font-medium text-ajel-black hover:text-ajel-red transition">رياضة</a>
+                    <a href="#" class="accent-line px-3 py-2 text-sm font-medium text-ajel-black hover:text-ajel-red transition">تقنية</a>
+                    <a href="#" class="accent-line px-3 py-2 text-sm font-medium text-ajel-black hover:text-ajel-red transition">ثقافة</a>
+                </nav>
+                <button class="lg:hidden text-ajel-black">
+                    <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16"/></svg>
+                </button>
+            </div>
+        </div>
+    </header>
+
+    <!-- ARTICLE -->
+    <main class="max-w-7xl mx-auto px-4 mt-8">
+        <div class="grid grid-cols-1 lg:grid-cols-12 gap-10">
+            
+            <!-- Article Content -->
+            <article class="lg:col-span-8">
+                <!-- Breadcrumb -->
+                <nav class="flex items-center gap-2 text-sm text-ajel-grayText mb-4">
+                    <a href="index.html" class="hover:text-ajel-red transition">الرئيسية</a>
+                    <span>/</span>
+                    <a href="category.html" class="hover:text-ajel-red transition">محلي</a>
+                    <span>/</span>
+                    <span class="text-ajel-black">الخبر</span>
+                </nav>
+
+                <!-- Category + Live badge -->
+                <div class="flex items-center gap-3 mb-4">
+                    <a href="category.html" class="bg-ajel-red text-white text-xs font-bold px-3 py-1 rounded-full hover:bg-ajel-redDark transition">محلي</a>
+                    <span class="flex items-center gap-1.5 text-ajel-red text-xs font-bold">
+                        <span class="w-2 h-2 bg-ajel-red rounded-full live-pulse"></span>
+                        تحديث مستمر
+                    </span>
+                </div>
+
+                <!-- Title -->
+                <h1 class="font-kufi text-3xl lg:text-4xl font-bold leading-[1.6] mb-4">
+                    مجلس الوزراء يعتمد استراتيجية التحول الرقمي الشاملة للمملكة العربية السعودية 2030
+                </h1>
+
+                <!-- Subtitle -->
+                <p class="text-lg text-ajel-grayText leading-relaxed mb-6">
+                    القرار يتضمن تخصيص 50 مليار ريال لدعم البنية التحتية الرقمية وتطوير الخدمات الحكومية الإلكترونية خلال السنوات الخمس القادمة
+                </p>
+
+                <!-- Meta -->
+                <div class="flex flex-wrap items-center gap-4 pb-6 border-b border-ajel-grayMed/50 mb-6">
+                    <div class="flex items-center gap-2">
+                        <div class="w-8 h-8 rounded-full bg-ajel-gray flex items-center justify-center">
+                            <span class="font-kufi text-xs font-bold text-ajel-grayText">م.أ</span>
+                        </div>
+                        <div>
+                            <span class="text-sm font-semibold">محمد الأحمدي</span>
+                            <span class="block text-xs text-ajel-grayText">مراسل الرياض</span>
+                        </div>
+                    </div>
+                    <div class="flex items-center gap-4 text-xs text-ajel-grayText">
+                        <span>14 فبراير 2026</span>
+                        <span>•</span>
+                        <span>منذ 35 دقيقة</span>
+                        <span>•</span>
+                        <span>5 دقائق قراءة</span>
+                    </div>
+                    <!-- Share -->
+                    <div class="flex items-center gap-2 mr-auto">
+                        <button class="w-8 h-8 rounded-full bg-ajel-gray hover:bg-ajel-red hover:text-white text-ajel-grayText flex items-center justify-center transition text-sm">𝕏</button>
+                        <button class="w-8 h-8 rounded-full bg-ajel-gray hover:bg-green-600 hover:text-white text-ajel-grayText flex items-center justify-center transition text-sm">📱</button>
+                        <button class="w-8 h-8 rounded-full bg-ajel-gray hover:bg-blue-600 hover:text-white text-ajel-grayText flex items-center justify-center transition text-sm">🔗</button>
+                    </div>
+                </div>
+
+                <!-- Featured Image -->
+                <figure class="mb-8">
+                    <div class="rounded-xl overflow-hidden aspect-[16/9]">
+                        <img src="https://images.unsplash.com/photo-1466611653911-95081537e5b7?w=1000&h=560&fit=crop" alt="" class="w-full h-full object-cover">
+                    </div>
+                    <figcaption class="text-xs text-ajel-grayText mt-2 text-center">صورة تعبيرية — المصدر: واس</figcaption>
+                </figure>
+
+                <!-- Article Body -->
+                <div class="article-body text-lg leading-[2] text-ajel-black/90 font-naskh max-w-none">
+                    <p>
+                        اعتمد مجلس الوزراء في جلسته المنعقدة اليوم برئاسة خادم الحرمين الشريفين الملك سلمان بن عبدالعزيز آل سعود — حفظه الله — الاستراتيجية الوطنية الشاملة للتحول الرقمي، والتي تهدف إلى تحويل المملكة إلى واحدة من أكثر الدول تقدماً في مجال التقنية والابتكار الرقمي على مستوى العالم.
+                    </p>
+
+                    <h2>تفاصيل الاستراتيجية</h2>
+
+                    <p>
+                        تتضمن الاستراتيجية تخصيص ميزانية قدرها 50 مليار ريال على مدى خمس سنوات، تُوجه لتطوير البنية التحتية الرقمية، ورقمنة الخدمات الحكومية، ودعم الشركات الناشئة في قطاع التقنية، إضافة إلى تأهيل الكوادر الوطنية في مجالات الذكاء الاصطناعي والأمن السيبراني والحوسبة السحابية.
+                    </p>
+
+                    <blockquote>
+                        «هذه الاستراتيجية تمثل نقلة نوعية في مسيرة التحول الرقمي للمملكة، وتؤكد التزامنا بتحقيق أهداف رؤية 2030 في بناء اقتصاد رقمي متنوع ومستدام» — وزير الاتصالات وتقنية المعلومات
+                    </blockquote>
+
+                    <p>
+                        وأوضح وزير الاتصالات وتقنية المعلومات أن الاستراتيجية ترتكز على خمسة محاور رئيسية تشمل: تطوير الحكومة الرقمية، وتمكين القطاع الخاص، وبناء القدرات الوطنية، وتعزيز الابتكار والبحث العلمي، وتطوير التشريعات والأنظمة الداعمة للتحول الرقمي.
+                    </p>
+
+                    <h2>أهداف طموحة</h2>
+
+                    <p>
+                        تستهدف الاستراتيجية رفع مساهمة الاقتصاد الرقمي في الناتج المحلي الإجمالي إلى 19.2% بحلول عام 2030، مقارنة بـ 12% حالياً، إضافة إلى توفير أكثر من 100 ألف وظيفة نوعية في القطاع التقني، وتأهيل 500 ألف متخصص في المجالات الرقمية.
+                    </p>
+
+                    <p>
+                        كما تتضمن الاستراتيجية إطلاق منصة وطنية موحدة للخدمات الحكومية الرقمية، وإنشاء مراكز بيانات سيادية، وتطوير شبكات الجيل السادس، ودعم 1000 شركة ناشئة في مجال التقنية خلال السنوات الخمس القادمة.
+                    </p>
+                </div>
+
+                <!-- Tags -->
+                <div class="flex flex-wrap gap-2 mt-8 pt-6 border-t border-ajel-grayMed/50">
+                    <span class="text-sm text-ajel-grayText ml-2">الوسوم:</span>
+                    <a href="#" class="px-3 py-1 bg-ajel-gray text-sm text-ajel-black rounded-full hover:bg-ajel-red hover:text-white transition">مجلس الوزراء</a>
+                    <a href="#" class="px-3 py-1 bg-ajel-gray text-sm text-ajel-black rounded-full hover:bg-ajel-red hover:text-white transition">تحول رقمي</a>
+                    <a href="#" class="px-3 py-1 bg-ajel-gray text-sm text-ajel-black rounded-full hover:bg-ajel-red hover:text-white transition">رؤية 2030</a>
+                    <a href="#" class="px-3 py-1 bg-ajel-gray text-sm text-ajel-black rounded-full hover:bg-ajel-red hover:text-white transition">تقنية</a>
+                </div>
+
+                <!-- Share Bar -->
+                <div class="flex items-center justify-between mt-6 p-4 bg-ajel-gray rounded-xl">
+                    <span class="font-kufi text-sm font-bold">شارك الخبر</span>
+                    <div class="flex items-center gap-3">
+                        <button class="px-4 py-2 bg-ajel-black text-white text-sm rounded-lg hover:bg-ajel-red transition flex items-center gap-2">
+                            <span>𝕏</span> تويتر
+                        </button>
+                        <button class="px-4 py-2 bg-green-600 text-white text-sm rounded-lg hover:bg-green-700 transition flex items-center gap-2">
+                            📱 واتساب
+                        </button>
+                        <button class="px-4 py-2 bg-blue-600 text-white text-sm rounded-lg hover:bg-blue-700 transition flex items-center gap-2">
+                            🔗 نسخ الرابط
+                        </button>
+                    </div>
+                </div>
+
+                <!-- Related News -->
+                <div class="mt-10">
+                    <div class="flex items-center gap-3 mb-6">
+                        <div class="w-1 h-8 bg-ajel-red rounded-full"></div>
+                        <h2 class="font-kufi text-xl font-bold">أخبار ذات صلة</h2>
+                    </div>
+                    <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
+                        <a href="#" class="flex gap-4 p-3 rounded-xl border border-ajel-grayMed/40 hover:border-ajel-red/30 hover:shadow-md transition">
+                            <div class="rounded-lg w-28 h-20 shrink-0 overflow-hidden">
+                                <img src="https://images.unsplash.com/photo-1486406146926-c627a92ad1ab?w=200&h=140&fit=crop" alt="" class="w-full h-full object-cover">
+                            </div>
+                            <div>
+                                <h3 class="font-kufi text-sm font-bold leading-relaxed line-clamp-2">البنك المركزي يعلن عن تحديثات جديدة في نظام المدفوعات الرقمية</h3>
+                                <span class="text-ajel-grayText text-xs mt-1 block">منذ 3 ساعات</span>
+                            </div>
+                        </a>
+                        <a href="#" class="flex gap-4 p-3 rounded-xl border border-ajel-grayMed/40 hover:border-ajel-red/30 hover:shadow-md transition">
+                            <div class="rounded-lg w-28 h-20 shrink-0 overflow-hidden">
+                                <img src="https://images.unsplash.com/photo-1504384308090-c894fdcc538d?w=200&h=140&fit=crop" alt="" class="w-full h-full object-cover">
+                            </div>
+                            <div>
+                                <h3 class="font-kufi text-sm font-bold leading-relaxed line-clamp-2">وزارة الاتصالات تطلق برنامج تأهيل 10 آلاف مطور سعودي</h3>
+                                <span class="text-ajel-grayText text-xs mt-1 block">منذ 5 ساعات</span>
+                            </div>
+                        </a>
+                    </div>
+                </div>
+            </article>
+
+            <!-- Sidebar -->
+            <aside class="lg:col-span-4">
+                <!-- Trending -->
+                <div class="sticky top-20">
+                    <div class="bg-ajel-gray rounded-xl p-5">
+                        <div class="flex items-center gap-3 mb-5">
+                            <div class="w-1 h-6 bg-ajel-red rounded-full"></div>
+                            <h3 class="font-kufi text-lg font-bold">الأكثر قراءة</h3>
+                        </div>
+                        <div class="space-y-0">
+                            <a href="#" class="flex items-start gap-3 py-3 border-b border-ajel-grayMed/50 group">
+                                <span class="font-kufi text-2xl font-900 text-ajel-red/20 group-hover:text-ajel-red/50 transition leading-none mt-1">01</span>
+                                <div>
+                                    <h4 class="font-kufi text-sm font-bold leading-relaxed group-hover:text-ajel-red transition line-clamp-2">السعودية تتصدر مؤشر التنافسية الرقمية في المنطقة</h4>
+                                    <span class="text-ajel-grayText text-xs">منذ ساعتين</span>
+                                </div>
+                            </a>
+                            <a href="#" class="flex items-start gap-3 py-3 border-b border-ajel-grayMed/50 group">
+                                <span class="font-kufi text-2xl font-900 text-ajel-red/20 group-hover:text-ajel-red/50 transition leading-none mt-1">02</span>
+                                <div>
+                                    <h4 class="font-kufi text-sm font-bold leading-relaxed group-hover:text-ajel-red transition line-clamp-2">تحديثات جديدة في نظام حساب المواطن</h4>
+                                    <span class="text-ajel-grayText text-xs">منذ 3 ساعات</span>
+                                </div>
+                            </a>
+                            <a href="#" class="flex items-start gap-3 py-3 border-b border-ajel-grayMed/50 group">
+                                <span class="font-kufi text-2xl font-900 text-ajel-red/20 group-hover:text-ajel-red/50 transition leading-none mt-1">03</span>
+                                <div>
+                                    <h4 class="font-kufi text-sm font-bold leading-relaxed group-hover:text-ajel-red transition line-clamp-2">الأرصاد تحذر من أمطار على عدة مناطق</h4>
+                                    <span class="text-ajel-grayText text-xs">منذ 4 ساعات</span>
+                                </div>
+                            </a>
+                            <a href="#" class="flex items-start gap-3 py-3 border-b border-ajel-grayMed/50 group">
+                                <span class="font-kufi text-2xl font-900 text-ajel-red/20 group-hover:text-ajel-red/50 transition leading-none mt-1">04</span>
+                                <div>
+                                    <h4 class="font-kufi text-sm font-bold leading-relaxed group-hover:text-ajel-red transition line-clamp-2">موعد الاختبارات النهائية للفصل الثاني</h4>
+                                    <span class="text-ajel-grayText text-xs">منذ 5 ساعات</span>
+                                </div>
+                            </a>
+                            <a href="#" class="flex items-start gap-3 py-3 group">
+                                <span class="font-kufi text-2xl font-900 text-ajel-red/20 group-hover:text-ajel-red/50 transition leading-none mt-1">05</span>
+                                <div>
+                                    <h4 class="font-kufi text-sm font-bold leading-relaxed group-hover:text-ajel-red transition line-clamp-2">مهرجان البحر الأحمر السينمائي في جدة</h4>
+                                    <span class="text-ajel-grayText text-xs">منذ 6 ساعات</span>
+                                </div>
+                            </a>
+                        </div>
+                    </div>
+
+                    <!-- Newsletter -->
+                    <div class="mt-6 bg-ajel-dark rounded-xl p-5 text-white">
+                        <h3 class="font-kufi text-lg font-bold mb-2">📬 النشرة البريدية</h3>
+                        <p class="text-sm text-ajel-grayText mb-4">احصل على أهم الأخبار في بريدك يومياً</p>
+                        <input type="email" placeholder="بريدك الإلكتروني" class="w-full px-4 py-2.5 bg-white/10 border border-white/20 rounded-lg text-sm placeholder:text-ajel-grayText focus:outline-none focus:border-ajel-red mb-3">
+                        <button class="w-full py-2.5 bg-ajel-red text-white font-bold text-sm rounded-lg hover:bg-ajel-redDark transition">اشتراك</button>
+                    </div>
+                </div>
+            </aside>
+        </div>
+    </main>
+
+    <!-- FOOTER -->
+    <footer class="bg-ajel-dark mt-16">
+        <div class="max-w-7xl mx-auto px-4 py-10">
+            <div class="flex flex-col sm:flex-row items-center justify-between gap-4">
+                <div class="flex items-center gap-3">
+                    <div class="bg-ajel-red rounded-lg w-8 h-8 flex items-center justify-center">
+                        <div class="flex gap-0.5"><div class="w-0.5 h-3 bg-white rounded-full"></div><div class="w-0.5 h-2.5 bg-white rounded-full"></div><div class="w-0.5 h-3 bg-white rounded-full"></div></div>
+                    </div>
+                    <span class="font-kufi text-lg font-bold text-white">عاجل</span>
+                </div>
+                <span class="text-ajel-grayText text-xs">© 2026 عاجل — جميع الحقوق محفوظة</span>
+            </div>
+        </div>
+    </footer>
+
+</body>
+</html>
