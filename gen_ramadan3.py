@@ -2,7 +2,7 @@ from google import genai
 from google.genai import types
 import time
 
-client = genai.Client(api_key="AIzaSyDXUmfShZDCqPlqO1jHd_BdhGdGBu4Y1ck")
+client = genai.Client(api_key="[REDACTED:GOOGLE_API_KEY_2]")
 
 models_to_try = [
     "gemini-2.5-flash-image",

@@ -10,10 +10,10 @@
 ### الخطوة 1: فحص الحسابات الثلاثة
 ```bash
 # Gmail الرئيسي
-GOG_KEYRING_PASSWORD=simplepass123 gog gmail search "is:unread newer_than:1h" --max 10 --account sabq4u@gmail.com --plain
+GOG_KEYRING_PASSWORD=[REDACTED:KEYRING_PW] gog gmail search "is:unread newer_than:1h" --max 10 --account sabq4u@gmail.com --plain
 
 # Gmail صُحبة
-GOG_KEYRING_PASSWORD=simplepass123 gog gmail search "is:unread newer_than:1h" --max 10 --account so7ba.ai@gmail.com --plain
+GOG_KEYRING_PASSWORD=[REDACTED:KEYRING_PW] gog gmail search "is:unread newer_than:1h" --max 10 --account so7ba.ai@gmail.com --plain
 
 # iCloud (sabq@me.com)
 himalaya list --account sabq@me.com --new
@@ -22,7 +22,7 @@ himalaya list --account sabq@me.com --new
 ### الخطوة 2: لكل إيميل جديد مهم
 ```bash
 # قراءة المحتوى
-GOG_KEYRING_PASSWORD=simplepass123 gog gmail get [MESSAGE_ID] --account [ACCOUNT] --plain
+GOG_KEYRING_PASSWORD=[REDACTED:KEYRING_PW] gog gmail get [MESSAGE_ID] --account [ACCOUNT] --plain
 ```
 
 ### الخطوة 3: التصنيف والتلخيص
@@ -73,7 +73,7 @@ message(action=send, channel=telegram, target=-1003864486073, message="...")
 3. أنتظر الموافقة
 4. بعد التعميد → أنفذ فوراً:
    ```bash
-   GOG_KEYRING_PASSWORD=simplepass123 gog gmail send \
+   GOG_KEYRING_PASSWORD=[REDACTED:KEYRING_PW] gog gmail send \
      --to "[email]" \
      --subject "[subject]" \
      --body "[body]" \

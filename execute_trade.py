@@ -22,7 +22,7 @@ MAX_POSITION_PCT = 0.20
 MAX_OPEN_TRADES = 3
 MAX_SPREAD_PCT = 0.20  # أقصى spread مقبول
 
-POLYGON_KEY = 'pbkeHwxpVSvr6tOr1kUH__UIUZzVlwUy'
+POLYGON_KEY = '[REDACTED:POLYGON_KEY]'
 POLYGON_BASE = 'https://api.polygon.io'
 TIMEOUT = 15
 

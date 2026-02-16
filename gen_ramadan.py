@@ -2,7 +2,7 @@ from google import genai
 from google.genai import types
 import base64
 
-client = genai.Client(api_key="AIzaSyDXUmfShZDCqPlqO1jHd_BdhGdGBu4Y1ck")
+client = genai.Client(api_key="[REDACTED:GOOGLE_API_KEY_2]")
 
 # Try Imagen first
 try:

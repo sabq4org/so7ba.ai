@@ -26,7 +26,7 @@ SL_PCT = -0.30
 DTE_EXIT = 2
 DELTA_ALERT_THRESHOLD = 0.10  # تنبيه إذا delta تغير أكثر من 0.10
 
-POLYGON_KEY = 'pbkeHwxpVSvr6tOr1kUH__UIUZzVlwUy'
+POLYGON_KEY = '[REDACTED:POLYGON_KEY]'
 POLYGON_BASE = 'https://api.polygon.io'
 TIMEOUT = 15
 

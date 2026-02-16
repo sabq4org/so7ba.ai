@@ -12,10 +12,10 @@ import traceback
 from datetime import datetime, timedelta
 
 # === إعدادات ===
-POLYGON_KEY = 'pbkeHwxpVSvr6tOr1kUH__UIUZzVlwUy'
+POLYGON_KEY = '[REDACTED:POLYGON_KEY]'
 POLYGON_BASE = 'https://api.polygon.io'
-FINVIZ_AUTH = '5465b143-daa4-493b-94a2-dca522d7eea0'
-UW_TOKEN = '0673284e-7e64-4d63-8574-fd8cee0f1711'
+FINVIZ_AUTH = '[REDACTED:FINVIZ_AUTH]'
+UW_TOKEN = '[REDACTED:UW_KEY]'
 UW_BASE = 'https://api.unusualwhales.com'
 UW_HEADERS = {'Authorization': f'Bearer {UW_TOKEN}', 'Accept': 'application/json'}
 

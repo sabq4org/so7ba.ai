@@ -1,7 +1,7 @@
 from google import genai
 from google.genai import types
 
-client = genai.Client(api_key="AIzaSyDXUmfShZDCqPlqO1jHd_BdhGdGBu4Y1ck")
+client = genai.Client(api_key="[REDACTED:GOOGLE_API_KEY_2]")
 
 prompt = "Create a stunning professional Ramadan Kareem greeting card. Landscape orientation 16:9. Dark navy blue night sky background with golden crescent moon, elegant hanging traditional lanterns (fawanees) with warm glow, Islamic geometric arabesque patterns, scattered golden stars. Beautiful Arabic calligraphy text 'رمضان كريم' prominently in gold, with 'كل عام وأنتم بخير' below in white. Luxurious, elegant, high quality design suitable for sharing."
 

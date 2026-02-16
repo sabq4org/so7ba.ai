@@ -14,15 +14,15 @@
 #### 1. تشغيل السكانرز (Finviz)
 ```bash
 # Bullish Scanner
-curl -s "https://elite.finviz.com/export.ashx?v=111&f=cap_midover,exch_nasd|nyse,sh_avgvol_o2000,sh_instown_o50,sh_opt_option,sh_price_20to300,sh_relvol_o1.5,ta_beta_1.2to,ta_change_u1,ta_sma20_pa,ta_volatility_wo3&ft=4&o=volume&auth=5465b143-daa4-493b-94a2-dca522d7eea0"
+curl -s "https://elite.finviz.com/export.ashx?v=111&f=cap_midover,exch_nasd|nyse,sh_avgvol_o2000,sh_instown_o50,sh_opt_option,sh_price_20to300,sh_relvol_o1.5,ta_beta_1.2to,ta_change_u1,ta_sma20_pa,ta_volatility_wo3&ft=4&o=volume&auth=[REDACTED:FINVIZ_AUTH]"
 
 # Bearish Scanner
-curl -s "https://elite.finviz.com/export.ashx?v=111&f=cap_midover,exch_nasd|nyse,sh_avgvol_o2000,sh_instown_o50,sh_opt_option,sh_price_20to300,sh_relvol_o1.5,ta_beta_1.2to,ta_change_d1,ta_sma20_pb,ta_volatility_wo3&ft=4&o=volume&auth=5465b143-daa4-493b-94a2-dca522d7eea0"
+curl -s "https://elite.finviz.com/export.ashx?v=111&f=cap_midover,exch_nasd|nyse,sh_avgvol_o2000,sh_instown_o50,sh_opt_option,sh_price_20to300,sh_relvol_o1.5,ta_beta_1.2to,ta_change_d1,ta_sma20_pb,ta_volatility_wo3&ft=4&o=volume&auth=[REDACTED:FINVIZ_AUTH]"
 ```
 
 #### 2. فحص Flow (Unusual Whales)
 ```bash
-AUTH="Authorization: Bearer 0673284e-7e64-4d63-8574-fd8cee0f1711"
+AUTH="Authorization: Bearer [REDACTED:UW_KEY]"
 
 # Smart Money Flow
 curl -s -H "$AUTH" "https://api.unusualwhales.com/api/option-trades/flow-alerts?min_premium=500000&limit=20"

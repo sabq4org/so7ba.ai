@@ -6,7 +6,7 @@ import requests
 import json
 from datetime import datetime
 
-POLYGON_KEY = "pbkeHwxpVSvr6tOr1kUH__UIUZzVlwUy"
+POLYGON_KEY = "[REDACTED:POLYGON_KEY]"
 SYMBOL = "O:SPXW260213C06900000"
 
 def get_option_quote():

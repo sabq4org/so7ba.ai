@@ -2,7 +2,7 @@ import requests
 import base64
 import json
 
-API_KEY = "AIzaSyDOFGtdan1z_OpMtv3DUjLe6OMEXJ4Ce8E"
+API_KEY = "[REDACTED:GOOGLE_API_KEY]"
 
 # Use Imagen 4 for the caricature
 url = f"https://generativelanguage.googleapis.com/v1beta/models/imagen-4.0-generate-001:predict?key={API_KEY}"

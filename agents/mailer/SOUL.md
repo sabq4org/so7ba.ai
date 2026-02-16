@@ -21,7 +21,7 @@
 ### 1. sabq4u@gmail.com (الرئيسي)
 - حساب أبو محمد الأساسي
 - بريد العمل + الشخصي
-- الأداة: `gog` (GOG_KEYRING_PASSWORD=simplepass123)
+- الأداة: `gog` (GOG_KEYRING_PASSWORD=[REDACTED:KEYRING_PW])
 
 ### 2. so7ba.ai@gmail.com (بريد صُحبة)
 - بريد الفريق الداخلي
@@ -82,10 +82,10 @@
 ### 1. فحص البريد (كل 10 دقائق)
 ```bash
 # Gmail الرئيسي
-GOG_KEYRING_PASSWORD=simplepass123 gog gmail search "is:unread newer_than:1h" --max 10 --account sabq4u@gmail.com --plain
+GOG_KEYRING_PASSWORD=[REDACTED:KEYRING_PW] gog gmail search "is:unread newer_than:1h" --max 10 --account sabq4u@gmail.com --plain
 
 # Gmail صُحبة
-GOG_KEYRING_PASSWORD=simplepass123 gog gmail search "is:unread newer_than:1h" --max 10 --account so7ba.ai@gmail.com --plain
+GOG_KEYRING_PASSWORD=[REDACTED:KEYRING_PW] gog gmail search "is:unread newer_than:1h" --max 10 --account so7ba.ai@gmail.com --plain
 
 # iCloud
 himalaya list --account sabq@me.com

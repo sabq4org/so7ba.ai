@@ -4,8 +4,8 @@
 import requests, json
 from datetime import datetime, timezone, timedelta
 
-UW_KEY = "0673284e-7e64-4d63-8574-fd8cee0f1711"
-POLY_KEY = "pbkeHwxpVSvr6tOr1kUH__UIUZzVlwUy"
+UW_KEY = "[REDACTED:UW_KEY]"
+POLY_KEY = "[REDACTED:POLYGON_KEY]"
 UW = "https://api.unusualwhales.com/api"
 HDR = {"Authorization": f"Bearer {UW_KEY}", "Accept": "application/json"}
 

@@ -8,7 +8,7 @@ import requests
 import json
 from datetime import datetime, timezone, timedelta
 
-POLYGON_KEY = 'pbkeHwxpVSvr6tOr1kUH__UIUZzVlwUy'
+POLYGON_KEY = '[REDACTED:POLYGON_KEY]'
 POLYGON_BASE = 'https://api.polygon.io'
 TIMEOUT = 15
 

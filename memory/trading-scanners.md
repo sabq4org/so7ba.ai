@@ -7,7 +7,7 @@
 ## 📡 الأدوات المتاحة
 
 ### 1. Finviz Elite API
-- **Auth Token:** `5465b143-daa4-493b-94a2-dca522d7eea0`
+- **Auth Token:** `[REDACTED:FINVIZ_AUTH]`
 - **Format:** CSV export
 - **اشتراك:** أبو سلمان (Elite)
 
@@ -45,7 +45,7 @@
 
 **API URL:**
 ```
-https://elite.finviz.com/export.ashx?v=111&f=cap_midover,exch_nasd|nyse,sh_avgvol_o2000,sh_instown_o50,sh_opt_option,sh_price_20to300,sh_relvol_o1.5,ta_beta_1.2to,ta_change_u1,ta_sma20_pa,ta_volatility_wo3,tad_0_close::close:d&ft=4&o=volume&auth=5465b143-daa4-493b-94a2-dca522d7eea0
+https://elite.finviz.com/export.ashx?v=111&f=cap_midover,exch_nasd|nyse,sh_avgvol_o2000,sh_instown_o50,sh_opt_option,sh_price_20to300,sh_relvol_o1.5,ta_beta_1.2to,ta_change_u1,ta_sma20_pa,ta_volatility_wo3,tad_0_close::close:d&ft=4&o=volume&auth=[REDACTED:FINVIZ_AUTH]
 ```
 
 **نتائج 10 فبراير (11 سهم):**
@@ -87,7 +87,7 @@ https://elite.finviz.com/export.ashx?v=111&f=cap_midover,exch_nasd|nyse,sh_avgvo
 
 **API URL:**
 ```
-https://elite.finviz.com/export.ashx?v=111&f=cap_midover,exch_nasd|nyse,sh_avgvol_o2000,sh_instown_o50,sh_opt_option,sh_price_20to300,sh_relvol_o1.5,ta_beta_1.2to3,ta_change_d1,ta_rsi_to40,ta_sma20_pb,ta_sma50_pb,ta_volatility_wo3,tad_0_close::close:d&ft=4&o=volume&auth=5465b143-daa4-493b-94a2-dca522d7eea0
+https://elite.finviz.com/export.ashx?v=111&f=cap_midover,exch_nasd|nyse,sh_avgvol_o2000,sh_instown_o50,sh_opt_option,sh_price_20to300,sh_relvol_o1.5,ta_beta_1.2to3,ta_change_d1,ta_rsi_to40,ta_sma20_pb,ta_sma50_pb,ta_volatility_wo3,tad_0_close::close:d&ft=4&o=volume&auth=[REDACTED:FINVIZ_AUTH]
 ```
 **تم اختباره:** ✅ يشتغل — سهم واحد (TPG) في يوم أخضر = منطقي
 
@@ -176,8 +176,8 @@ GET https://api.polygon.io/v2/last/trade/{OPTIONS_TICKER}?apiKey={KEY}
 
 ## 📰 Finviz News Export API
 
-- **v=3 (أخبار أسهم):** `https://elite.finviz.com/news_export.ashx?v=3&auth=5465b143-daa4-493b-94a2-dca522d7eea0`
-- **v=4 (أخبار إضافية):** `https://elite.finviz.com/news_export.ashx?v=4&auth=5465b143-daa4-493b-94a2-dca522d7eea0`
+- **v=3 (أخبار أسهم):** `https://elite.finviz.com/news_export.ashx?v=3&auth=[REDACTED:FINVIZ_AUTH]`
+- **v=4 (أخبار إضافية):** `https://elite.finviz.com/news_export.ashx?v=4&auth=[REDACTED:FINVIZ_AUTH]`
 - **Format:** CSV (Title, Source, Date, Url, Category, Ticker)
 - **v=6:** فاضي ❌ | بدون v: يرجع HTML ❌
 - **الاستخدام:** فلترة أخبار بالـ Ticker بعد السكانر
@@ -187,7 +187,7 @@ GET https://api.polygon.io/v2/last/trade/{OPTIONS_TICKER}?apiKey={KEY}
 
 ## 🐋 Unusual Whales API
 
-- **API Key:** `0673284e-7e64-4d63-8574-fd8cee0f1711`
+- **API Key:** `[REDACTED:UW_KEY]`
 - **اشتراك:** أبو سلمان
 - **Base URL:** `https://api.unusualwhales.com/api`
 - **Auth Header:** `Authorization: Bearer {KEY}`

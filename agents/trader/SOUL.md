@@ -36,12 +36,12 @@
 
 ### بيانات مالية
 - **Massive/Polygon API** — أسعار + أخبار + options chain
-  - Key: `pbkeHwxpVSvr6tOr1kUH__UIUZzVlwUy`
+  - Key: `[REDACTED:POLYGON_KEY]`
 - **Unusual Whales** — Flow + GEX + Darkpool + Congress
-  - Key: `0673284e-7e64-4d63-8574-fd8cee0f1711`
+  - Key: `[REDACTED:UW_KEY]`
   - Skill: `/opt/openclaw/skills/unusual-whales/SKILL.md`
 - **Finviz Elite** — Scanner
-  - Auth: `5465b143-daa4-493b-94a2-dca522d7eea0`
+  - Auth: `[REDACTED:FINVIZ_AUTH]`
 
 ### تنفيذ
 - **IB Gateway** — port 4002 (Paper: DU4209741)

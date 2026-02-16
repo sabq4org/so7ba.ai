@@ -269,10 +269,10 @@
 
 ## Gmail (gog)
 - sabq4u@gmail.com
-- GOG_KEYRING_PASSWORD: simplepass123
+- GOG_KEYRING_PASSWORD: [REDACTED:KEYRING_PW]
 
 ## Google AI / Imagen (توليد صور)
-- API Key: `AIzaSyDOFGtdan1z_OpMtv3DUjLe6OMEXJ4Ce8E`
+- API Key: `[REDACTED:GOOGLE_API_KEY]`
 - متاح: Imagen 4, Imagen 4 Ultra, Imagen 4 Fast, Gemini 3 Pro Image
 - تاريخ الإضافة: 2026-02-10
 
@@ -307,11 +307,11 @@
 
 ## Massive (سابقاً Polygon) — بيانات مالية
 - الخطة: Options Advanced — $199/شهر (Real-time + Greeks + IV + Options Chain كاملة)
-- API Key: `pbkeHwxpVSvr6tOr1kUH__UIUZzVlwUy`
+- API Key: `[REDACTED:POLYGON_KEY]`
 - يشتغل مع: SPY + أسهم (يومي/تاريخي)
 - ما يشتغل: I:SPX مباشرة، لحظي، snapshots
 - S3 Endpoint: https://files.massive.com
-- S3 Access Key ID: c86188e6-8a27-4e19-ab46-acc34b905c58
+- S3 Access Key ID: [REDACTED:S3_KEY]
 
 ## TradingView ✅ (2026-02-15)
 - حساب: so7ba_ai (Premium) — so7ba.ai@gmail.com
@@ -353,11 +353,11 @@
 
 ## أدوات التداول (APIs)
 ### Finviz Elite (Scanner + أخبار)
-- Auth: `5465b143-daa4-493b-94a2-dca522d7eea0`
+- Auth: `[REDACTED:FINVIZ_AUTH]`
 - Bullish/Bearish Scanner URLs في TRADING_PLAN.md
 
 ### Unusual Whales (Flow + GEX + Darkpool + Congress)
-- API Key: `0673284e-7e64-4d63-8574-fd8cee0f1711`
+- API Key: `[REDACTED:UW_KEY]`
 - Base URL: `https://api.unusualwhales.com/api`
 - Auth: `Authorization: Bearer {KEY}`
 - Skill: `/opt/openclaw/skills/unusual-whales/SKILL.md` (مثبّت 2026-02-14)
