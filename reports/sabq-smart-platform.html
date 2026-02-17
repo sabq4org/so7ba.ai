@@ -1,0 +1,702 @@
+<!DOCTYPE html>
+<html dir="rtl" lang="ar">
+<head>
+<meta charset="UTF-8">
+<style>
+@import url('https://fonts.googleapis.com/css2?family=Cairo:wght@300;400;600;700;800;900&display=swap');
+
+@page {
+    size: A4;
+    margin: 2.5cm 2cm 2.5cm 2cm;
+    @bottom-center {
+        content: counter(page);
+        font-family: 'Cairo', sans-serif;
+        font-size: 10pt;
+        color: #888;
+    }
+}
+
+* { box-sizing: border-box; }
+
+body {
+    font-family: 'Cairo', sans-serif;
+    font-size: 11.5pt;
+    line-height: 1.85;
+    color: #1a1a1a;
+    direction: rtl;
+    text-align: justify;
+}
+
+/* ===== COVER PAGE ===== */
+.cover {
+    page-break-after: always;
+    text-align: center;
+    padding-top: 80px;
+}
+
+.cover-badge {
+    display: inline-block;
+    background: linear-gradient(135deg, #1b5e20, #2e7d32);
+    color: white;
+    padding: 8px 30px;
+    border-radius: 30px;
+    font-size: 11pt;
+    font-weight: 600;
+    letter-spacing: 1px;
+    margin-bottom: 30px;
+}
+
+.cover h1 {
+    font-size: 36pt;
+    font-weight: 900;
+    color: #1b5e20;
+    margin: 15px 0 5px;
+    line-height: 1.3;
+}
+
+.cover .subtitle {
+    font-size: 16pt;
+    color: #2e7d32;
+    font-weight: 600;
+    margin-bottom: 15px;
+}
+
+.cover .tagline {
+    font-size: 13pt;
+    color: #555;
+    font-weight: 400;
+    max-width: 450px;
+    margin: 0 auto 40px;
+    line-height: 1.7;
+}
+
+.cover-divider {
+    width: 80px;
+    height: 4px;
+    background: #1b5e20;
+    margin: 0 auto 40px;
+    border-radius: 2px;
+}
+
+.cover-info {
+    background: #f1f8e9;
+    border: 1px solid #c5e1a5;
+    border-radius: 12px;
+    padding: 25px 35px;
+    display: inline-block;
+    text-align: center;
+    margin-top: 20px;
+}
+
+.cover-info .label {
+    font-size: 10pt;
+    color: #777;
+    margin-bottom: 3px;
+}
+
+.cover-info .value {
+    font-size: 12pt;
+    color: #1b5e20;
+    font-weight: 700;
+}
+
+.cover-langs {
+    margin-top: 30px;
+    display: flex;
+    justify-content: center;
+    gap: 15px;
+}
+
+.lang-badge {
+    background: #e8f5e9;
+    border: 1px solid #a5d6a7;
+    border-radius: 8px;
+    padding: 8px 20px;
+    font-size: 10pt;
+    font-weight: 600;
+    color: #2e7d32;
+}
+
+/* ===== HEADERS ===== */
+h2 {
+    font-size: 17pt;
+    font-weight: 800;
+    color: #1b5e20;
+    border-right: 5px solid #1b5e20;
+    padding-right: 12px;
+    margin-top: 35px;
+    margin-bottom: 15px;
+}
+
+h3 {
+    font-size: 13pt;
+    font-weight: 700;
+    color: #2e7d32;
+    margin-top: 20px;
+    margin-bottom: 8px;
+}
+
+h4 {
+    font-size: 12pt;
+    font-weight: 700;
+    color: #1b5e20;
+    margin-top: 15px;
+    margin-bottom: 5px;
+}
+
+/* ===== PARAGRAPHS ===== */
+p {
+    margin-bottom: 10px;
+    text-align: justify;
+}
+
+/* ===== FEATURE CARDS ===== */
+.feature-card {
+    background: #f9fbe7;
+    border-right: 4px solid #1b5e20;
+    border-radius: 0 10px 10px 0;
+    padding: 14px 18px;
+    margin: 12px 0;
+}
+
+.feature-card .title {
+    font-weight: 700;
+    color: #1b5e20;
+    font-size: 12pt;
+    margin-bottom: 4px;
+}
+
+.feature-card .desc {
+    font-size: 11pt;
+    color: #333;
+    line-height: 1.8;
+}
+
+/* ===== AI HIGHLIGHT ===== */
+.ai-highlight {
+    background: #e8f5e9;
+    border: 1px solid #a5d6a7;
+    border-radius: 10px;
+    padding: 15px 20px;
+    margin: 15px 0;
+}
+
+.ai-highlight .icon {
+    font-size: 14pt;
+    margin-left: 8px;
+}
+
+/* ===== SECTION BOX ===== */
+.section-box {
+    background: #fafafa;
+    border: 1px solid #e0e0e0;
+    border-radius: 10px;
+    padding: 18px 22px;
+    margin: 15px 0;
+}
+
+/* ===== TABLES ===== */
+table {
+    width: 100%;
+    border-collapse: collapse;
+    margin: 15px 0;
+    font-size: 10.5pt;
+}
+
+th {
+    background-color: #1b5e20;
+    color: white;
+    font-weight: 700;
+    padding: 10px 12px;
+    text-align: right;
+}
+
+td {
+    padding: 9px 12px;
+    border-bottom: 1px solid #e0e0e0;
+    text-align: right;
+    vertical-align: top;
+}
+
+tr:nth-child(even) {
+    background-color: #f5f5f5;
+}
+
+/* ===== STEPS ===== */
+.step {
+    display: flex;
+    gap: 12px;
+    margin: 12px 0;
+    align-items: flex-start;
+}
+
+.step-num {
+    background: #1b5e20;
+    color: white;
+    width: 32px;
+    height: 32px;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-weight: 800;
+    font-size: 13pt;
+    flex-shrink: 0;
+}
+
+.step-content {
+    flex: 1;
+}
+
+.step-title {
+    font-weight: 700;
+    color: #1b5e20;
+    font-size: 12pt;
+}
+
+.step-desc {
+    font-size: 11pt;
+    color: #444;
+    line-height: 1.7;
+}
+
+/* ===== TECH STACK ===== */
+.tech-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 10px;
+    margin: 15px 0;
+}
+
+.tech-item {
+    background: #f5f5f5;
+    border-radius: 8px;
+    padding: 10px 14px;
+    border-right: 3px solid #2e7d32;
+}
+
+.tech-item .tech-label {
+    font-weight: 700;
+    color: #1b5e20;
+    font-size: 10pt;
+}
+
+.tech-item .tech-value {
+    font-size: 10pt;
+    color: #555;
+}
+
+/* ===== HIGHLIGHT BOX ===== */
+.highlight {
+    background-color: #e8f5e9;
+    border-right: 4px solid #1b5e20;
+    padding: 15px 20px;
+    margin: 20px 0;
+    border-radius: 0 8px 8px 0;
+}
+
+.highlight strong { color: #1b5e20; }
+
+/* ===== ORANGE BOX ===== */
+.note-box {
+    background: #fff3e0;
+    border-right: 3px solid #e65100;
+    padding: 10px 15px;
+    margin: 10px 0;
+    border-radius: 0 6px 6px 0;
+    font-size: 11pt;
+}
+
+.note-box strong { color: #e65100; }
+
+/* ===== SIGNATURE ===== */
+.signature {
+    margin-top: 40px;
+    padding-top: 20px;
+    border-top: 2px solid #1b5e20;
+    text-align: right;
+}
+
+.signature .name {
+    font-size: 14pt;
+    font-weight: 800;
+    color: #1b5e20;
+}
+
+.signature .title {
+    font-size: 11pt;
+    color: #555;
+}
+
+/* ===== PAGE BREAKS ===== */
+.page-break { page-break-before: always; }
+
+/* ===== LIST ===== */
+ul {
+    padding-right: 20px;
+    margin: 8px 0;
+}
+
+li {
+    margin-bottom: 5px;
+    line-height: 1.7;
+}
+</style>
+</head>
+<body>
+
+<!-- ==================== COVER ==================== -->
+<div class="cover">
+    <div class="cover-badge">وثيقة تعريفية بالمشروع</div>
+    <h1>سبق الذكية</h1>
+    <div class="subtitle">منصة إخبارية مدعومة بالذكاء الاصطناعي</div>
+    <div class="cover-divider"></div>
+    <div class="tagline">
+        منظومة متكاملة تجمع بين أحدث تقنيات الذكاء الاصطناعي وأفضل ممارسات تجربة المستخدم لإعادة تعريف صناعة الأخبار الرقمية
+    </div>
+
+    <div class="cover-info">
+        <div class="label">ثلاثية اللغات</div>
+        <div class="value">🇸🇦 العربية &nbsp; | &nbsp; 🇬🇧 English &nbsp; | &nbsp; 🇵🇰 اردو</div>
+    </div>
+</div>
+
+<!-- ==================== تعريف المشروع ==================== -->
+<h2>تعريف المشروع</h2>
+
+<p>
+<strong>سبق الذكية</strong> هي منصة إخبارية متكاملة تعتمد على تقنيات الذكاء الاصطناعي المتقدمة لتقديم تجربة استهلاك أخبار فريدة ومبتكرة. تم تصميم المنصة لتكون ثلاثية اللغات، حيث تدعم اللغة العربية والإنجليزية والأردية، مع وجود لوحات تحكم ومحتوى مستقل لكل لغة.
+</p>
+
+<p>
+تهدف المنصة إلى إعادة تعريف طريقة تفاعل المستخدمين مع الأخبار من خلال الجمع بين التكنولوجيا الحديثة والذكاء الاصطناعي، لتوفير محتوى مخصص يناسب اهتمامات كل قارئ على حدة. كما توفر المنصة أدوات متطورة للمحررين والصحفيين لإنشاء ونشر وتوزيع المحتوى بكفاءة عالية.
+</p>
+
+<div class="ai-highlight">
+<strong>🎯 الرؤية:</strong> واجهة مستخدم عصرية تدعم RTL للعربية، مع دعم كامل للوضع المظلم والفاتح، وتصميم متجاوب يعمل بسلاسة على جميع الأجهزة.
+</div>
+
+<!-- ==================== المميزات والخدمات ==================== -->
+<h2>المميزات والخدمات</h2>
+
+<!-- أولاً: خدمات الذكاء الاصطناعي -->
+<h3>أولاً: خدمات الذكاء الاصطناعي 🤖</h3>
+<p>تعتمد سبق الذكية على محرك ذكاء اصطناعي متقدم يعمل بتقنية GPT-5 من OpenAI:</p>
+
+<div class="feature-card">
+    <div class="title">📝 التلخيص الذكي للمقالات</div>
+    <div class="desc">تحليل تلقائي للمقالات الطويلة وإنشاء ملخصات موجزة ودقيقة تحتفظ بأهم المعلومات والنقاط الرئيسية.</div>
+</div>
+
+<div class="feature-card">
+    <div class="title">🏷️ التصنيف الآلي للمحتوى</div>
+    <div class="desc">تحليل وتصنيف تلقائي لكل مقال ضمن الفئة المناسبة (سياسة، اقتصاد، رياضة، تقنية…).</div>
+</div>
+
+<div class="feature-card">
+    <div class="title">🎯 نظام التوصيات المخصصة</div>
+    <div class="desc">يتتبع سلوك القراءة ويحلل الاهتمامات عبر 11 إشارة سلوكية تشمل: القراءة، الإعجابات، الحفظ، المشاركة، التعليقات، متابعة التصنيفات والوسوم، النقر على الإشعارات، وقت القراءة، واستعلامات البحث.</div>
+</div>
+
+<div class="feature-card">
+    <div class="title">🦊 توليد المحتوى — نظام iFox</div>
+    <div class="desc">توليد مقالات كاملة وصور مصاحبة بالذكاء الاصطناعي، مع إمكانية النشر التلقائي وإرسال الإشعارات.</div>
+</div>
+
+<div class="feature-card">
+    <div class="title">🔍 التحليل العميق</div>
+    <div class="desc">تحليل متعدد النماذج للمحتوى يتيح فهماً أعمق للموضوعات والأحداث، مع إمكانية نشر التحليلات للجمهور.</div>
+</div>
+
+<div class="feature-card">
+    <div class="title">🛡️ مراقبة التعليقات الذكية</div>
+    <div class="desc">تحليل وتصنيف التعليقات إلى: آمنة، مشبوهة، سبام، أو ضارة — مع إجراءات تلقائية للحماية.</div>
+</div>
+
+<div class="feature-card">
+    <div class="title">✨ التنسيق الذكي للنصوص</div>
+    <div class="desc">إبراز تلقائي للكلمات والأسماء والأرقام المهمة في المحتوى العربي داخل المحرر.</div>
+</div>
+
+<div class="feature-card">
+    <div class="title">🎨 استوديو الصور بالذكاء الاصطناعي</div>
+    <div class="desc">توليد صور احترافية وإنفوجرافيك بدعم كامل للعربية واتجاه RTL، مع رفع تلقائي على التخزين السحابي.</div>
+</div>
+
+<!-- ثانياً: تجربة القراءة -->
+<div class="page-break"></div>
+<h3>ثانياً: تجربة القراءة 📖</h3>
+
+<div class="feature-card">
+    <div class="title">📱 نسخة السويب (Lite Feed)</div>
+    <div class="desc">تجربة تصفح عصرية مستوحاة من تيك توك — التنقل بالسحب للأعلى والأسفل مع تحميل سريع وصور محسنة وإعلانات مدمجة.</div>
+</div>
+
+<div class="feature-card">
+    <div class="title">🔊 الملخصات الصوتية</div>
+    <div class="desc">تحويل النص إلى كلام بتقنية ElevenLabs بصوت عربي طبيعي وواضح.</div>
+</div>
+
+<div class="feature-card">
+    <div class="title">🎙️ النشرات الإخبارية الصوتية</div>
+    <div class="desc">نظام بث صوتي شامل بـ 8 قوالب مختلفة، مع ملخصات يومية تلقائية ومحرر متقدم للمحتوى الصوتي.</div>
+</div>
+
+<div class="feature-card">
+    <div class="title">📋 الموجز اليومي</div>
+    <div class="desc">ملخص يومي مخصص لكل مستخدم بناءً على اهتماماته وسلوك قراءته.</div>
+</div>
+
+<div class="feature-card">
+    <div class="title">📖 أكمل القراءة</div>
+    <div class="desc">عرض المقالات غير المكتملة مع مؤشر تقدم وإمكانية الإخفاء.</div>
+</div>
+
+<div class="feature-card">
+    <div class="title">🌙 الوضع المظلم والفاتح</div>
+    <div class="desc">تبديل حسب تفضيل المستخدم أو إعدادات النظام.</div>
+</div>
+
+<div class="feature-card">
+    <div class="title">♿ إمكانية الوصول (WCAG 2.1 AA)</div>
+    <div class="desc">روابط تخطي، وسوم ARIA، بنية HTML دلالية، مساعد صوتي، ووضع خاص لذوي صعوبات القراءة.</div>
+</div>
+
+<!-- ثالثاً: الأخبار العاجلة -->
+<h3>ثالثاً: الأخبار العاجلة والإشعارات ⚡</h3>
+
+<div class="feature-card">
+    <div class="title">📡 مكتب الأخبار الحية</div>
+    <div class="desc">تغطية الأحداث لحظة بلحظة مع تحديثات فورية وشريط أخبار عاجلة.</div>
+</div>
+
+<div class="feature-card">
+    <div class="title">🔔 نظام الإشعارات الذكي</div>
+    <div class="desc">طبقة ذاكرة تمنع التكرار لـ 30 يوماً، تتبع سلوكي، خوارزمية تناقص زمني، حساب ديناميكي للاهتمامات. يقيس معدل النقر والفتح والإلغاء لتحسين مستمر.</div>
+</div>
+
+<!-- رابعاً: التوزيع -->
+<h3>رابعاً: التوزيع والمشاركة 🌐</h3>
+
+<div class="feature-card">
+    <div class="title">🔗 الروابط الذكية المختصرة</div>
+    <div class="desc">روابط قصيرة لكل مقال مع تتبع كامل للنقرات والتحليلات.</div>
+</div>
+
+<div class="feature-card">
+    <div class="title">📊 دعم Open Graph + SEO متعدد اللغات</div>
+    <div class="desc">تحسين كامل لظهور الروابط على منصات التواصل + توليد تلقائي لعناوين ووصف وكلمات مفتاحية محسنة.</div>
+</div>
+
+<div class="feature-card">
+    <div class="title">🤖 الزاحف الاجتماعي</div>
+    <div class="desc">Middleware يضمن عرض البيانات الوصفية الصحيحة لروبوتات منصات التواصل.</div>
+</div>
+
+<!-- خامساً: لوحة التحكم -->
+<div class="page-break"></div>
+<h3>خامساً: نظام المحررين ولوحة التحكم ⚙️</h3>
+
+<table>
+    <tr>
+        <th>الميزة</th>
+        <th>التفاصيل</th>
+    </tr>
+    <tr>
+        <td><strong>لوحة تحكم شاملة</strong></td>
+        <td>إدارة المقالات والتصنيفات والمستخدمين والتعليقات والوسائط</td>
+    </tr>
+    <tr>
+        <td><strong>محرر WYSIWYG متقدم</strong></td>
+        <td>تنسيق النصوص والصور والفيديو والروابط والألوان + زر التنسيق الذكي بالـ AI</td>
+    </tr>
+    <tr>
+        <td><strong>مكتبة الوسائط الذكية</strong></td>
+        <td>إدارة مركزية + استخراج تلقائي للكلمات المفتاحية بالذكاء الاصطناعي</td>
+    </tr>
+    <tr>
+        <td><strong>الجدولة الزمنية</strong></td>
+        <td>نشر المقالات في وقت محدد مسبقاً</td>
+    </tr>
+    <tr>
+        <td><strong>التحليلات المتقدمة</strong></td>
+        <td>قراءات، تفاعلات، مصادر الزيارات، أوقات الذروة، الأجهزة، المتصفحات</td>
+    </tr>
+    <tr>
+        <td><strong>تحليلات سلوك القارئ</strong></td>
+        <td>جلسات القراءة، خرائط حرارية، مسارات التنقل، مصادر الزيارات</td>
+    </tr>
+    <tr>
+        <td><strong>نظام الصلاحيات</strong></td>
+        <td>8 أدوار مختلفة مع صلاحيات مخصصة + نظام مصادقة هجين</td>
+    </tr>
+</table>
+
+<!-- سادساً: قنوات النشر -->
+<h3>سادساً: قنوات النشر المتعددة 📤</h3>
+
+<div class="feature-card">
+    <div class="title">💬 النشر عبر واتساب</div>
+    <div class="desc">تحويل رسائل واتساب إلى مقالات منشورة مع معالجة ذكية ودعم الصور المتعددة ونظام تجميع للرسائل.</div>
+</div>
+
+<div class="feature-card">
+    <div class="title">📧 النشر عبر البريد الإلكتروني</div>
+    <div class="desc">وكيل بريد ذكي يحلل الرسائل الواردة ويحولها تلقائياً إلى مقالات.</div>
+</div>
+
+<div class="feature-card">
+    <div class="title">🦊 بوابة iFox للذكاء الاصطناعي</div>
+    <div class="desc">بوابة مستقلة لإدارة المحتوى المولّد: لوحة تحكم، محرر ذكي، إدارة وسائط، جدولة، وتحليلات.</div>
+</div>
+
+<!-- سابعاً: خدمات إضافية -->
+<h3>سابعاً: خدمات إضافية ✨</h3>
+
+<div class="feature-card">
+    <div class="title">🎫 بطاقات Apple Wallet</div>
+    <div class="desc">بطاقات رقمية للصحفيين وبطاقات ولاء للقراء باستخدام PassKit.</div>
+</div>
+
+<div class="feature-card">
+    <div class="title">💰 نظام بيع المحتوى للناشرين</div>
+    <div class="desc">بيع المحتوى للمؤسسات الإعلامية بنظام رصيد مسبق مع تحليلات أداء شاملة.</div>
+</div>
+
+<div class="feature-card">
+    <div class="title">📚 نظام المحتوى غير الإخباري</div>
+    <div class="desc">منصة للمحتوى المتعمق بزوايا ومواضيع وكتل محتوى منظمة مع SEO ونظام سير عمل.</div>
+</div>
+
+<div class="feature-card">
+    <div class="title">📱 تطبيقات iOS و Android</div>
+    <div class="desc">تطبيقات أصلية من نفس قاعدة الكود عبر Capacitor.</div>
+</div>
+
+<!-- ==================== آلية العمل ==================== -->
+<div class="page-break"></div>
+<h2>آلية العمل</h2>
+<p>تعمل المنصة وفق منظومة متكاملة من سبع مراحل:</p>
+
+<div class="step">
+    <div class="step-num">1</div>
+    <div class="step-content">
+        <div class="step-title">إدخال المحتوى</div>
+        <div class="step-desc">يدخل المحتوى من مصادر متعددة: المحررين مباشرة، رسائل واتساب من الميدان، البريد الإلكتروني من المراسلين، أو نظام iFox آلياً.</div>
+    </div>
+</div>
+
+<div class="step">
+    <div class="step-num">2</div>
+    <div class="step-content">
+        <div class="step-title">المعالجة الذكية</div>
+        <div class="step-desc">محرك AI يعالج تلقائياً: تلخيص، تصنيف، SEO، كلمات مفتاحية، تحسين الصور بأحجام متعددة.</div>
+    </div>
+</div>
+
+<div class="step">
+    <div class="step-num">3</div>
+    <div class="step-content">
+        <div class="step-title">التخزين</div>
+        <div class="step-desc">PostgreSQL على Neon Serverless + Drizzle ORM + Google Cloud Storage للصور مع تحسين تلقائي.</div>
+    </div>
+</div>
+
+<div class="step">
+    <div class="step-num">4</div>
+    <div class="step-content">
+        <div class="step-title">التوصيل</div>
+        <div class="step-desc">ثلاث قنوات: الموقع الرئيسي، نسخة السويب الخفيفة، وتطبيقات iOS/Android.</div>
+    </div>
+</div>
+
+<div class="step">
+    <div class="step-num">5</div>
+    <div class="step-content">
+        <div class="step-title">التخصيص</div>
+        <div class="step-desc">نظام التوصيات يحلل سلوك كل مستخدم ويحسب اهتماماته ديناميكياً ويرشح المحتوى الأنسب.</div>
+    </div>
+</div>
+
+<div class="step">
+    <div class="step-num">6</div>
+    <div class="step-content">
+        <div class="step-title">الإشعارات</div>
+        <div class="step-desc">نظام ذكي بطبقة ذاكرة يمنع التكرار ويسجل التفاعل لتحسين مستمر.</div>
+    </div>
+</div>
+
+<div class="step">
+    <div class="step-num">7</div>
+    <div class="step-content">
+        <div class="step-title">التحليلات</div>
+        <div class="step-desc">تسجيل شامل: مشاهدات، وقت قراءة، معدل إكمال، مصادر، أداء إشعارات — لتحسين استراتيجية المحتوى باستمرار.</div>
+    </div>
+</div>
+
+<!-- ==================== البنية التقنية ==================== -->
+<div class="page-break"></div>
+<h2>البنية التقنية</h2>
+
+<table>
+    <tr>
+        <th>المكوّن</th>
+        <th>التقنية</th>
+    </tr>
+    <tr>
+        <td><strong>الواجهة الأمامية</strong></td>
+        <td>React 18 + Vite + TailwindCSS + Wouter + TanStack Query</td>
+    </tr>
+    <tr>
+        <td><strong>الخادم الخلفي</strong></td>
+        <td>Express.js + TypeScript</td>
+    </tr>
+    <tr>
+        <td><strong>قاعدة البيانات</strong></td>
+        <td>PostgreSQL (Neon Serverless) + Drizzle ORM</td>
+    </tr>
+    <tr>
+        <td><strong>الذكاء الاصطناعي</strong></td>
+        <td>OpenAI GPT-5 (معالجة لغوية) + ElevenLabs (TTS)</td>
+    </tr>
+    <tr>
+        <td><strong>التخزين السحابي</strong></td>
+        <td>Google Cloud Storage + تحسين WebP + أحجام متعددة</td>
+    </tr>
+    <tr>
+        <td><strong>المصادقة</strong></td>
+        <td>Passport.js + Google OAuth + Apple OAuth</td>
+    </tr>
+    <tr>
+        <td><strong>التطبيقات</strong></td>
+        <td>Capacitor (iOS + Android من نفس الكود)</td>
+    </tr>
+    <tr>
+        <td><strong>التواصل اللحظي</strong></td>
+        <td>Server-Sent Events (SSE)</td>
+    </tr>
+</table>
+
+<!-- ==================== الخلاصة ==================== -->
+<h2>الخلاصة</h2>
+
+<div class="highlight">
+<p>
+<strong>سبق الذكية</strong> ليست مجرد موقع إخباري تقليدي، بل منظومة متكاملة تجمع بين أحدث تقنيات الذكاء الاصطناعي وأفضل ممارسات تجربة المستخدم لتقديم تجربة إخبارية فريدة:
+</p>
+<ul>
+    <li><strong>للقراء:</strong> محتوى مخصص وتجربة وصول سهلة ومتعددة القنوات</li>
+    <li><strong>للمحررين والصحفيين:</strong> أدوات إنتاج وتوزيع متطورة تختصر الوقت والجهد</li>
+    <li><strong>للمؤسسات الإعلامية:</strong> منصة بيع محتوى وتحليلات شاملة</li>
+</ul>
+</div>
+
+<!-- التوقيع -->
+<div class="signature">
+    <div class="name">علي الحازمي</div>
+    <div class="title">رئيس تحرير صحيفة سبق الإلكترونية</div>
+    <div class="title">فبراير 2026م</div>
+</div>
+
+</body>
+</html>
