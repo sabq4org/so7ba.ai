@@ -1,0 +1,589 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+<meta charset="UTF-8">
+<style>
+@import url('https://fonts.googleapis.com/css2?family=Cairo:wght@400;600;700;800;900&display=swap');
+
+@page { size: 286mm 1800mm; margin: 0; }
+
+* { margin: 0; padding: 0; box-sizing: border-box; }
+
+body {
+  font-family: 'Cairo', sans-serif;
+  background: linear-gradient(180deg, #050d1a 0%, #0a1929 15%, #0d1f3c 40%, #0a1929 70%, #050d1a 100%);
+  color: #fff;
+  width: 1080px;
+  direction: rtl;
+}
+
+.bg-stars {
+  position: fixed;
+  top: 0; left: 0; right: 0; bottom: 0;
+  pointer-events: none;
+  z-index: 0;
+}
+
+.container {
+  position: relative;
+  z-index: 1;
+  padding: 0 40px 60px;
+}
+
+/* ===== HEADER ===== */
+.header {
+  text-align: center;
+  padding: 60px 20px 40px;
+  position: relative;
+}
+
+.header-crescents {
+  font-size: 80px;
+  opacity: 0.15;
+  position: absolute;
+  top: 20px;
+  width: 100%;
+  left: 0;
+}
+
+.header-icon {
+  font-size: 72px;
+  margin-bottom: 10px;
+  filter: drop-shadow(0 4px 20px rgba(197,160,55,0.5));
+}
+
+.header-badge {
+  display: inline-block;
+  background: rgba(197,160,55,0.15);
+  border: 1px solid rgba(197,160,55,0.4);
+  color: #c5a037;
+  font-size: 14px;
+  font-weight: 700;
+  padding: 6px 28px;
+  border-radius: 30px;
+  letter-spacing: 2px;
+  margin-bottom: 20px;
+}
+
+.header-title {
+  font-size: 56px;
+  font-weight: 900;
+  color: #fff;
+  line-height: 1.2;
+  text-shadow: 0 4px 30px rgba(0,0,0,0.5);
+}
+
+.header-sub {
+  font-size: 32px;
+  font-weight: 700;
+  color: #c5a037;
+  margin-top: 5px;
+}
+
+.header-year {
+  font-size: 18px;
+  color: rgba(255,255,255,0.3);
+  margin-top: 10px;
+  letter-spacing: 3px;
+}
+
+/* ===== GOLD DIVIDER ===== */
+.gold-div {
+  height: 2px;
+  background: linear-gradient(90deg, transparent 0%, #c5a037 30%, #f0d060 50%, #c5a037 70%, transparent 100%);
+  margin: 30px auto;
+  width: 80%;
+}
+
+/* ===== STATS BAR ===== */
+.stats-bar {
+  display: flex;
+  justify-content: center;
+  gap: 0;
+  margin: 30px auto;
+  max-width: 800px;
+}
+
+.stat-item {
+  flex: 1;
+  text-align: center;
+  padding: 20px 10px;
+  position: relative;
+}
+
+.stat-item:not(:last-child)::after {
+  content: '';
+  position: absolute;
+  left: 0;
+  top: 20%;
+  height: 60%;
+  width: 1px;
+  background: rgba(197,160,55,0.3);
+}
+
+.stat-num {
+  font-size: 48px;
+  font-weight: 900;
+  color: #c5a037;
+  line-height: 1;
+  text-shadow: 0 2px 15px rgba(197,160,55,0.3);
+}
+
+.stat-label {
+  font-size: 14px;
+  color: rgba(255,255,255,0.5);
+  margin-top: 6px;
+  font-weight: 600;
+}
+
+/* ===== SECTION TITLE ===== */
+.section-title {
+  text-align: center;
+  margin: 50px 0 30px;
+  position: relative;
+}
+
+.section-title h2 {
+  font-size: 28px;
+  font-weight: 900;
+  color: #fff;
+  display: inline-block;
+  padding: 0 20px;
+  position: relative;
+}
+
+.section-title h2 .icon {
+  color: #c5a037;
+  margin: 0 8px;
+}
+
+.section-title::before,
+.section-title::after {
+  content: '';
+  position: absolute;
+  top: 50%;
+  width: 25%;
+  height: 1px;
+  background: linear-gradient(90deg, transparent, rgba(197,160,55,0.4));
+}
+
+.section-title::before { right: 0; }
+.section-title::after { left: 0; background: linear-gradient(270deg, transparent, rgba(197,160,55,0.4)); }
+
+/* ===== DAY CARDS ===== */
+.days-grid {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+}
+
+.day-card {
+  background: rgba(255,255,255,0.04);
+  border: 1px solid rgba(197,160,55,0.15);
+  border-radius: 16px;
+  overflow: hidden;
+  backdrop-filter: blur(10px);
+}
+
+.day-card.last-day {
+  border: 2px solid rgba(197,160,55,0.5);
+  background: rgba(197,160,55,0.06);
+}
+
+.day-header {
+  display: flex;
+  flex-direction: row-reverse;
+  align-items: center;
+  justify-content: space-between;
+  padding: 14px 24px;
+  background: rgba(13,31,60,0.7);
+  border-bottom: 1px solid rgba(197,160,55,0.15);
+}
+
+.day-card.last-day .day-header {
+  background: linear-gradient(135deg, rgba(139,105,20,0.4), rgba(197,160,55,0.2));
+}
+
+.day-num {
+  font-size: 22px;
+  font-weight: 900;
+  color: #c5a037;
+}
+
+.day-date {
+  font-size: 14px;
+  color: rgba(255,255,255,0.5);
+  font-weight: 600;
+}
+
+.day-matches {
+  padding: 8px 16px;
+}
+
+.match-row {
+  display: flex;
+  flex-direction: row-reverse;
+  align-items: center;
+  padding: 10px 12px;
+  border-radius: 10px;
+  margin: 4px 0;
+}
+
+.match-row:nth-child(odd) {
+  background: rgba(255,255,255,0.03);
+}
+
+.team {
+  flex: 1;
+  font-size: 18px;
+  font-weight: 700;
+  color: rgba(255,255,255,0.85);
+  text-align: right;
+}
+
+.team-r { text-align: left; }
+
+.vs-badge {
+  width: 50px;
+  text-align: center;
+  font-size: 20px;
+  font-weight: 900;
+  color: #c5a037;
+  flex-shrink: 0;
+}
+
+/* ===== FINALS ===== */
+.finals-section {
+  margin-top: 40px;
+}
+
+.final-card {
+  background: rgba(255,255,255,0.04);
+  border: 1px solid rgba(197,160,55,0.2);
+  border-radius: 16px;
+  overflow: hidden;
+  margin-bottom: 16px;
+}
+
+.final-card.grand {
+  border: 2px solid #c5a037;
+  background: linear-gradient(135deg, rgba(139,105,20,0.15), rgba(197,160,55,0.05));
+}
+
+.final-header {
+  padding: 16px 24px;
+  text-align: center;
+}
+
+.final-header.semi {
+  background: linear-gradient(135deg, rgba(26,92,42,0.5), rgba(39,174,96,0.2));
+}
+
+.final-header.grand-h {
+  background: linear-gradient(135deg, rgba(139,105,20,0.6), rgba(197,160,55,0.3));
+}
+
+.final-header h3 {
+  font-size: 22px;
+  font-weight: 900;
+}
+
+.final-header .date {
+  font-size: 14px;
+  color: rgba(255,255,255,0.6);
+  margin-top: 4px;
+}
+
+.final-matches {
+  padding: 12px 20px;
+}
+
+.final-match {
+  display: flex;
+  flex-direction: row-reverse;
+  align-items: center;
+  padding: 14px 16px;
+  border-radius: 10px;
+  margin: 6px 0;
+  background: rgba(255,255,255,0.04);
+}
+
+.final-match .team {
+  font-size: 17px;
+}
+
+.final-match .goal {
+  font-size: 12px;
+  color: #c5a037;
+  font-weight: 700;
+  padding: 4px 12px;
+  border: 1px solid rgba(197,160,55,0.3);
+  border-radius: 20px;
+  white-space: nowrap;
+  margin-right: 10px;
+}
+
+/* ===== INFO BAR ===== */
+.info-bar {
+  display: flex;
+  gap: 12px;
+  justify-content: center;
+  margin: 40px 0 20px;
+  flex-wrap: wrap;
+}
+
+.info-pill {
+  background: rgba(197,160,55,0.1);
+  border: 1px solid rgba(197,160,55,0.25);
+  color: rgba(255,255,255,0.7);
+  padding: 10px 22px;
+  border-radius: 30px;
+  font-size: 15px;
+  font-weight: 600;
+}
+
+/* ===== FOOTER ===== */
+.footer {
+  text-align: center;
+  padding: 40px 20px 20px;
+  color: rgba(255,255,255,0.2);
+  font-size: 13px;
+}
+
+.footer-brand {
+  font-size: 16px;
+  font-weight: 700;
+  color: #c5a037;
+  margin-bottom: 8px;
+}
+
+/* Decorative crescents */
+.deco-crescent {
+  position: absolute;
+  color: #c5a037;
+  opacity: 0.06;
+  font-size: 200px;
+  z-index: 0;
+  line-height: 1;
+}
+</style>
+</head>
+<body>
+
+<div class="container">
+
+  <!-- HEADER -->
+  <div class="header">
+    <div class="header-icon">🎲</div>
+    <div class="header-badge">🌙 رمضان ١٤٤٨ هـ</div>
+    <div class="header-title">بطولة صفوة المهيدب</div>
+    <div class="header-sub">الرمضانية للشيش</div>
+    <div class="header-year">جدول المباريات الكامل</div>
+  </div>
+
+  <div class="gold-div"></div>
+
+  <!-- STATS -->
+  <div class="stats-bar">
+    <div class="stat-item"><div class="stat-num">10</div><div class="stat-label">فرق متنافسة</div></div>
+    <div class="stat-item"><div class="stat-num">45</div><div class="stat-label">مباراة</div></div>
+    <div class="stat-item"><div class="stat-num">11</div><div class="stat-label">يوم دوري</div></div>
+    <div class="stat-item"><div class="stat-num">13</div><div class="stat-label">يوم لعب</div></div>
+  </div>
+
+  <div class="info-bar">
+    <div class="info-pill">⏰ الساعة ١٢ منتصف الليل</div>
+    <div class="info-pill">📅 يوم ورى يوم</div>
+    <div class="info-pill">🏆 دوري + نهائيات</div>
+  </div>
+
+  <!-- SCHEDULE -->
+  <div class="section-title"><h2><span class="icon">📅</span> جدول الدوري <span class="icon">📅</span></h2></div>
+
+  <div class="days-grid">
+
+    <!-- Day 1 -->
+    <div class="day-card">
+      <div class="day-header"><div class="day-num">اليوم 1</div><div class="day-date">الأربعاء — ١ رمضان</div></div>
+      <div class="day-matches">
+        <div class="match-row"><div class="team">فريق 1</div><div class="vs-badge">⚔️</div><div class="team team-r">فريق 10</div></div>
+        <div class="match-row"><div class="team">فريق 2</div><div class="vs-badge">⚔️</div><div class="team team-r">فريق 9</div></div>
+        <div class="match-row"><div class="team">فريق 3</div><div class="vs-badge">⚔️</div><div class="team team-r">فريق 8</div></div>
+        <div class="match-row"><div class="team">فريق 4</div><div class="vs-badge">⚔️</div><div class="team team-r">فريق 7</div></div>
+      </div>
+    </div>
+
+    <!-- Day 2 -->
+    <div class="day-card">
+      <div class="day-header"><div class="day-num">اليوم 2</div><div class="day-date">الجمعة — ٣ رمضان</div></div>
+      <div class="day-matches">
+        <div class="match-row"><div class="team">فريق 5</div><div class="vs-badge">⚔️</div><div class="team team-r">فريق 6</div></div>
+        <div class="match-row"><div class="team">فريق 1</div><div class="vs-badge">⚔️</div><div class="team team-r">فريق 9</div></div>
+        <div class="match-row"><div class="team">فريق 10</div><div class="vs-badge">⚔️</div><div class="team team-r">فريق 8</div></div>
+        <div class="match-row"><div class="team">فريق 2</div><div class="vs-badge">⚔️</div><div class="team team-r">فريق 7</div></div>
+      </div>
+    </div>
+
+    <!-- Day 3 -->
+    <div class="day-card">
+      <div class="day-header"><div class="day-num">اليوم 3</div><div class="day-date">الأحد — ٥ رمضان</div></div>
+      <div class="day-matches">
+        <div class="match-row"><div class="team">فريق 3</div><div class="vs-badge">⚔️</div><div class="team team-r">فريق 6</div></div>
+        <div class="match-row"><div class="team">فريق 4</div><div class="vs-badge">⚔️</div><div class="team team-r">فريق 5</div></div>
+        <div class="match-row"><div class="team">فريق 1</div><div class="vs-badge">⚔️</div><div class="team team-r">فريق 8</div></div>
+        <div class="match-row"><div class="team">فريق 9</div><div class="vs-badge">⚔️</div><div class="team team-r">فريق 7</div></div>
+      </div>
+    </div>
+
+    <!-- Day 4 -->
+    <div class="day-card">
+      <div class="day-header"><div class="day-num">اليوم 4</div><div class="day-date">الثلاثاء — ٧ رمضان</div></div>
+      <div class="day-matches">
+        <div class="match-row"><div class="team">فريق 10</div><div class="vs-badge">⚔️</div><div class="team team-r">فريق 6</div></div>
+        <div class="match-row"><div class="team">فريق 2</div><div class="vs-badge">⚔️</div><div class="team team-r">فريق 5</div></div>
+        <div class="match-row"><div class="team">فريق 3</div><div class="vs-badge">⚔️</div><div class="team team-r">فريق 4</div></div>
+        <div class="match-row"><div class="team">فريق 1</div><div class="vs-badge">⚔️</div><div class="team team-r">فريق 7</div></div>
+      </div>
+    </div>
+
+    <!-- Day 5 -->
+    <div class="day-card">
+      <div class="day-header"><div class="day-num">اليوم 5</div><div class="day-date">الخميس — ٩ رمضان</div></div>
+      <div class="day-matches">
+        <div class="match-row"><div class="team">فريق 8</div><div class="vs-badge">⚔️</div><div class="team team-r">فريق 6</div></div>
+        <div class="match-row"><div class="team">فريق 9</div><div class="vs-badge">⚔️</div><div class="team team-r">فريق 5</div></div>
+        <div class="match-row"><div class="team">فريق 10</div><div class="vs-badge">⚔️</div><div class="team team-r">فريق 4</div></div>
+        <div class="match-row"><div class="team">فريق 2</div><div class="vs-badge">⚔️</div><div class="team team-r">فريق 3</div></div>
+      </div>
+    </div>
+
+    <!-- Day 6 -->
+    <div class="day-card">
+      <div class="day-header"><div class="day-num">اليوم 6</div><div class="day-date">السبت — ١١ رمضان</div></div>
+      <div class="day-matches">
+        <div class="match-row"><div class="team">فريق 1</div><div class="vs-badge">⚔️</div><div class="team team-r">فريق 6</div></div>
+        <div class="match-row"><div class="team">فريق 7</div><div class="vs-badge">⚔️</div><div class="team team-r">فريق 5</div></div>
+        <div class="match-row"><div class="team">فريق 8</div><div class="vs-badge">⚔️</div><div class="team team-r">فريق 4</div></div>
+        <div class="match-row"><div class="team">فريق 9</div><div class="vs-badge">⚔️</div><div class="team team-r">فريق 3</div></div>
+      </div>
+    </div>
+
+    <!-- Day 7 -->
+    <div class="day-card">
+      <div class="day-header"><div class="day-num">اليوم 7</div><div class="day-date">الاثنين — ١٣ رمضان</div></div>
+      <div class="day-matches">
+        <div class="match-row"><div class="team">فريق 10</div><div class="vs-badge">⚔️</div><div class="team team-r">فريق 2</div></div>
+        <div class="match-row"><div class="team">فريق 1</div><div class="vs-badge">⚔️</div><div class="team team-r">فريق 5</div></div>
+        <div class="match-row"><div class="team">فريق 6</div><div class="vs-badge">⚔️</div><div class="team team-r">فريق 4</div></div>
+        <div class="match-row"><div class="team">فريق 7</div><div class="vs-badge">⚔️</div><div class="team team-r">فريق 3</div></div>
+      </div>
+    </div>
+
+    <!-- Day 8 -->
+    <div class="day-card">
+      <div class="day-header"><div class="day-num">اليوم 8</div><div class="day-date">الأربعاء — ١٥ رمضان</div></div>
+      <div class="day-matches">
+        <div class="match-row"><div class="team">فريق 8</div><div class="vs-badge">⚔️</div><div class="team team-r">فريق 2</div></div>
+        <div class="match-row"><div class="team">فريق 9</div><div class="vs-badge">⚔️</div><div class="team team-r">فريق 10</div></div>
+        <div class="match-row"><div class="team">فريق 1</div><div class="vs-badge">⚔️</div><div class="team team-r">فريق 4</div></div>
+        <div class="match-row"><div class="team">فريق 5</div><div class="vs-badge">⚔️</div><div class="team team-r">فريق 3</div></div>
+      </div>
+    </div>
+
+    <!-- Day 9 -->
+    <div class="day-card">
+      <div class="day-header"><div class="day-num">اليوم 9</div><div class="day-date">الجمعة — ١٧ رمضان</div></div>
+      <div class="day-matches">
+        <div class="match-row"><div class="team">فريق 6</div><div class="vs-badge">⚔️</div><div class="team team-r">فريق 2</div></div>
+        <div class="match-row"><div class="team">فريق 7</div><div class="vs-badge">⚔️</div><div class="team team-r">فريق 10</div></div>
+        <div class="match-row"><div class="team">فريق 8</div><div class="vs-badge">⚔️</div><div class="team team-r">فريق 9</div></div>
+        <div class="match-row"><div class="team">فريق 1</div><div class="vs-badge">⚔️</div><div class="team team-r">فريق 3</div></div>
+      </div>
+    </div>
+
+    <!-- Day 10 -->
+    <div class="day-card">
+      <div class="day-header"><div class="day-num">اليوم 10</div><div class="day-date">الأحد — ١٩ رمضان</div></div>
+      <div class="day-matches">
+        <div class="match-row"><div class="team">فريق 4</div><div class="vs-badge">⚔️</div><div class="team team-r">فريق 2</div></div>
+        <div class="match-row"><div class="team">فريق 5</div><div class="vs-badge">⚔️</div><div class="team team-r">فريق 10</div></div>
+        <div class="match-row"><div class="team">فريق 6</div><div class="vs-badge">⚔️</div><div class="team team-r">فريق 9</div></div>
+        <div class="match-row"><div class="team">فريق 7</div><div class="vs-badge">⚔️</div><div class="team team-r">فريق 8</div></div>
+      </div>
+    </div>
+
+    <!-- Day 11 (LAST - 5 matches) -->
+    <div class="day-card last-day">
+      <div class="day-header"><div class="day-num">اليوم 11 🌟</div><div class="day-date">الثلاثاء — ٢١ رمضان</div></div>
+      <div class="day-matches">
+        <div class="match-row"><div class="team">فريق 1</div><div class="vs-badge">⚔️</div><div class="team team-r">فريق 2</div></div>
+        <div class="match-row"><div class="team">فريق 3</div><div class="vs-badge">⚔️</div><div class="team team-r">فريق 10</div></div>
+        <div class="match-row"><div class="team">فريق 4</div><div class="vs-badge">⚔️</div><div class="team team-r">فريق 9</div></div>
+        <div class="match-row"><div class="team">فريق 5</div><div class="vs-badge">⚔️</div><div class="team team-r">فريق 8</div></div>
+        <div class="match-row"><div class="team">فريق 6</div><div class="vs-badge">⚔️</div><div class="team team-r">فريق 7</div></div>
+      </div>
+    </div>
+
+  </div>
+
+  <!-- FINALS -->
+  <div class="section-title"><h2><span class="icon">🏆</span> النهائيات <span class="icon">🏆</span></h2></div>
+
+  <div class="finals-section">
+    <!-- Semi Finals -->
+    <div class="final-card">
+      <div class="final-header semi">
+        <h3>🟢 نصف النهائي</h3>
+        <div class="date">السبت — ٢٥ رمضان</div>
+      </div>
+      <div class="final-matches">
+        <div class="final-match">
+          <div class="team">🥇 المركز الأول</div>
+          <div class="vs-badge">⚔️</div>
+          <div class="team team-r">المركز الرابع</div>
+          <div class="goal">للنهائي ✅</div>
+        </div>
+        <div class="final-match">
+          <div class="team">🥈 المركز الثاني</div>
+          <div class="vs-badge">⚔️</div>
+          <div class="team team-r">المركز الثالث</div>
+          <div class="goal">للنهائي ✅</div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Grand Final -->
+    <div class="final-card grand">
+      <div class="final-header grand-h">
+        <h3>🏆 النهائي الكبير</h3>
+        <div class="date">الثلاثاء — ٢٨ رمضان</div>
+      </div>
+      <div class="final-matches">
+        <div class="final-match">
+          <div class="team">🥉 الخاسر الأول</div>
+          <div class="vs-badge">⚔️</div>
+          <div class="team team-r">الخاسر الثاني</div>
+          <div class="goal">المركز 3 🥉</div>
+        </div>
+        <div class="final-match" style="background:rgba(197,160,55,0.08);border:1px solid rgba(197,160,55,0.2);border-radius:10px;">
+          <div class="team" style="color:#c5a037;font-size:19px;">🏆 الفائز الأول</div>
+          <div class="vs-badge" style="font-size:24px;">⚔️</div>
+          <div class="team team-r" style="color:#c5a037;font-size:19px;">الفائز الثاني 🏆</div>
+          <div class="goal" style="background:rgba(197,160,55,0.2);">البطل 👑</div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="gold-div"></div>
+
+  <!-- FOOTER -->
+  <div class="footer">
+    <div class="footer-brand">🎲 بطولة صفوة المهيدب الرمضانية للشيش 🎲</div>
+    <div>رمضان كريم ١٤٤٨ هـ 🌙</div>
+  </div>
+
+</div>
+
+</body>
+</html>

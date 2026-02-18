@@ -1,0 +1,856 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+<meta charset="UTF-8">
+<style>
+  @import url('https://fonts.googleapis.com/css2?family=Cairo:wght@300;400;600;700;900&display=swap');
+
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+
+  body {
+    font-family: 'Cairo', 'Arial', sans-serif;
+    direction: rtl;
+    background: #fff;
+    color: #1a1a2e;
+    font-size: 11px;
+    line-height: 1.7;
+  }
+
+  .page {
+    width: 210mm;
+    min-height: 297mm;
+    padding: 0;
+    margin: 0 auto;
+    position: relative;
+    page-break-after: always;
+    overflow: hidden;
+  }
+
+  /* ========== COVER ========== */
+  .cover {
+    background: linear-gradient(155deg, #0b1828 0%, #162d4a 45%, #0b1828 100%);
+    min-height: 297mm;
+    display: flex;
+    flex-direction: column;
+    position: relative;
+  }
+
+  .cover-top-bar {
+    background: linear-gradient(90deg, #c5a037, #f0d060, #c5a037);
+    height: 6mm;
+    width: 100%;
+  }
+
+  .cover-bottom-bar {
+    background: linear-gradient(90deg, #c5a037, #f0d060, #c5a037);
+    height: 6mm;
+    width: 100%;
+    margin-top: auto;
+  }
+
+  .cover-body {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    padding: 12mm 18mm;
+    position: relative;
+  }
+
+  /* Decorative circles */
+  .deco-circle {
+    position: absolute;
+    border-radius: 50%;
+    border: 1px solid rgba(197,160,55,0.15);
+  }
+
+  .cover-doc-type {
+    background: rgba(197,160,55,0.12);
+    border: 1px solid rgba(197,160,55,0.4);
+    color: #c5a037;
+    font-size: 9px;
+    font-weight: 700;
+    padding: 3px 14px;
+    border-radius: 20px;
+    letter-spacing: 2px;
+    margin-bottom: 10mm;
+  }
+
+  .cover-logo-area {
+    margin-bottom: 7mm;
+    text-align: center;
+  }
+
+  .cover-main-icon {
+    font-size: 56px;
+    display: block;
+    filter: drop-shadow(0 0 20px rgba(197,160,55,0.4));
+  }
+
+  .cover-org {
+    color: rgba(197,160,55,0.7);
+    font-size: 12px;
+    font-weight: 600;
+    letter-spacing: 3px;
+    margin-bottom: 3mm;
+    text-align: center;
+  }
+
+  .cover-title {
+    color: #fff;
+    font-size: 30px;
+    font-weight: 900;
+    text-align: center;
+    line-height: 1.3;
+    margin-bottom: 2mm;
+  }
+
+  .cover-subtitle {
+    color: #c5a037;
+    font-size: 17px;
+    font-weight: 700;
+    text-align: center;
+    margin-bottom: 8mm;
+  }
+
+  .cover-divider {
+    width: 60mm;
+    height: 1px;
+    background: linear-gradient(90deg, transparent, #c5a037, transparent);
+    margin: 0 auto 8mm;
+  }
+
+  .cover-desc {
+    color: rgba(255,255,255,0.55);
+    font-size: 11px;
+    text-align: center;
+    line-height: 2;
+    margin-bottom: 10mm;
+  }
+
+  .cover-pills {
+    display: flex;
+    gap: 4mm;
+    flex-wrap: wrap;
+    justify-content: center;
+    margin-bottom: 12mm;
+  }
+
+  .cover-pill {
+    background: rgba(197,160,55,0.1);
+    border: 1px solid rgba(197,160,55,0.3);
+    color: rgba(255,255,255,0.8);
+    font-size: 10px;
+    padding: 3px 12px;
+    border-radius: 20px;
+  }
+
+  .cover-version {
+    color: rgba(255,255,255,0.25);
+    font-size: 9px;
+    text-align: center;
+  }
+
+  /* ========== INNER PAGES ========== */
+  .inner-page {
+    padding: 14mm 14mm 12mm;
+    min-height: 297mm;
+    display: flex;
+    flex-direction: column;
+  }
+
+  .inner-header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding-bottom: 4mm;
+    border-bottom: 2px solid #0d1f3c;
+    margin-bottom: 8mm;
+  }
+
+  .inner-header-brand {
+    font-size: 10px;
+    font-weight: 700;
+    color: #0d1f3c;
+  }
+
+  .inner-header-brand span {
+    color: #c5a037;
+  }
+
+  .inner-header-page {
+    font-size: 9px;
+    color: #999;
+  }
+
+  /* Section */
+  .section {
+    margin-bottom: 7mm;
+  }
+
+  .section-header {
+    display: flex;
+    align-items: center;
+    gap: 3mm;
+    margin-bottom: 4mm;
+  }
+
+  .section-icon-box {
+    background: linear-gradient(135deg, #0d1f3c, #1a3a5c);
+    color: #c5a037;
+    width: 8mm;
+    height: 8mm;
+    border-radius: 3px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 13px;
+    flex-shrink: 0;
+  }
+
+  .section-title {
+    font-size: 14px;
+    font-weight: 900;
+    color: #0d1f3c;
+  }
+
+  .section-title-gold {
+    color: #8B6914;
+  }
+
+  /* Info box */
+  .info-box {
+    background: #f8f7f2;
+    border-right: 4px solid #c5a037;
+    border-radius: 0 6px 6px 0;
+    padding: 4mm 5mm;
+    font-size: 11px;
+    line-height: 2;
+    color: #333;
+  }
+
+  /* Reason cards */
+  .reasons-grid {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 3mm;
+  }
+
+  .reason-card {
+    flex: 1 1 calc(50% - 3mm);
+    background: #fff;
+    border: 1px solid #e8e3d8;
+    border-radius: 6px;
+    padding: 4mm;
+    border-top: 3px solid #c5a037;
+  }
+
+  .reason-num {
+    font-size: 18px;
+    font-weight: 900;
+    color: #c5a037;
+    line-height: 1;
+  }
+
+  .reason-text {
+    font-size: 10.5px;
+    color: #444;
+    margin-top: 2mm;
+    line-height: 1.6;
+  }
+
+  /* Stats row */
+  .stats-row {
+    display: flex;
+    gap: 3mm;
+    margin-bottom: 4mm;
+  }
+
+  .stat-card {
+    flex: 1;
+    background: linear-gradient(135deg, #0d1f3c, #1a3a5c);
+    border-radius: 6px;
+    padding: 4mm;
+    text-align: center;
+    color: #fff;
+  }
+
+  .stat-card .num {
+    font-size: 26px;
+    font-weight: 900;
+    color: #c5a037;
+    line-height: 1;
+  }
+
+  .stat-card .lbl {
+    font-size: 9px;
+    opacity: 0.65;
+    margin-top: 1mm;
+  }
+
+  /* Schedule table */
+  .sched-table {
+    width: 100%;
+    border-collapse: collapse;
+    font-size: 10.5px;
+    margin-bottom: 4mm;
+  }
+
+  .sched-table thead tr {
+    background: linear-gradient(135deg, #0d1f3c, #1a3a5c);
+    color: #c5a037;
+  }
+
+  .sched-table th {
+    padding: 2.5mm 3mm;
+    font-weight: 700;
+    text-align: right;
+  }
+
+  .sched-table th:last-child { text-align: center; }
+
+  .sched-table td {
+    padding: 2mm 3mm;
+    border-bottom: 1px solid #eee;
+    color: #1a1a2e;
+    vertical-align: middle;
+  }
+
+  .sched-table td:last-child { text-align: center; }
+
+  .sched-table tr:nth-child(even) td { background: #faf8f3; }
+
+  .day-badge {
+    display: inline-block;
+    background: #0d1f3c;
+    color: #c5a037;
+    font-size: 9px;
+    font-weight: 700;
+    padding: 2px 8px;
+    border-radius: 3px;
+  }
+
+  .day-badge.gold { background: linear-gradient(135deg, #8B6914, #c5a037); color: #fff; }
+  .day-badge.red { background: #8b1a1a; color: #f0d0d0; }
+
+  .vs-text {
+    color: #c5a037;
+    font-weight: 900;
+    font-size: 12px;
+  }
+
+  /* Points cards */
+  .pts-row {
+    display: flex;
+    gap: 3mm;
+    margin-bottom: 4mm;
+  }
+
+  .pts-card {
+    flex: 1;
+    border-radius: 6px;
+    padding: 4mm;
+    text-align: center;
+    color: #fff;
+  }
+
+  .pts-card.win { background: linear-gradient(135deg, #1a5c2a, #27ae60); }
+  .pts-card.draw { background: linear-gradient(135deg, #8B6914, #c5a037); }
+  .pts-card.loss { background: linear-gradient(135deg, #8b1a1a, #c0392b); }
+
+  .pts-emoji { font-size: 18px; }
+  .pts-label { font-size: 11px; font-weight: 700; margin: 1mm 0; }
+  .pts-num { font-size: 26px; font-weight: 900; line-height: 1; }
+  .pts-unit { font-size: 9px; opacity: 0.75; }
+
+  /* Timeline */
+  .timeline {
+    position: relative;
+    padding-right: 8mm;
+  }
+
+  .timeline::before {
+    content: '';
+    position: absolute;
+    right: 3.5mm;
+    top: 0;
+    bottom: 0;
+    width: 1px;
+    background: linear-gradient(to bottom, #c5a037, rgba(197,160,55,0.1));
+  }
+
+  .tl-item {
+    display: flex;
+    gap: 4mm;
+    margin-bottom: 4mm;
+    position: relative;
+  }
+
+  .tl-dot {
+    position: absolute;
+    right: -5.5mm;
+    top: 1mm;
+    width: 4mm;
+    height: 4mm;
+    border-radius: 50%;
+    background: #c5a037;
+    flex-shrink: 0;
+  }
+
+  .tl-dot.final { background: linear-gradient(135deg, #c5a037, #f0d060); }
+  .tl-dot.semi { background: #1a5c2a; }
+
+  .tl-content {
+    flex: 1;
+  }
+
+  .tl-day {
+    font-size: 10px;
+    font-weight: 900;
+    color: #0d1f3c;
+    margin-bottom: 0.5mm;
+  }
+
+  .tl-desc {
+    font-size: 10px;
+    color: #666;
+  }
+
+  /* Note box */
+  .note {
+    background: #fffbf0;
+    border: 1px solid #f0d070;
+    border-radius: 6px;
+    padding: 3mm 4mm;
+    font-size: 10px;
+    color: #6b5200;
+    line-height: 1.7;
+  }
+
+  .note strong { color: #8B6914; }
+
+  /* Champion area */
+  .champion-box {
+    background: linear-gradient(135deg, #8B6914, #c5a037, #f0d060, #c5a037, #8B6914);
+    border-radius: 8px;
+    padding: 5mm;
+    text-align: center;
+    color: #0d1f3c;
+    margin-top: 5mm;
+  }
+
+  .champion-box .icon { font-size: 30px; }
+  .champion-box .title { font-size: 13px; font-weight: 900; margin: 2mm 0; }
+  .champion-box .line { background: rgba(0,0,0,0.15); border-radius: 4px; padding: 2.5mm 10mm; display: inline-block; font-size: 11px; min-width: 70mm; }
+
+  /* Footer */
+  .page-footer {
+    margin-top: auto;
+    padding-top: 4mm;
+    border-top: 1px solid #e0ddd0;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    font-size: 8.5px;
+    color: #aaa;
+  }
+
+  .footer-brand { color: #c5a037; font-weight: 700; }
+</style>
+</head>
+<body>
+
+<!-- ========== PAGE 1: COVER ========== -->
+<div class="page cover">
+  <div class="cover-top-bar"></div>
+
+  <!-- Decorative circles -->
+  <div class="deco-circle" style="width:120mm;height:120mm;top:-20mm;right:-30mm;"></div>
+  <div class="deco-circle" style="width:80mm;height:80mm;bottom:10mm;left:-20mm;"></div>
+  <div class="deco-circle" style="width:50mm;height:50mm;top:30mm;left:10mm;opacity:0.08;"></div>
+
+  <div class="cover-body">
+    <div class="cover-doc-type">🗂️ وثيقة مقترح رسمية</div>
+
+    <div class="cover-logo-area">
+      <span class="cover-main-icon">🎲</span>
+    </div>
+
+    <div class="cover-org">صفوة المهيدب</div>
+    <div class="cover-title">البطولة الرمضانية للشيش</div>
+    <div class="cover-subtitle">1448 هـ</div>
+
+    <div class="cover-divider"></div>
+
+    <div class="cover-desc">
+      مقترح تنظيمي متكامل<br>
+      يشمل الهيكل التنافسي · الجدول الزمني · نظام النقاط<br>
+      معد للعرض والاعتماد
+    </div>
+
+    <div class="cover-pills">
+      <div class="cover-pill">🏆 10 فرق</div>
+      <div class="cover-pill">⚽ 45 مباراة</div>
+      <div class="cover-pill">📅 11 يوماً</div>
+      <div class="cover-pill">🌙 رمضان</div>
+    </div>
+
+    <div class="cover-version">المسودة الأولى — للمراجعة والاعتماد</div>
+  </div>
+
+  <div class="cover-bottom-bar"></div>
+</div>
+
+<!-- ========== PAGE 2: INTRO + WHY + STRUCTURE ========== -->
+<div class="page inner-page">
+  <div class="inner-header">
+    <div class="inner-header-brand">🎲 <span>بطولة صفوة المهيدب</span> الرمضانية للشيش</div>
+    <div class="inner-header-page">الصفحة 1 من 3</div>
+  </div>
+
+  <!-- Section 1: Intro -->
+  <div class="section">
+    <div class="section-header">
+      <div class="section-icon-box">🌙</div>
+      <div class="section-title">نبذة عن البطولة</div>
+    </div>
+    <div class="info-box">
+      بطولة صفوة المهيدب الرمضانية للشيش هي فعالية ترفيهية تنافسية تُقام خلال شهر رمضان المبارك 1448هـ، تجمع عشرة فرق في منافسة منظمة ومثيرة تمتد على مدار أحد عشر يوماً. تهدف البطولة إلى إحياء روح التنافس الشريف وتعزيز الروابط الاجتماعية في أجواء رمضانية دافئة بعد الإفطار.
+    </div>
+  </div>
+
+  <!-- Section 2: Why -->
+  <div class="section">
+    <div class="section-header">
+      <div class="section-icon-box">💡</div>
+      <div class="section-title">لماذا نظام الدوري + النهائيات؟</div>
+    </div>
+    <div class="reasons-grid">
+      <div class="reason-card">
+        <div class="reason-num">01</div>
+        <div class="reason-text"><strong>العدالة الكاملة</strong> — كل فريق يواجه جميع الفرق الأخرى مرة واحدة بالضبط، مما يضمن الموضوعية في الترتيب النهائي.</div>
+      </div>
+      <div class="reason-card">
+        <div class="reason-num">02</div>
+        <div class="reason-text"><strong>الإثارة المستمرة</strong> — 5 مباريات يومياً تضمن تشويقاً يومياً وحضوراً متواصلاً طوال أيام الدوري.</div>
+      </div>
+      <div class="reason-card">
+        <div class="reason-num">03</div>
+        <div class="reason-text"><strong>التوقيت المثالي</strong> — 11 يوماً تتناسب مع طبيعة شهر رمضان وأجواء الليالي الجميلة بعد الإفطار.</div>
+      </div>
+      <div class="reason-card">
+        <div class="reason-num">04</div>
+        <div class="reason-text"><strong>نهائيات مشوّقة</strong> — يومان حاسمان بعد الدوري يرفعان حدة التشويق ويمنحان الحدث طابع البطولات الكبرى.</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Section 3: Stats -->
+  <div class="section">
+    <div class="section-header">
+      <div class="section-icon-box">📊</div>
+      <div class="section-title">أرقام البطولة دفعة واحدة</div>
+    </div>
+    <div class="stats-row">
+      <div class="stat-card">
+        <div class="num">10</div>
+        <div class="lbl">فريق متنافس</div>
+      </div>
+      <div class="stat-card">
+        <div class="num">45</div>
+        <div class="lbl">مباراة في الدوري</div>
+      </div>
+      <div class="stat-card">
+        <div class="num">5</div>
+        <div class="lbl">مباريات يومياً</div>
+      </div>
+      <div class="stat-card">
+        <div class="num">9</div>
+        <div class="lbl">أيام دوري</div>
+      </div>
+      <div class="stat-card">
+        <div class="num">2</div>
+        <div class="lbl">أيام نهائيات</div>
+      </div>
+      <div class="stat-card">
+        <div class="num">11</div>
+        <div class="lbl">يوم المجموع</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Section 4: Heykal -->
+  <div class="section">
+    <div class="section-header">
+      <div class="section-icon-box">🏗️</div>
+      <div class="section-title">هيكل البطولة</div>
+    </div>
+    <div style="display:flex; gap:3mm;">
+      <div style="flex:1; background:#fff; border:1px solid #e0ddd0; border-radius:6px; padding:4mm; border-top:3px solid #0d1f3c;">
+        <div style="font-size:12px; font-weight:900; color:#0d1f3c; margin-bottom:2mm;">🔵 المرحلة الأولى — الدوري</div>
+        <div style="font-size:10.5px; color:#555; line-height:1.9;">
+          • الأيام 1 إلى 9<br>
+          • كل فريق يلعب مع الجميع<br>
+          • 5 مباريات يومياً<br>
+          • ترتيب بالنقاط<br>
+          • أفضل 4 فرق تتأهل
+        </div>
+      </div>
+      <div style="flex:1; background:#fff; border:1px solid #e0ddd0; border-radius:6px; padding:4mm; border-top:3px solid #1a8a42;">
+        <div style="font-size:12px; font-weight:900; color:#1a5c2a; margin-bottom:2mm;">🟢 المرحلة الثانية — نصف النهائي</div>
+        <div style="font-size:10.5px; color:#555; line-height:1.9;">
+          • اليوم العاشر<br>
+          • الأول ضد الرابع<br>
+          • الثاني ضد الثالث<br>
+          • مباراتان حاسمتان<br>
+          • الفائزان للنهائي
+        </div>
+      </div>
+      <div style="flex:1; background:#fff; border:1px solid #e0ddd0; border-radius:6px; padding:4mm; border-top:3px solid #c5a037;">
+        <div style="font-size:12px; font-weight:900; color:#8B6914; margin-bottom:2mm;">🏆 المرحلة الثالثة — النهائيات</div>
+        <div style="font-size:10.5px; color:#555; line-height:1.9;">
+          • اليوم الحادي عشر<br>
+          • مباراة المركز الثالث<br>
+          • النهائي الكبير 🔥<br>
+          • تتويج البطل<br>
+          • توزيع الجوائز
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="page-footer">
+    <span class="footer-brand">بطولة صفوة المهيدب الرمضانية للشيش 🎲</span>
+    <span>وثيقة مقترح — للمراجعة والاعتماد</span>
+    <span>1 / 3</span>
+  </div>
+</div>
+
+<!-- ========== PAGE 3: SCHEDULE ========== -->
+<div class="page inner-page">
+  <div class="inner-header">
+    <div class="inner-header-brand">🎲 <span>بطولة صفوة المهيدب</span> الرمضانية للشيش</div>
+    <div class="inner-header-page">الصفحة 2 من 3</div>
+  </div>
+
+  <div class="section">
+    <div class="section-header">
+      <div class="section-icon-box">📅</div>
+      <div class="section-title">جدول مباريات الدوري الكامل — الأيام 1 إلى 9</div>
+    </div>
+
+    <table class="sched-table">
+      <thead>
+        <tr>
+          <th style="width:18%">اليوم</th>
+          <th style="width:4%">#</th>
+          <th style="width:33%">الفريق الأول</th>
+          <th style="width:5%; text-align:center">VS</th>
+          <th style="width:33%">الفريق الثاني</th>
+        </tr>
+      </thead>
+      <tbody>
+        <!-- Day 1 -->
+        <tr><td rowspan="5"><span class="day-badge">اليوم 1</span></td><td>1</td><td>فريق 1</td><td class="vs-text">⚔️</td><td>فريق 10</td></tr>
+        <tr><td>2</td><td>فريق 2</td><td class="vs-text">⚔️</td><td>فريق 9</td></tr>
+        <tr><td>3</td><td>فريق 3</td><td class="vs-text">⚔️</td><td>فريق 8</td></tr>
+        <tr><td>4</td><td>فريق 4</td><td class="vs-text">⚔️</td><td>فريق 7</td></tr>
+        <tr><td>5</td><td>فريق 5</td><td class="vs-text">⚔️</td><td>فريق 6</td></tr>
+        <!-- Day 2 -->
+        <tr style="border-top:2px solid #e0ddd0;"><td rowspan="5"><span class="day-badge">اليوم 2</span></td><td>1</td><td>فريق 1</td><td class="vs-text">⚔️</td><td>فريق 9</td></tr>
+        <tr><td>2</td><td>فريق 10</td><td class="vs-text">⚔️</td><td>فريق 8</td></tr>
+        <tr><td>3</td><td>فريق 2</td><td class="vs-text">⚔️</td><td>فريق 7</td></tr>
+        <tr><td>4</td><td>فريق 3</td><td class="vs-text">⚔️</td><td>فريق 6</td></tr>
+        <tr><td>5</td><td>فريق 4</td><td class="vs-text">⚔️</td><td>فريق 5</td></tr>
+        <!-- Day 3 -->
+        <tr style="border-top:2px solid #e0ddd0;"><td rowspan="5"><span class="day-badge">اليوم 3</span></td><td>1</td><td>فريق 1</td><td class="vs-text">⚔️</td><td>فريق 8</td></tr>
+        <tr><td>2</td><td>فريق 9</td><td class="vs-text">⚔️</td><td>فريق 7</td></tr>
+        <tr><td>3</td><td>فريق 10</td><td class="vs-text">⚔️</td><td>فريق 6</td></tr>
+        <tr><td>4</td><td>فريق 2</td><td class="vs-text">⚔️</td><td>فريق 5</td></tr>
+        <tr><td>5</td><td>فريق 3</td><td class="vs-text">⚔️</td><td>فريق 4</td></tr>
+        <!-- Day 4 -->
+        <tr style="border-top:2px solid #e0ddd0;"><td rowspan="5"><span class="day-badge">اليوم 4</span></td><td>1</td><td>فريق 1</td><td class="vs-text">⚔️</td><td>فريق 7</td></tr>
+        <tr><td>2</td><td>فريق 8</td><td class="vs-text">⚔️</td><td>فريق 6</td></tr>
+        <tr><td>3</td><td>فريق 9</td><td class="vs-text">⚔️</td><td>فريق 5</td></tr>
+        <tr><td>4</td><td>فريق 10</td><td class="vs-text">⚔️</td><td>فريق 4</td></tr>
+        <tr><td>5</td><td>فريق 2</td><td class="vs-text">⚔️</td><td>فريق 3</td></tr>
+        <!-- Day 5 -->
+        <tr style="border-top:2px solid #e0ddd0;"><td rowspan="5"><span class="day-badge">اليوم 5</span></td><td>1</td><td>فريق 1</td><td class="vs-text">⚔️</td><td>فريق 6</td></tr>
+        <tr><td>2</td><td>فريق 7</td><td class="vs-text">⚔️</td><td>فريق 5</td></tr>
+        <tr><td>3</td><td>فريق 8</td><td class="vs-text">⚔️</td><td>فريق 4</td></tr>
+        <tr><td>4</td><td>فريق 9</td><td class="vs-text">⚔️</td><td>فريق 3</td></tr>
+        <tr><td>5</td><td>فريق 10</td><td class="vs-text">⚔️</td><td>فريق 2</td></tr>
+        <!-- Day 6 -->
+        <tr style="border-top:2px solid #e0ddd0;"><td rowspan="5"><span class="day-badge">اليوم 6</span></td><td>1</td><td>فريق 1</td><td class="vs-text">⚔️</td><td>فريق 5</td></tr>
+        <tr><td>2</td><td>فريق 6</td><td class="vs-text">⚔️</td><td>فريق 4</td></tr>
+        <tr><td>3</td><td>فريق 7</td><td class="vs-text">⚔️</td><td>فريق 3</td></tr>
+        <tr><td>4</td><td>فريق 8</td><td class="vs-text">⚔️</td><td>فريق 2</td></tr>
+        <tr><td>5</td><td>فريق 9</td><td class="vs-text">⚔️</td><td>فريق 10</td></tr>
+        <!-- Day 7 -->
+        <tr style="border-top:2px solid #e0ddd0;"><td rowspan="5"><span class="day-badge">اليوم 7</span></td><td>1</td><td>فريق 1</td><td class="vs-text">⚔️</td><td>فريق 4</td></tr>
+        <tr><td>2</td><td>فريق 5</td><td class="vs-text">⚔️</td><td>فريق 3</td></tr>
+        <tr><td>3</td><td>فريق 6</td><td class="vs-text">⚔️</td><td>فريق 2</td></tr>
+        <tr><td>4</td><td>فريق 7</td><td class="vs-text">⚔️</td><td>فريق 10</td></tr>
+        <tr><td>5</td><td>فريق 8</td><td class="vs-text">⚔️</td><td>فريق 9</td></tr>
+        <!-- Day 8 -->
+        <tr style="border-top:2px solid #e0ddd0;"><td rowspan="5"><span class="day-badge">اليوم 8</span></td><td>1</td><td>فريق 1</td><td class="vs-text">⚔️</td><td>فريق 3</td></tr>
+        <tr><td>2</td><td>فريق 4</td><td class="vs-text">⚔️</td><td>فريق 2</td></tr>
+        <tr><td>3</td><td>فريق 5</td><td class="vs-text">⚔️</td><td>فريق 10</td></tr>
+        <tr><td>4</td><td>فريق 6</td><td class="vs-text">⚔️</td><td>فريق 9</td></tr>
+        <tr><td>5</td><td>فريق 7</td><td class="vs-text">⚔️</td><td>فريق 8</td></tr>
+        <!-- Day 9 -->
+        <tr style="border-top:2px solid #c5a037; background: rgba(197,160,55,0.04);"><td rowspan="5"><span class="day-badge gold">اليوم 9 🌟<br><small>الجولة الأخيرة</small></span></td><td>1</td><td><strong>فريق 1</strong></td><td class="vs-text">⚔️</td><td><strong>فريق 2</strong></td></tr>
+        <tr style="background: rgba(197,160,55,0.04);"><td>2</td><td>فريق 3</td><td class="vs-text">⚔️</td><td>فريق 10</td></tr>
+        <tr style="background: rgba(197,160,55,0.04);"><td>3</td><td>فريق 4</td><td class="vs-text">⚔️</td><td>فريق 9</td></tr>
+        <tr style="background: rgba(197,160,55,0.04);"><td>4</td><td>فريق 5</td><td class="vs-text">⚔️</td><td>فريق 8</td></tr>
+        <tr style="background: rgba(197,160,55,0.04);"><td>5</td><td>فريق 6</td><td class="vs-text">⚔️</td><td>فريق 7</td></tr>
+      </tbody>
+    </table>
+  </div>
+
+  <div class="page-footer">
+    <span class="footer-brand">بطولة صفوة المهيدب الرمضانية للشيش 🎲</span>
+    <span>وثيقة مقترح — للمراجعة والاعتماد</span>
+    <span>2 / 3</span>
+  </div>
+</div>
+
+<!-- ========== PAGE 4: FINALS + RULES + TIMELINE ========== -->
+<div class="page inner-page">
+  <div class="inner-header">
+    <div class="inner-header-brand">🎲 <span>بطولة صفوة المهيدب</span> الرمضانية للشيش</div>
+    <div class="inner-header-page">الصفحة 3 من 3</div>
+  </div>
+
+  <!-- Finals Schedule -->
+  <div class="section">
+    <div class="section-header">
+      <div class="section-icon-box">🏅</div>
+      <div class="section-title">جدول مرحلة النهائيات — الأيام 10 و 11</div>
+    </div>
+    <table class="sched-table">
+      <thead>
+        <tr>
+          <th style="width:20%">اليوم</th>
+          <th style="width:4%">#</th>
+          <th style="width:32%">المتنافس الأول</th>
+          <th style="width:7%; text-align:center">VS</th>
+          <th style="width:32%">المتنافس الثاني</th>
+          <th style="width:5%; text-align:center">الهدف</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td rowspan="2"><span class="day-badge" style="background:#1a5c2a; color:#fff;">اليوم 10<br><small>نصف النهائي</small></span></td>
+          <td>1</td><td>🥇 المركز الأول</td><td class="vs-text">⚔️</td><td>المركز الرابع 🏅</td><td style="text-align:center; font-size:9px; color:#1a5c2a;">للنهائي</td>
+        </tr>
+        <tr>
+          <td>2</td><td>🥈 المركز الثاني</td><td class="vs-text">⚔️</td><td>المركز الثالث 🏅</td><td style="text-align:center; font-size:9px; color:#1a5c2a;">للنهائي</td>
+        </tr>
+        <tr style="border-top:2px solid #c5a037;">
+          <td rowspan="2"><span class="day-badge gold">اليوم 11 🔥<br><small>النهائيات</small></span></td>
+          <td>1</td><td>🥉 الخاسر الأول</td><td class="vs-text">⚔️</td><td>الخاسر الثاني 🥉</td><td style="text-align:center; font-size:9px; color:#8B6914;">المركز 3</td>
+        </tr>
+        <tr style="background: rgba(197,160,55,0.08);">
+          <td>2</td><td style="font-weight:900;">🏆 الفائز الأول</td><td class="vs-text">⚔️</td><td style="font-weight:900;">الفائز الثاني 🏆</td><td style="text-align:center; font-size:9px; color:#8B6914; font-weight:900;">البطل 🏆</td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+
+  <!-- Points -->
+  <div class="section">
+    <div class="section-header">
+      <div class="section-icon-box">📊</div>
+      <div class="section-title">نظام النقاط</div>
+    </div>
+    <div class="pts-row">
+      <div class="pts-card win">
+        <div class="pts-emoji">🟢</div>
+        <div class="pts-label">فوز</div>
+        <div class="pts-num">3</div>
+        <div class="pts-unit">نقاط</div>
+      </div>
+      <div class="pts-card draw">
+        <div class="pts-emoji">🟡</div>
+        <div class="pts-label">تعادل</div>
+        <div class="pts-num">1</div>
+        <div class="pts-unit">نقطة</div>
+      </div>
+      <div class="pts-card loss">
+        <div class="pts-emoji">🔴</div>
+        <div class="pts-label">خسارة</div>
+        <div class="pts-num">0</div>
+        <div class="pts-unit">نقطة</div>
+      </div>
+    </div>
+    <div class="note">
+      <strong>⚖️ معيار الفصل عند التعادل في الترتيب:</strong><br>
+      1. المواجهة المباشرة بين الفريقين المتعادلين في النقاط<br>
+      2. فارق الأهداف / النقاط في المباريات المتبادلة<br>
+      3. القرعة العادلة في حال استمرار التعادل
+    </div>
+  </div>
+
+  <!-- Timeline -->
+  <div class="section">
+    <div class="section-header">
+      <div class="section-icon-box">🗓️</div>
+      <div class="section-title">الخط الزمني للبطولة</div>
+    </div>
+    <div class="timeline">
+      <div class="tl-item">
+        <div class="tl-dot"></div>
+        <div class="tl-content">
+          <div class="tl-day">الأيام 1 → 9 · مرحلة الدوري</div>
+          <div class="tl-desc">كل فريق يلعب مع الجميع — 5 مباريات يومياً بعد الإفطار</div>
+        </div>
+      </div>
+      <div class="tl-item">
+        <div class="tl-dot semi"></div>
+        <div class="tl-content">
+          <div class="tl-day">اليوم 10 · نصف النهائي</div>
+          <div class="tl-desc">أفضل 4 فرق يتنافسون في مباراتين حاسمتين</div>
+        </div>
+      </div>
+      <div class="tl-item">
+        <div class="tl-dot final"></div>
+        <div class="tl-content">
+          <div class="tl-day">اليوم 11 · يوم التتويج 🏆</div>
+          <div class="tl-desc">مباراة المركز الثالث ثم النهائي الكبير — تتويج البطل وتوزيع الجوائز</div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Notes -->
+  <div class="section">
+    <div class="section-header">
+      <div class="section-icon-box">💡</div>
+      <div class="section-title section-title-gold">مقترحات إضافية</div>
+    </div>
+    <div class="note" style="background:#f0f8ff; border-color:#b0d4f0; color:#1a3a5c; margin-bottom:3mm;">
+      <strong>⏰ التوقيت الموصى به:</strong> بعد الإفطار مباشرة — في الأجواء الرمضانية الدافئة 🌙
+    </div>
+    <div class="note">
+      <strong>🏷️ ملاحظة:</strong> بعد اعتماد المقترح، يمكن إضافة أسماء الفرق العشر لاستخراج جدول تفصيلي وبوستر جاهز للنشر والطباعة.
+    </div>
+  </div>
+
+  <!-- Champion box -->
+  <div class="champion-box">
+    <div class="icon">🏆</div>
+    <div class="title">بطل البطولة — صفوة المهيدب الرمضانية 1448هـ</div>
+    <div class="line">يُكتب هنا اسم البطل بعد النهائي الكبير</div>
+  </div>
+
+  <div class="page-footer">
+    <span class="footer-brand">بطولة صفوة المهيدب الرمضانية للشيش 🎲</span>
+    <span>رمضان كريم 1448هـ 🌙</span>
+    <span>3 / 3</span>
+  </div>
+</div>
+
+</body>
+</html>
