@@ -1,0 +1,456 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+<meta charset="UTF-8">
+<style>
+  @import url('https://fonts.googleapis.com/css2?family=Cairo:wght@400;600;700;900&display=swap');
+
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+
+  body {
+    font-family: 'Cairo', 'Arial', sans-serif;
+    direction: rtl;
+    background: #0a0a0a;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    min-height: 100vh;
+  }
+
+  .card {
+    width: 1200px;
+    height: 1050px;
+    background: linear-gradient(155deg, #07111f 0%, #0f2540 35%, #1a3a5c 65%, #0a1c32 100%);
+    position: relative;
+    overflow: hidden;
+    border-radius: 0;
+  }
+
+  /* Gold bars */
+  .gold-top {
+    position: absolute; top: 0; left: 0; right: 0; height: 6px;
+    background: linear-gradient(90deg, #7a5510, #c5a037, #f0d060, #c5a037, #7a5510);
+    z-index: 10;
+  }
+  .gold-bottom {
+    position: absolute; bottom: 0; left: 0; right: 0; height: 6px;
+    background: linear-gradient(90deg, #7a5510, #c5a037, #f0d060, #c5a037, #7a5510);
+    z-index: 10;
+  }
+
+  /* Decorative crescents */
+  .cr1 {
+    position: absolute; top: 20px; left: 20px;
+    font-size: 120px; color: #c5a037; opacity: 0.12;
+    transform: rotate(15deg); line-height: 1; z-index: 1;
+  }
+  .cr2 {
+    position: absolute; bottom: 30px; right: 30px;
+    font-size: 80px; color: #c5a037; opacity: 0.10;
+    transform: rotate(-20deg); line-height: 1; z-index: 1;
+  }
+
+  /* Stars */
+  .star { position: absolute; color: #f0d060; z-index: 1; opacity: 0.15; }
+  .s1 { top: 60px; right: 80px; font-size: 18px; }
+  .s2 { top: 140px; left: 120px; font-size: 12px; }
+  .s3 { bottom: 100px; left: 60px; font-size: 16px; }
+  .s4 { top: 80px; right: 400px; font-size: 10px; }
+  .s5 { bottom: 60px; right: 300px; font-size: 14px; }
+
+  /* Gold frame */
+  .frame {
+    position: absolute;
+    top: 14px; left: 14px; right: 14px; bottom: 14px;
+    border: 1.2px solid rgba(197,160,55,0.25);
+    border-radius: 4px;
+    z-index: 2;
+    pointer-events: none;
+  }
+
+  /* Content */
+  .content {
+    position: relative; z-index: 5;
+    padding: 28px 40px 24px;
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+  }
+
+  /* Header */
+  .header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin-bottom: 20px;
+  }
+
+  .header-right {
+    display: flex;
+    align-items: center;
+    gap: 16px;
+  }
+
+  .trophy { font-size: 42px; }
+
+  .title-block {}
+  .main-title {
+    font-size: 32px; font-weight: 900; color: #fff; line-height: 1.2;
+  }
+  .sub-title {
+    font-size: 16px; color: #c5a037; font-weight: 700;
+  }
+  .sponsor {
+    font-size: 28px; color: #c5a037; font-weight: 700; margin-top: 4px;
+  }
+
+  .header-left {
+    text-align: left;
+    display: flex;
+    flex-direction: column;
+    align-items: flex-end;
+    gap: 6px;
+  }
+
+  .badge {
+    display: inline-block;
+    border: 1px solid rgba(197,160,55,0.5);
+    background: rgba(197,160,55,0.12);
+    color: #c5a037;
+    font-size: 11px;
+    font-weight: 700;
+    padding: 3px 14px;
+    border-radius: 20px;
+  }
+
+  .day-info {
+    color: rgba(255,255,255,0.5);
+    font-size: 12px;
+  }
+
+  /* Divider */
+  .divider {
+    width: 100%;
+    height: 1.5px;
+    background: linear-gradient(90deg, transparent, #c5a037, transparent);
+    margin-bottom: 20px;
+  }
+
+  /* Table area */
+  .table-area {
+    flex: 1;
+    display: flex;
+    gap: 24px;
+  }
+
+  /* Main standings table */
+  .standings {
+    flex: 1;
+  }
+
+  .standings table {
+    width: 100%;
+    border-collapse: separate;
+    border-spacing: 0 6px;
+  }
+
+  .standings thead th {
+    font-size: 18px;
+    font-weight: 700;
+    color: #c5a037;
+    padding: 0 14px 10px;
+    text-align: center;
+    border-bottom: 1px solid rgba(197,160,55,0.3);
+  }
+
+  .standings thead th:first-child { text-align: right; }
+  .standings thead th:nth-child(2) { text-align: right; }
+
+  .standings tbody tr {
+    background: rgba(255,255,255,0.04);
+    border-radius: 8px;
+    transition: background 0.2s;
+  }
+
+  .standings tbody tr.gold-row {
+    background: rgba(197,160,55,0.10);
+  }
+
+  .standings tbody tr.no-points {
+    background: rgba(255,255,255,0.02);
+    opacity: 0.7;
+  }
+
+  .standings tbody tr.pending {
+    background: rgba(255,255,255,0.015);
+    opacity: 0.45;
+  }
+
+  .standings td {
+    padding: 12px 16px;
+    font-size: 24px;
+    color: #fff;
+    text-align: center;
+    vertical-align: middle;
+  }
+
+  .standings td:first-child {
+    text-align: center;
+    width: 48px;
+    font-size: 28px;
+  }
+
+  .standings td:nth-child(2) {
+    text-align: right;
+    font-weight: 700;
+    font-size: 26px;
+  }
+
+  .rank-medal { font-size: 24px; }
+
+  .points-cell {
+    font-size: 40px !important;
+    font-weight: 900 !important;
+    color: #c5a037 !important;
+  }
+
+  .points-zero {
+    font-size: 40px !important;
+    font-weight: 900 !important;
+    color: rgba(255,255,255,0.25) !important;
+  }
+
+  .points-pending {
+    font-size: 20px !important;
+    color: rgba(255,255,255,0.2) !important;
+  }
+
+  .win { color: #4ade80; font-weight: 700; }
+  .loss { color: #f87171; font-weight: 700; }
+  .neutral { color: rgba(255,255,255,0.3); }
+
+  /* Side panel - match results */
+  .side-panel {
+    width: 320px;
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+  }
+
+  .panel-title {
+    color: #c5a037;
+    font-size: 15px;
+    font-weight: 700;
+    margin-bottom: 6px;
+    display: flex;
+    align-items: center;
+    gap: 6px;
+  }
+
+  .match-card {
+    background: rgba(255,255,255,0.04);
+    border: 1px solid rgba(197,160,55,0.15);
+    border-radius: 8px;
+    padding: 8px 12px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+  }
+
+  .match-team {
+    font-size: 13px;
+    color: rgba(255,255,255,0.8);
+    font-weight: 600;
+    flex: 1;
+    text-align: right;
+  }
+
+  .match-vs {
+    color: rgba(197,160,55,0.5);
+    font-size: 10px;
+    font-weight: 700;
+    margin: 0 8px;
+  }
+
+  .match-team-l {
+    font-size: 13px;
+    color: rgba(255,255,255,0.8);
+    font-weight: 600;
+    flex: 1;
+    text-align: left;
+  }
+
+  .match-result {
+    font-size: 12px;
+    padding: 2px 8px;
+    border-radius: 10px;
+    font-weight: 700;
+    margin-right: 8px;
+  }
+
+  .result-win {
+    background: rgba(74,222,128,0.15);
+    color: #4ade80;
+  }
+
+  .result-loss {
+    background: rgba(248,113,113,0.15);
+    color: #f87171;
+  }
+
+  /* Footer */
+  .footer {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin-top: auto;
+    padding-top: 12px;
+  }
+
+  .footer-brand {
+    font-size: 10px;
+    color: rgba(255,255,255,0.2);
+    font-weight: 600;
+  }
+  .footer-brand span { color: rgba(197,160,55,0.4); }
+
+  .footer-ramadan {
+    font-size: 11px;
+    color: rgba(197,160,55,0.35);
+  }
+
+  .lanterns {
+    font-size: 16px;
+    letter-spacing: 8px;
+    opacity: 0.3;
+    color: #c5a037;
+  }
+</style>
+</head>
+<body>
+
+<div class="card">
+  <div class="gold-top"></div>
+  <div class="gold-bottom"></div>
+  <div class="cr1">🌙</div>
+  <div class="cr2">🌙</div>
+  <div class="star s1">✦</div>
+  <div class="star s2">✦</div>
+  <div class="star s3">✦</div>
+  <div class="star s4">✦</div>
+  <div class="star s5">✦</div>
+  <div class="frame"></div>
+
+  <div class="content">
+
+    <!-- Header -->
+    <div class="header">
+      <div class="header-right">
+        <div class="trophy">🏆</div>
+        <div class="title-block">
+          <div class="main-title">بطولة الشيش الرمضانية</div>
+          <div class="sponsor">برعاية صفوة المهيدب</div>
+          <div class="sub-title">نتائج اليوم الأول 🎲</div>
+        </div>
+      </div>
+      <div class="header-left">
+        <div class="badge">🌙 رمضان ١٤٤٨</div>
+        <div class="day-info">اليوم الأول — الأربعاء / الخميس ١-٢ رمضان</div>
+      </div>
+    </div>
+
+    <div class="divider"></div>
+
+    <!-- Body -->
+    <div class="table-area">
+
+      <!-- Standings -->
+      <div class="standings">
+        <table>
+          <thead>
+            <tr>
+              <th>#</th>
+              <th>الفريق</th>
+              <th>لعب</th>
+              <th>فوز</th>
+              <th>خسارة</th>
+              <th>النقاط</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr class="gold-row">
+              <td><span class="rank-medal">🥇</span></td>
+              <td>القاسم – الحسين</td>
+              <td>1</td>
+              <td class="win">1</td>
+              <td class="neutral">0</td>
+              <td class="points-cell">3</td>
+            </tr>
+            <tr class="gold-row">
+              <td><span class="rank-medal">🥇</span></td>
+              <td>أبودبيك – أبوحلى</td>
+              <td>1</td>
+              <td class="win">1</td>
+              <td class="neutral">0</td>
+              <td class="points-cell">3</td>
+            </tr>
+            <tr class="gold-row">
+              <td><span class="rank-medal">🥇</span></td>
+              <td>أبوحمد – زياد</td>
+              <td>2</td>
+              <td class="win">1</td>
+              <td class="loss">1</td>
+              <td class="points-cell">3</td>
+            </tr>
+            <tr class="gold-row">
+              <td><span class="rank-medal">🥇</span></td>
+              <td>أبوبسام – بندر</td>
+              <td>2</td>
+              <td class="win">1</td>
+              <td class="loss">1</td>
+              <td class="points-cell">3</td>
+            </tr>
+            <tr class="no-points">
+              <td>5</td>
+              <td>بدر – عبدالله المهيدب</td>
+              <td>1</td>
+              <td class="neutral">0</td>
+              <td class="loss">1</td>
+              <td class="points-zero">0</td>
+            </tr>
+            <tr class="no-points">
+              <td>5</td>
+              <td>فضل – عصام</td>
+              <td>1</td>
+              <td class="neutral">0</td>
+              <td class="loss">1</td>
+              <td class="points-zero">0</td>
+            </tr>
+            <tr class="pending">
+              <td>⏳</td>
+              <td>تركي – فيصل</td>
+              <td class="neutral">—</td>
+              <td class="neutral">—</td>
+              <td class="neutral">—</td>
+              <td class="points-pending">—</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+
+      
+      </div>
+
+    </div>
+
+    <!-- Footer -->
+    <div class="footer">
+      <div class="footer-brand">تصميم <span>صُحبة</span> 🧠</div>
+      <div class="footer-ramadan">رمضان كريم 🌙</div>
+    </div>
+
+  </div>
+</div>
+
+</body>
+</html>
