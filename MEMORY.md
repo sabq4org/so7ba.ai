@@ -278,10 +278,11 @@
 - sabq4u@gmail.com
 - GOG_KEYRING_PASSWORD: [REDACTED:KEYRING_PW]
 
-## Google AI / Imagen (توليد صور)
-- API Key: `[REDACTED:GOOGLE_API_KEY]`
-- متاح: Imagen 4, Imagen 4 Ultra, Imagen 4 Fast, Gemini 3 Pro Image
-- تاريخ الإضافة: 2026-02-10
+## Google AI / Gemini + Imagen (توليد صور)
+- API Key: `AIzaSyBdYDklEGPGV0I7XOyCYmxl27_7D4Nh2mA` (مفتاح جديد 2026-02-18)
+- النماذج المتاحة: gemini-2.5-flash-image, gemini-3-pro-image-preview, imagen-4.0-generate-001, imagen-4.0-ultra-generate-001, imagen-4.0-fast-generate-001
+- ⚠️ الإنفوجرافيك العربي: ضعيف جداً — الأفضل HTML + screenshot
+- تاريخ الإضافة: 2026-02-10 | آخر تحديث: 2026-02-18
 
 ## OpenAI API
 - مفتاح API مضاف في env.OPENAI_API_KEY بالكونفيق
@@ -456,7 +457,7 @@
 - 2026-02-07 → انتقال مخطط إلى Digital Ocean 🚀
 - 2026-02-10 → بناء نظام التداول الكامل (IB Gateway + technical_analysis.py + أول صفقة ورقية TSLA) + ربط بريد so7ba.ai + Google Imagen API + استيراد 6800 خبر لكبسولة + Finviz Elite + Unusual Whales
 - 2026-02-15 → ربط سيرفر ثاني (openclaw-tools) كـ OpenClaw Node + تشغيل TradingView headless 24/7 + حل مشاكل cloud firewall بـ SSH tunnel
-- 2026-02-18 → تحديث OpenClaw 2026.2.17 + تفعيل Claude Sonnet 4.6 مع 1M context + ميزة spawn subagents + أزرار Telegram محسّنة 🚀
+- 2026-02-18 → تحديث OpenClaw 2026.2.17 + تفعيل Claude Sonnet 4.6 مع 1M context + ميزة spawn subagents + أزرار Telegram محسّنة 🚀 + تصميم مدونة صُحبة HTML + تجربة Gemini image generation (ضعيف للعربية)
 - **🌙 رمضان 1448:** بداية 18 فبراير 2026 (السعودية) / 19 فبراير (مصر)
 
 (فقط الأحداث اللي تغيّرني فعلًا تبقى هنا)
