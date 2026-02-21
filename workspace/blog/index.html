@@ -1,0 +1,889 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>صُحبة — مدونة علي الحازمي</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Cairo:wght@400;600;700;800;900&family=Amiri:wght@400;700&family=Aref+Ruqaa:wght@400;700&display=swap" rel="stylesheet">
+<style>
+*, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
+
+:root {
+  --bg: #FAF8F3;
+  --ink: #1A1A2E;
+  --gold: #C5A037;
+  --gold-light: #D4B455;
+  --gray-1: #F5F3EE;
+  --gray-2: #E8E5DE;
+  --gray-3: #9A978F;
+  --gray-4: #6B685F;
+  --white: #FFFFFF;
+  --shadow: rgba(26, 26, 46, 0.06);
+  --shadow-md: rgba(26, 26, 46, 0.1);
+  --cat-ideas: #C5A037;
+  --cat-tech: #3A7CA5;
+  --cat-life: #6B8F5E;
+  --cat-media: #A0522D;
+  --font-heading: 'Cairo', sans-serif;
+  --font-body: 'Amiri', serif;
+  --font-hand: 'Aref Ruqaa', serif;
+}
+
+html { scroll-behavior: smooth; }
+
+body {
+  font-family: var(--font-body);
+  background: var(--bg);
+  color: var(--ink);
+  line-height: 1.9;
+  -webkit-font-smoothing: antialiased;
+}
+
+/* ===== NAVBAR ===== */
+.navbar {
+  position: sticky;
+  top: 0;
+  z-index: 100;
+  background: rgba(250, 248, 243, 0.92);
+  backdrop-filter: blur(16px);
+  -webkit-backdrop-filter: blur(16px);
+  border-bottom: 1px solid var(--gray-2);
+  transition: box-shadow 0.3s;
+}
+.navbar.scrolled { box-shadow: 0 2px 20px var(--shadow-md); }
+
+.nav-inner {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 0 2rem;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  height: 64px;
+}
+
+.nav-logo {
+  font-family: var(--font-heading);
+  font-weight: 900;
+  font-size: 1.6rem;
+  color: var(--ink);
+  text-decoration: none;
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+}
+.nav-logo .pen-icon {
+  width: 22px;
+  height: 22px;
+  opacity: 0.7;
+}
+
+.nav-links {
+  display: flex;
+  gap: 2rem;
+  list-style: none;
+}
+.nav-links a {
+  font-family: var(--font-heading);
+  font-size: 0.95rem;
+  font-weight: 600;
+  color: var(--gray-4);
+  text-decoration: none;
+  position: relative;
+  padding-bottom: 4px;
+  transition: color 0.3s;
+}
+.nav-links a::after {
+  content: '';
+  position: absolute;
+  bottom: 0;
+  right: 0;
+  width: 0;
+  height: 2px;
+  background: var(--gold);
+  transition: width 0.3s ease;
+}
+.nav-links a:hover { color: var(--ink); }
+.nav-links a:hover::after { width: 100%; }
+
+.nav-toggle {
+  display: none;
+  background: none;
+  border: none;
+  cursor: pointer;
+  width: 28px;
+  height: 20px;
+  flex-direction: column;
+  justify-content: space-between;
+}
+.nav-toggle span {
+  display: block;
+  height: 2px;
+  background: var(--ink);
+  border-radius: 2px;
+  transition: 0.3s;
+}
+
+/* ===== HERO / NOTEBOOK ===== */
+.hero {
+  position: relative;
+  overflow: hidden;
+  padding: 5rem 2rem 4rem;
+  background: 
+    repeating-linear-gradient(
+      transparent,
+      transparent 31px,
+      rgba(173, 196, 222, 0.25) 31px,
+      rgba(173, 196, 222, 0.25) 32px
+    ),
+    linear-gradient(90deg, transparent 59px, rgba(207, 97, 97, 0.18) 59px, rgba(207, 97, 97, 0.18) 61px, transparent 61px);
+  background-color: #FBF9F1;
+  background-size: 100% 32px, 100% 100%;
+  min-height: 420px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+.hero::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: radial-gradient(ellipse at 50% 0%, rgba(197, 160, 55, 0.06) 0%, transparent 70%);
+  pointer-events: none;
+}
+.hero::after {
+  content: '';
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  height: 60px;
+  background: linear-gradient(to top, var(--bg), transparent);
+  pointer-events: none;
+}
+
+.hero-content {
+  text-align: center;
+  max-width: 700px;
+  position: relative;
+  z-index: 1;
+}
+
+.hero-handwriting {
+  font-family: var(--font-hand);
+  font-size: clamp(1.6rem, 4vw, 2.6rem);
+  color: var(--ink);
+  opacity: 0.85;
+  margin-bottom: 1.5rem;
+  line-height: 1.7;
+  position: relative;
+}
+.hero-handwriting::before {
+  content: '✦';
+  display: block;
+  font-size: 0.8rem;
+  color: var(--gold);
+  margin-bottom: 0.8rem;
+  letter-spacing: 0.5em;
+}
+
+.hero-title {
+  font-family: var(--font-heading);
+  font-weight: 900;
+  font-size: clamp(2.8rem, 6vw, 4.2rem);
+  color: var(--ink);
+  letter-spacing: -0.02em;
+  margin-bottom: 0.6rem;
+}
+.hero-title .dot {
+  color: var(--gold);
+}
+
+.hero-subtitle {
+  font-family: var(--font-heading);
+  font-size: 1rem;
+  font-weight: 600;
+  color: var(--gray-3);
+  letter-spacing: 0.15em;
+}
+
+/* ===== INK BLOT DIVIDER ===== */
+.ink-divider {
+  text-align: center;
+  padding: 2rem 0;
+  color: var(--gold);
+  font-size: 0.7rem;
+  letter-spacing: 1em;
+  opacity: 0.5;
+}
+
+/* ===== FEATURED ===== */
+.section { max-width: 1200px; margin: 0 auto; padding: 0 2rem; }
+
+.section-label {
+  font-family: var(--font-heading);
+  font-weight: 800;
+  font-size: 0.85rem;
+  color: var(--gold);
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  margin-bottom: 1.5rem;
+  display: flex;
+  align-items: center;
+  gap: 0.6rem;
+}
+.section-label::after {
+  content: '';
+  flex: 1;
+  height: 1px;
+  background: var(--gray-2);
+}
+
+.featured-card {
+  display: grid;
+  grid-template-columns: 1.1fr 1fr;
+  gap: 3rem;
+  background: var(--white);
+  border-radius: 16px;
+  overflow: hidden;
+  box-shadow: 0 4px 30px var(--shadow);
+  transition: box-shadow 0.4s, transform 0.4s;
+  cursor: pointer;
+}
+.featured-card:hover {
+  box-shadow: 0 8px 40px var(--shadow-md);
+  transform: translateY(-3px);
+}
+
+.featured-img {
+  position: relative;
+  min-height: 380px;
+  background: linear-gradient(135deg, #2C3E50, #1A1A2E);
+  overflow: hidden;
+}
+.featured-img img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  opacity: 0.9;
+}
+.featured-img .placeholder-art {
+  position: absolute;
+  inset: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+.placeholder-art svg { width: 80px; height: 80px; opacity: 0.15; }
+
+.featured-body {
+  padding: 2.5rem 2.5rem 2.5rem 0;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+}
+
+.cat-tag {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.4rem;
+  font-family: var(--font-heading);
+  font-size: 0.78rem;
+  font-weight: 700;
+  padding: 0.3rem 0.9rem;
+  border-radius: 20px;
+  width: fit-content;
+  margin-bottom: 1rem;
+}
+.cat-tag .dot {
+  width: 6px;
+  height: 6px;
+  border-radius: 50%;
+}
+.cat-ideas { background: rgba(197,160,55,0.1); color: var(--cat-ideas); }
+.cat-ideas .dot { background: var(--cat-ideas); }
+.cat-tech { background: rgba(58,124,165,0.1); color: var(--cat-tech); }
+.cat-tech .dot { background: var(--cat-tech); }
+.cat-life { background: rgba(107,143,94,0.1); color: var(--cat-life); }
+.cat-life .dot { background: var(--cat-life); }
+.cat-media { background: rgba(160,82,45,0.1); color: var(--cat-media); }
+.cat-media .dot { background: var(--cat-media); }
+
+.featured-title {
+  font-family: var(--font-heading);
+  font-weight: 800;
+  font-size: clamp(1.4rem, 2.5vw, 1.9rem);
+  line-height: 1.5;
+  color: var(--ink);
+  margin-bottom: 1rem;
+}
+
+.featured-excerpt {
+  font-size: 1.1rem;
+  color: var(--gray-4);
+  line-height: 2;
+  margin-bottom: 1.5rem;
+}
+
+.read-more {
+  font-family: var(--font-heading);
+  font-size: 0.9rem;
+  font-weight: 700;
+  color: var(--gold);
+  text-decoration: none;
+  display: inline-flex;
+  align-items: center;
+  gap: 0.4rem;
+  position: relative;
+}
+.read-more::after {
+  content: '';
+  position: absolute;
+  bottom: -2px;
+  right: 0;
+  width: 0;
+  height: 2px;
+  background: var(--gold);
+  transition: width 0.3s;
+}
+.read-more:hover::after { width: 100%; }
+.read-more .arrow { transition: transform 0.3s; }
+.read-more:hover .arrow { transform: translateX(-4px); }
+
+.featured-meta {
+  font-family: var(--font-heading);
+  font-size: 0.8rem;
+  color: var(--gray-3);
+  margin-top: 0.8rem;
+}
+
+/* ===== ARTICLES GRID ===== */
+.articles-section { margin-top: 4rem; }
+
+.articles-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 2rem;
+}
+
+.article-card {
+  background: var(--white);
+  border-radius: 12px;
+  overflow: hidden;
+  box-shadow: 0 2px 16px var(--shadow);
+  transition: box-shadow 0.3s, transform 0.3s;
+  cursor: pointer;
+}
+.article-card:hover {
+  box-shadow: 0 6px 30px var(--shadow-md);
+  transform: translateY(-4px);
+}
+
+.article-img {
+  height: 200px;
+  background: linear-gradient(135deg, #2C3E50, #34495E);
+  position: relative;
+  overflow: hidden;
+}
+.article-img .placeholder-art {
+  position: absolute;
+  inset: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+.article-img .placeholder-art svg { width: 40px; opacity: 0.12; }
+
+.article-body { padding: 1.5rem; }
+
+.article-title {
+  font-family: var(--font-heading);
+  font-weight: 700;
+  font-size: 1.1rem;
+  line-height: 1.6;
+  color: var(--ink);
+  margin-bottom: 0.6rem;
+}
+
+.article-excerpt {
+  font-size: 0.95rem;
+  color: var(--gray-4);
+  line-height: 1.9;
+  margin-bottom: 1rem;
+  display: -webkit-box;
+  -webkit-line-clamp: 3;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+}
+
+.article-footer {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding-top: 1rem;
+  border-top: 1px solid var(--gray-2);
+}
+
+.article-date {
+  font-family: var(--font-heading);
+  font-size: 0.78rem;
+  color: var(--gray-3);
+}
+
+/* ===== MAIN + SIDEBAR ===== */
+.content-layout {
+  max-width: 1200px;
+  margin: 4rem auto 0;
+  padding: 0 2rem;
+  display: grid;
+  grid-template-columns: 1fr 320px;
+  gap: 3rem;
+}
+
+/* ===== SIDEBAR ===== */
+.sidebar-card {
+  background: var(--white);
+  border-radius: 12px;
+  padding: 2rem;
+  box-shadow: 0 2px 16px var(--shadow);
+  position: sticky;
+  top: 84px;
+}
+
+.author-avatar {
+  width: 100px;
+  height: 100px;
+  border-radius: 50%;
+  margin: 0 auto 1.2rem;
+  display: block;
+  background: linear-gradient(135deg, var(--gold), var(--gold-light));
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-family: var(--font-heading);
+  font-size: 2.2rem;
+  font-weight: 900;
+  color: var(--white);
+  box-shadow: 0 4px 20px rgba(197, 160, 55, 0.25);
+}
+
+.author-name {
+  font-family: var(--font-heading);
+  font-weight: 800;
+  font-size: 1.2rem;
+  text-align: center;
+  margin-bottom: 0.3rem;
+}
+
+.author-title {
+  font-family: var(--font-heading);
+  font-size: 0.82rem;
+  color: var(--gray-3);
+  text-align: center;
+  margin-bottom: 1.2rem;
+}
+
+.author-bio {
+  font-size: 0.95rem;
+  color: var(--gray-4);
+  line-height: 1.9;
+  text-align: center;
+  margin-bottom: 1.5rem;
+}
+
+.author-stats {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 1rem;
+  text-align: center;
+  padding-top: 1.2rem;
+  border-top: 1px solid var(--gray-2);
+}
+.stat-num {
+  font-family: var(--font-heading);
+  font-weight: 800;
+  font-size: 1.4rem;
+  color: var(--ink);
+}
+.stat-label {
+  font-family: var(--font-heading);
+  font-size: 0.75rem;
+  color: var(--gray-3);
+  font-weight: 600;
+}
+
+/* ===== FOOTER ===== */
+.footer {
+  background: var(--ink);
+  color: rgba(255,255,255,0.7);
+  margin-top: 5rem;
+  padding: 4rem 2rem 2rem;
+}
+
+.footer-inner {
+  max-width: 1200px;
+  margin: 0 auto;
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 3rem;
+  align-items: start;
+}
+
+.footer-brand .footer-logo {
+  font-family: var(--font-heading);
+  font-weight: 900;
+  font-size: 1.8rem;
+  color: var(--white);
+  margin-bottom: 0.8rem;
+}
+.footer-brand .footer-logo .dot { color: var(--gold); }
+
+.footer-brand p {
+  font-size: 0.95rem;
+  line-height: 1.9;
+  max-width: 380px;
+}
+
+.newsletter-box h3 {
+  font-family: var(--font-heading);
+  font-weight: 700;
+  font-size: 1.1rem;
+  color: var(--white);
+  margin-bottom: 0.6rem;
+}
+.newsletter-box p {
+  font-size: 0.9rem;
+  margin-bottom: 1.2rem;
+}
+
+.newsletter-form {
+  display: flex;
+  gap: 0.6rem;
+}
+.newsletter-form input {
+  flex: 1;
+  padding: 0.8rem 1.2rem;
+  border: 1px solid rgba(255,255,255,0.15);
+  border-radius: 8px;
+  background: rgba(255,255,255,0.07);
+  color: var(--white);
+  font-family: var(--font-heading);
+  font-size: 0.9rem;
+  outline: none;
+  transition: border-color 0.3s;
+}
+.newsletter-form input::placeholder { color: rgba(255,255,255,0.35); }
+.newsletter-form input:focus { border-color: var(--gold); }
+
+.newsletter-form button {
+  padding: 0.8rem 1.6rem;
+  background: var(--gold);
+  color: var(--white);
+  border: none;
+  border-radius: 8px;
+  font-family: var(--font-heading);
+  font-weight: 700;
+  font-size: 0.9rem;
+  cursor: pointer;
+  transition: background 0.3s;
+  white-space: nowrap;
+}
+.newsletter-form button:hover { background: var(--gold-light); }
+
+.footer-bottom {
+  max-width: 1200px;
+  margin: 2.5rem auto 0;
+  padding-top: 1.5rem;
+  border-top: 1px solid rgba(255,255,255,0.08);
+  text-align: center;
+  font-family: var(--font-heading);
+  font-size: 0.8rem;
+  color: rgba(255,255,255,0.35);
+}
+
+/* ===== ANIMATIONS ===== */
+@keyframes fadeUp {
+  from { opacity: 0; transform: translateY(24px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+.fade-up {
+  opacity: 0;
+  animation: fadeUp 0.7s ease forwards;
+}
+.fade-up-d1 { animation-delay: 0.1s; }
+.fade-up-d2 { animation-delay: 0.25s; }
+.fade-up-d3 { animation-delay: 0.4s; }
+
+/* ===== RESPONSIVE ===== */
+@media (max-width: 1024px) {
+  .content-layout { grid-template-columns: 1fr; }
+  .sidebar-card { position: static; }
+  .articles-grid { grid-template-columns: repeat(2, 1fr); }
+}
+
+@media (max-width: 768px) {
+  .nav-links { display: none; }
+  .nav-links.open {
+    display: flex;
+    flex-direction: column;
+    position: absolute;
+    top: 64px;
+    right: 0;
+    left: 0;
+    background: rgba(250,248,243,0.98);
+    backdrop-filter: blur(16px);
+    padding: 1.5rem 2rem;
+    gap: 1.2rem;
+    border-bottom: 1px solid var(--gray-2);
+    box-shadow: 0 8px 30px var(--shadow-md);
+  }
+  .nav-toggle { display: flex; }
+
+  .hero { padding: 3.5rem 1.5rem 3rem; min-height: 320px; }
+
+  .featured-card {
+    grid-template-columns: 1fr;
+  }
+  .featured-img { min-height: 220px; }
+  .featured-body { padding: 1.5rem; }
+
+  .articles-grid { grid-template-columns: 1fr; }
+
+  .footer-inner { grid-template-columns: 1fr; }
+  .newsletter-form { flex-direction: column; }
+}
+
+/* Ink blot decorative */
+.ink-blot {
+  display: inline-block;
+  width: 8px;
+  height: 8px;
+  background: var(--ink);
+  border-radius: 50% 50% 50% 20%;
+  opacity: 0.15;
+}
+</style>
+</head>
+<body>
+
+<!-- NAVBAR -->
+<nav class="navbar" id="navbar">
+  <div class="nav-inner">
+    <a href="#" class="nav-logo">
+      <svg class="pen-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 19l7-7 3 3-7 7-3-3z"/><path d="M18 13l-1.5-7.5L2 2l3.5 14.5L13 18l5-5z"/><path d="M2 2l7.586 7.586"/><circle cx="11" cy="11" r="2"/></svg>
+      صُحبة
+    </a>
+    <ul class="nav-links" id="navLinks">
+      <li><a href="#articles">المقالات</a></li>
+      <li><a href="#about">عن علي</a></li>
+      <li><a href="#contact">تواصل</a></li>
+    </ul>
+    <button class="nav-toggle" id="navToggle" aria-label="القائمة">
+      <span></span><span></span><span></span>
+    </button>
+  </div>
+</nav>
+
+<!-- HERO -->
+<section class="hero">
+  <div class="hero-content">
+    <p class="hero-handwriting fade-up">أكتب لأنّ الكلام لا يكفي…<br>ولأنّ بعض الأفكار تستحق أن تعيش أطول منّا</p>
+    <h1 class="hero-title fade-up fade-up-d1">صُحبة<span class="dot">.</span></h1>
+    <p class="hero-subtitle fade-up fade-up-d2">مدوّنة علي الحازمي</p>
+  </div>
+</section>
+
+<!-- FEATURED ARTICLE -->
+<div class="section" style="margin-top: 3rem;">
+  <div class="section-label">مقال مميّز</div>
+  <article class="featured-card fade-up fade-up-d1">
+    <div class="featured-img">
+      <div class="placeholder-art">
+        <svg viewBox="0 0 100 100" fill="white"><rect x="20" y="15" width="60" height="75" rx="3" opacity="0.12"/><line x1="30" y1="30" x2="70" y2="30" stroke="white" stroke-width="2" opacity="0.1"/><line x1="30" y1="40" x2="65" y2="40" stroke="white" stroke-width="2" opacity="0.08"/><line x1="30" y1="50" x2="55" y2="50" stroke="white" stroke-width="2" opacity="0.06"/></svg>
+      </div>
+    </div>
+    <div class="featured-body">
+      <span class="cat-tag cat-ideas"><span class="dot"></span>أفكار</span>
+      <h2 class="featured-title">لماذا نحتاج أن نكتب حتى لو لم يقرأ أحد؟</h2>
+      <p class="featured-excerpt">الكتابة ليست رسالة موجّهة دائمًا. أحيانًا هي مرآة نجلس أمامها لنفهم ما يدور في رؤوسنا. في هذا المقال، أحاول أن أشرح لماذا أؤمن أن الكتابة حاجة إنسانية لا تحتاج جمهورًا لتكتمل.</p>
+      <a href="#" class="read-more">اقرأ المزيد <span class="arrow">←</span></a>
+      <div class="featured-meta">١٥ فبراير ٢٠٢٦ · ٧ دقائق قراءة</div>
+    </div>
+  </article>
+</div>
+
+<!-- ARTICLES GRID -->
+<div class="section articles-section" id="articles">
+  <div class="section-label">آخر المقالات</div>
+  <div class="articles-grid">
+
+    <article class="article-card fade-up">
+      <div class="article-img" style="background: linear-gradient(135deg, #1A1A2E, #2D3A4A);">
+        <div class="placeholder-art"><svg viewBox="0 0 24 24" fill="white"><circle cx="12" cy="12" r="10" opacity="0.08"/><path d="M8 12l3 3 5-5" stroke="white" stroke-width="2" fill="none" opacity="0.12"/></svg></div>
+      </div>
+      <div class="article-body">
+        <span class="cat-tag cat-tech"><span class="dot"></span>تقنية</span>
+        <h3 class="article-title">الذكاء الاصطناعي ليس تهديدًا… إنه مرآة</h3>
+        <p class="article-excerpt">كل أداة جديدة تكشف عنّا أكثر مما تكشف عن نفسها. في كل مرة نسأل فيها ChatGPT سؤالًا، نكشف عمّا نجهله عن أنفسنا.</p>
+        <div class="article-footer">
+          <span class="article-date">١٢ فبراير ٢٠٢٦</span>
+          <a href="#" class="read-more">اقرأ المزيد <span class="arrow">←</span></a>
+        </div>
+      </div>
+    </article>
+
+    <article class="article-card fade-up fade-up-d1">
+      <div class="article-img" style="background: linear-gradient(135deg, #3A7CA5, #1A5276);">
+        <div class="placeholder-art"><svg viewBox="0 0 24 24" fill="white"><rect x="4" y="4" width="16" height="16" rx="2" opacity="0.08"/></svg></div>
+      </div>
+      <div class="article-body">
+        <span class="cat-tag cat-media"><span class="dot"></span>إعلام</span>
+        <h3 class="article-title">غرفة الأخبار في ٢٠٢٦: ما الذي تغيّر فعلًا؟</h3>
+        <p class="article-excerpt">عشرون سنة في الإعلام الرقمي علّمتني أن التغيير الحقيقي لا يحدث في الأدوات، بل في طريقة تفكير الصحفي نفسه.</p>
+        <div class="article-footer">
+          <span class="article-date">٩ فبراير ٢٠٢٦</span>
+          <a href="#" class="read-more">اقرأ المزيد <span class="arrow">←</span></a>
+        </div>
+      </div>
+    </article>
+
+    <article class="article-card fade-up fade-up-d2">
+      <div class="article-img" style="background: linear-gradient(135deg, #6B8F5E, #4A6741);">
+        <div class="placeholder-art"><svg viewBox="0 0 24 24" fill="white"><path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2z" opacity="0.08"/></svg></div>
+      </div>
+      <div class="article-body">
+        <span class="cat-tag cat-life"><span class="dot"></span>حياة</span>
+        <h3 class="article-title">عن السفر الذي لا يُكتب عنه</h3>
+        <p class="article-excerpt">ليس كل سفر يستحق إنستقرام. بعض الرحلات تحدث داخلنا بينما نجلس في نفس الغرفة، نفس الكرسي، نفس الصمت.</p>
+        <div class="article-footer">
+          <span class="article-date">٥ فبراير ٢٠٢٦</span>
+          <a href="#" class="read-more">اقرأ المزيد <span class="arrow">←</span></a>
+        </div>
+      </div>
+    </article>
+
+    <article class="article-card fade-up">
+      <div class="article-img" style="background: linear-gradient(135deg, #C5A037, #A08030);">
+        <div class="placeholder-art"><svg viewBox="0 0 24 24" fill="white"><path d="M3 18h18v-2H3v2zm0-5h18v-2H3v2zm0-7v2h18V6H3z" opacity="0.12"/></svg></div>
+      </div>
+      <div class="article-body">
+        <span class="cat-tag cat-ideas"><span class="dot"></span>أفكار</span>
+        <h3 class="article-title">القائد الذي يسمع أكثر مما يتكلم</h3>
+        <p class="article-excerpt">في عالم يكافئ الضجيج، الإنصات مهارة ثورية. تعلّمت أن أقوى القادة هم من يملكون شجاعة الصمت.</p>
+        <div class="article-footer">
+          <span class="article-date">١ فبراير ٢٠٢٦</span>
+          <a href="#" class="read-more">اقرأ المزيد <span class="arrow">←</span></a>
+        </div>
+      </div>
+    </article>
+
+    <article class="article-card fade-up fade-up-d1">
+      <div class="article-img" style="background: linear-gradient(135deg, #A0522D, #7A3E22);">
+        <div class="placeholder-art"><svg viewBox="0 0 24 24" fill="white"><path d="M12 2L2 7l10 5 10-5-10-5zM2 17l10 5 10-5M2 12l10 5 10-5" stroke="white" stroke-width="1.5" fill="none" opacity="0.1"/></svg></div>
+      </div>
+      <div class="article-body">
+        <span class="cat-tag cat-media"><span class="dot"></span>إعلام</span>
+        <h3 class="article-title">المحتوى الجيد لا يحتاج خوارزمية</h3>
+        <p class="article-excerpt">نركض خلف الترند ونترك القيمة. لكن التجربة أثبتت أن المقال العميق يعيش أطول من أي فيديو فيروسي.</p>
+        <div class="article-footer">
+          <span class="article-date">٢٨ يناير ٢٠٢٦</span>
+          <a href="#" class="read-more">اقرأ المزيد <span class="arrow">←</span></a>
+        </div>
+      </div>
+    </article>
+
+    <article class="article-card fade-up fade-up-d2">
+      <div class="article-img" style="background: linear-gradient(135deg, #2C3E50, #1A252F);">
+        <div class="placeholder-art"><svg viewBox="0 0 24 24" fill="white"><path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78L12 21.23l8.84-8.84a5.5 5.5 0 0 0 0-7.78z" opacity="0.08"/></svg></div>
+      </div>
+      <div class="article-body">
+        <span class="cat-tag cat-life"><span class="dot"></span>حياة</span>
+        <h3 class="article-title">رسالة إلى ابني في سنته الجامعية الأولى</h3>
+        <p class="article-excerpt">لن أعطيك نصائح. سأحكي لك عن أخطائي. لأن الحكمة لا تأتي من النجاح، بل من الندوب التي نخفيها بابتسامة.</p>
+        <div class="article-footer">
+          <span class="article-date">٢٠ يناير ٢٠٢٦</span>
+          <a href="#" class="read-more">اقرأ المزيد <span class="arrow">←</span></a>
+        </div>
+      </div>
+    </article>
+
+  </div>
+</div>
+
+<!-- SIDEBAR (About) -->
+<div class="content-layout" id="about">
+  <div></div>
+  <aside>
+    <div class="sidebar-card">
+      <div class="author-avatar">ع</div>
+      <h3 class="author-name">علي الحازمي</h3>
+      <p class="author-title">كاتب · صحفي · رئيس تحرير</p>
+      <p class="author-bio">أكتب عن الأفكار التي تشغلني، والتقنية التي تغيّرنا، والحياة التي نحاول فهمها. أؤمن أن الكلمة الصادقة أقوى من ألف عنوان.</p>
+      <div class="author-stats">
+        <div>
+          <div class="stat-num">+١٢٠</div>
+          <div class="stat-label">مقال</div>
+        </div>
+        <div>
+          <div class="stat-num">+٢٠</div>
+          <div class="stat-label">سنة خبرة</div>
+        </div>
+      </div>
+    </div>
+  </aside>
+</div>
+
+<!-- FOOTER -->
+<footer class="footer" id="contact">
+  <div class="footer-inner">
+    <div class="footer-brand">
+      <div class="footer-logo">صُحبة<span class="dot">.</span></div>
+      <p>مساحة شخصية للكتابة والتفكير بصوت عالٍ. لا أدّعي أنني أعرف الإجابات، لكنني أحب الأسئلة الجيدة.</p>
+    </div>
+    <div class="newsletter-box">
+      <h3>📮 النشرة البريدية</h3>
+      <p>مقال جديد كل أسبوع، مباشرة في بريدك. بدون إزعاج، وعد.</p>
+      <form class="newsletter-form" onsubmit="event.preventDefault(); this.querySelector('button').textContent='شكرًا! ✓'">
+        <input type="email" placeholder="بريدك الإلكتروني" required>
+        <button type="submit">اشترك</button>
+      </form>
+    </div>
+  </div>
+  <div class="footer-bottom">
+    © ٢٠٢٦ صُحبة — جميع الحقوق محفوظة لعلي الحازمي
+  </div>
+</footer>
+
+<script>
+// Sticky navbar shadow
+const navbar = document.getElementById('navbar');
+window.addEventListener('scroll', () => {
+  navbar.classList.toggle('scrolled', window.scrollY > 10);
+});
+
+// Mobile menu toggle
+const toggle = document.getElementById('navToggle');
+const links = document.getElementById('navLinks');
+toggle.addEventListener('click', () => {
+  links.classList.toggle('open');
+});
+
+// Intersection Observer for fade-in
+const observer = new IntersectionObserver((entries) => {
+  entries.forEach(e => {
+    if (e.isIntersecting) {
+      e.target.style.animationPlayState = 'running';
+      observer.unobserve(e.target);
+    }
+  });
+}, { threshold: 0.1 });
+
+document.querySelectorAll('.fade-up').forEach(el => {
+  el.style.animationPlayState = 'paused';
+  observer.observe(el);
+});
+</script>
+
+</body>
+</html>

@@ -1,0 +1,881 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+<meta charset="UTF-8">
+<style>
+  @import url('https://fonts.googleapis.com/css2?family=Cairo:wght@300;400;600;700;900&display=swap');
+
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+
+  body {
+    font-family: 'Cairo', 'Arial', sans-serif;
+    direction: rtl;
+    background: #fff;
+    color: #1a1a2e;
+    font-size: 13px;
+    line-height: 1.8;
+  }
+
+  .page {
+    width: 210mm;
+    min-height: 297mm;
+    margin: 0 auto;
+    position: relative;
+    page-break-after: always;
+    overflow: hidden;
+  }
+
+  /* ===== COVER ===== */
+  .cover {
+    background: linear-gradient(160deg, #07111f 0%, #0f2540 40%, #1a3a5c 65%, #0a1c32 100%);
+    min-height: 297mm;
+    display: flex;
+    flex-direction: column;
+    position: relative;
+  }
+
+  .gold-bar-top {
+    height: 9mm;
+    background: linear-gradient(90deg, #7a5510, #c5a037, #f0d060, #e8c84a, #c5a037, #7a5510);
+    flex-shrink: 0;
+    position: relative;
+    z-index: 10;
+  }
+
+  .gold-bar-bottom {
+    height: 9mm;
+    background: linear-gradient(90deg, #7a5510, #c5a037, #f0d060, #e8c84a, #c5a037, #7a5510);
+    flex-shrink: 0;
+    position: relative;
+    z-index: 10;
+    margin-top: auto;
+  }
+
+  /* Big crescent using emoji - reliable in WeasyPrint */
+  .crescent-big {
+    position: absolute;
+    top: 18mm;
+    left: 8mm;
+    font-size: 120px;
+    color: #c5a037;
+    opacity: 0.45;
+    z-index: 2;
+    line-height: 1;
+    transform: rotate(20deg);
+  }
+
+  .crescent-small {
+    position: absolute;
+    bottom: 28mm;
+    right: 10mm;
+    font-size: 70px;
+    color: #c5a037;
+    opacity: 0.25;
+    z-index: 2;
+    line-height: 1;
+    transform: rotate(-15deg);
+  }
+
+  /* Decorative dots/stars */
+  .deco-star {
+    position: absolute;
+    color: #f0d060;
+    z-index: 3;
+    line-height: 1;
+  }
+
+  /* Gold frame */
+  .cover-frame {
+    position: absolute;
+    top: 15mm;
+    left: 12mm;
+    right: 12mm;
+    bottom: 15mm;
+    border: 1.5px solid rgba(197,160,55,0.45);
+    border-radius: 6px;
+    z-index: 4;
+  }
+
+  .cover-frame-inner {
+    position: absolute;
+    top: 18mm;
+    left: 15mm;
+    right: 15mm;
+    bottom: 18mm;
+    border: 0.5px solid rgba(197,160,55,0.2);
+    border-radius: 4px;
+    z-index: 4;
+  }
+
+  /* Main cover content */
+  .cover-content {
+    position: relative;
+    z-index: 10;
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    padding: 10mm 20mm;
+    text-align: center;
+  }
+
+  /* Lanterns row */
+  .lanterns {
+    font-size: 24px;
+    letter-spacing: 8px;
+    margin-bottom: 8mm;
+    opacity: 0.7;
+  }
+
+  .cover-badge {
+    display: inline-block;
+    border: 1px solid rgba(197,160,55,0.5);
+    background: rgba(197,160,55,0.12);
+    color: #c5a037;
+    font-size: 10px;
+    font-weight: 700;
+    padding: 3px 16px;
+    border-radius: 20px;
+    letter-spacing: 2px;
+    margin-bottom: 7mm;
+  }
+
+  .cover-org-label {
+    color: rgba(197,160,55,0.65);
+    font-size: 13px;
+    font-weight: 600;
+    letter-spacing: 4px;
+    margin-bottom: 3mm;
+  }
+
+  .cover-title {
+    color: #fff;
+    font-size: 44px;
+    font-weight: 900;
+    line-height: 1.15;
+    margin-bottom: 2mm;
+  }
+
+  .cover-subtitle {
+    color: #c5a037;
+    font-size: 22px;
+    font-weight: 700;
+    margin-bottom: 3mm;
+  }
+
+  .cover-year {
+    color: rgba(255,255,255,0.38);
+    font-size: 13px;
+    margin-bottom: 7mm;
+  }
+
+  .cover-divider {
+    width: 60mm;
+    height: 1.5px;
+    background: linear-gradient(90deg, transparent, #c5a037, transparent);
+    margin: 0 auto 7mm;
+  }
+
+  /* Stats */
+  .cover-stats {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 0;
+    margin-bottom: 9mm;
+  }
+
+  .cstat {
+    text-align: center;
+    padding: 0 8mm;
+  }
+
+  .cstat-num {
+    font-size: 40px;
+    font-weight: 900;
+    color: #c5a037;
+    line-height: 1;
+  }
+
+  .cstat-lbl {
+    font-size: 11px;
+    color: rgba(255,255,255,0.5);
+    margin-top: 2mm;
+  }
+
+  .cstat-sep {
+    width: 1px;
+    height: 14mm;
+    background: rgba(197,160,55,0.35);
+  }
+
+  .cover-pills {
+    display: flex;
+    gap: 3mm;
+    flex-wrap: wrap;
+    justify-content: center;
+    margin-bottom: 8mm;
+  }
+
+  .cpill {
+    background: rgba(255,255,255,0.07);
+    border: 1px solid rgba(197,160,55,0.3);
+    color: rgba(255,255,255,0.75);
+    font-size: 11px;
+    padding: 4px 14px;
+    border-radius: 20px;
+  }
+
+  .cover-tagline {
+    color: rgba(255,255,255,0.32);
+    font-size: 11px;
+  }
+
+  /* ===== INNER PAGES ===== */
+  .inner {
+    padding: 13mm 13mm 11mm;
+    min-height: 297mm;
+    display: flex;
+    flex-direction: column;
+    background: #f9f7f2;
+  }
+
+  .iheader {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding-bottom: 4mm;
+    border-bottom: 2.5px solid #0d1f3c;
+    margin-bottom: 7mm;
+  }
+
+  .iheader-brand {
+    font-size: 12px;
+    font-weight: 900;
+    color: #0d1f3c;
+  }
+
+  .iheader-brand span { color: #c5a037; }
+  .iheader-page { font-size: 10px; color: #999; font-weight: 600; }
+
+  .sec { margin-bottom: 7mm; }
+
+  .sec-head {
+    display: flex;
+    align-items: center;
+    gap: 3mm;
+    margin-bottom: 4mm;
+  }
+
+  .sec-icon {
+    background: linear-gradient(135deg, #0d1f3c, #1a3a5c);
+    color: #c5a037;
+    width: 9mm;
+    height: 9mm;
+    border-radius: 4px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 15px;
+    flex-shrink: 0;
+  }
+
+  .sec-title {
+    font-size: 15px;
+    font-weight: 900;
+    color: #0d1f3c;
+  }
+
+  .info-box {
+    background: #fff;
+    border-right: 5px solid #c5a037;
+    border-radius: 0 8px 8px 0;
+    padding: 5mm 6mm;
+    font-size: 12.5px;
+    line-height: 2;
+    color: #333;
+  }
+
+  .reasons {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 4mm;
+  }
+
+  .rcard {
+    flex: 1 1 calc(50% - 4mm);
+    background: #fff;
+    border: 1px solid #e8e3d8;
+    border-radius: 8px;
+    padding: 5mm;
+    border-top: 4px solid #c5a037;
+  }
+
+  .rcard-num {
+    font-size: 22px;
+    font-weight: 900;
+    color: #c5a037;
+    line-height: 1;
+  }
+
+  .rcard-text {
+    font-size: 12px;
+    color: #444;
+    margin-top: 2mm;
+    line-height: 1.7;
+  }
+
+  .stats-row {
+    display: flex;
+    gap: 3mm;
+    margin-bottom: 4mm;
+  }
+
+  .scard {
+    flex: 1;
+    background: linear-gradient(135deg, #0d1f3c, #1a3a5c);
+    border-radius: 8px;
+    padding: 4mm 3mm;
+    text-align: center;
+    color: #fff;
+  }
+
+  .scard .n {
+    font-size: 28px;
+    font-weight: 900;
+    color: #c5a037;
+    line-height: 1;
+  }
+
+  .scard .l {
+    font-size: 10px;
+    opacity: 0.6;
+    margin-top: 1.5mm;
+  }
+
+  .phases {
+    display: flex;
+    gap: 3mm;
+  }
+
+  .pcard {
+    flex: 1;
+    background: #fff;
+    border: 1px solid #e0ddd0;
+    border-radius: 8px;
+    padding: 5mm;
+  }
+
+  .pcard-title {
+    font-size: 13px;
+    font-weight: 900;
+    margin-bottom: 3mm;
+  }
+
+  .pcard li {
+    list-style: none;
+    font-size: 11.5px;
+    color: #555;
+    margin-bottom: 2mm;
+    padding-right: 3mm;
+  }
+
+  /* Schedule table */
+  .stbl {
+    width: 100%;
+    border-collapse: collapse;
+    font-size: 12px;
+    background: #fff;
+    margin-bottom: 4mm;
+  }
+
+  .stbl thead tr {
+    background: linear-gradient(135deg, #0d1f3c, #1a3a5c);
+    color: #c5a037;
+  }
+
+  .stbl th {
+    padding: 3mm 3.5mm;
+    font-weight: 700;
+    font-size: 12px;
+    text-align: right;
+  }
+
+  .stbl th.center { text-align: center; }
+
+  .stbl td {
+    padding: 2.5mm 3.5mm;
+    border-bottom: 1px solid #eee;
+    color: #1a1a2e;
+    font-size: 12px;
+    vertical-align: middle;
+  }
+
+  .stbl td.center { text-align: center; }
+
+  .stbl tr:nth-child(even) td { background: #faf8f3; }
+
+  .dbadge {
+    display: inline-block;
+    background: #0d1f3c;
+    color: #c5a037;
+    font-size: 10px;
+    font-weight: 700;
+    padding: 3px 8px;
+    border-radius: 4px;
+    text-align: center;
+    line-height: 1.6;
+  }
+
+  .dbadge.gold { background: linear-gradient(135deg, #8B6914, #c5a037); color: #fff; }
+  .dbadge.green { background: #1a5c2a; color: #a0e8b0; }
+
+  .vs { color: #c5a037; font-weight: 900; font-size: 14px; text-align: center; }
+
+  .pts-row {
+    display: flex;
+    gap: 4mm;
+    margin-bottom: 5mm;
+  }
+
+  .pcard2 {
+    flex: 1;
+    border-radius: 8px;
+    padding: 5mm;
+    text-align: center;
+    color: #fff;
+  }
+
+  .pcard2.win { background: linear-gradient(135deg, #1a5c2a, #27ae60); }
+  .pcard2.draw { background: linear-gradient(135deg, #8B6914, #c5a037); }
+  .pcard2.loss { background: linear-gradient(135deg, #8b1a1a, #c0392b); }
+
+  .pcard2 .pe { font-size: 20px; }
+  .pcard2 .pl { font-size: 13px; font-weight: 700; margin: 2mm 0; }
+  .pcard2 .pn { font-size: 32px; font-weight: 900; line-height: 1; }
+  .pcard2 .pu { font-size: 10px; opacity: 0.8; }
+
+  .timeline { position: relative; padding-right: 9mm; }
+
+  .timeline::before {
+    content: '';
+    position: absolute;
+    right: 4mm;
+    top: 2mm;
+    bottom: 2mm;
+    width: 1.5px;
+    background: linear-gradient(to bottom, #c5a037, rgba(197,160,55,0.1));
+  }
+
+  .tl { display: flex; gap: 4mm; margin-bottom: 5mm; position: relative; }
+
+  .tldot {
+    position: absolute;
+    right: -7mm;
+    top: 1.5mm;
+    width: 5.5mm;
+    height: 5.5mm;
+    border-radius: 50%;
+    background: #c5a037;
+  }
+
+  .tldot.g { background: linear-gradient(135deg, #c5a037, #f0d060); }
+  .tldot.s { background: #1a5c2a; }
+
+  .tl-day { font-size: 12px; font-weight: 900; color: #0d1f3c; margin-bottom: 1mm; }
+  .tl-desc { font-size: 11.5px; color: #666; }
+
+  .note {
+    background: #fffbf0;
+    border: 1px solid #f0d070;
+    border-radius: 8px;
+    padding: 4mm 5mm;
+    font-size: 12px;
+    color: #6b5200;
+    line-height: 1.8;
+    margin-bottom: 4mm;
+  }
+
+  .note strong { color: #8B6914; }
+
+  .champ-box {
+    background: linear-gradient(135deg, #8B6914, #c5a037, #f0d060, #c5a037, #8B6914);
+    border-radius: 10px;
+    padding: 6mm;
+    text-align: center;
+    color: #0d1f3c;
+    margin-top: 5mm;
+  }
+
+  .champ-box .ci { font-size: 34px; }
+  .champ-box .ct { font-size: 15px; font-weight: 900; margin: 2mm 0; }
+  .champ-box .cl {
+    background: rgba(255,255,255,0.4);
+    border-radius: 6px;
+    padding: 3mm 12mm;
+    display: inline-block;
+    font-size: 13px;
+    min-width: 70mm;
+  }
+
+  .footer {
+    margin-top: auto;
+    padding-top: 4mm;
+    border-top: 1.5px solid #d0ccc0;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    font-size: 10px;
+    color: #aaa;
+  }
+
+  .footer .brand { color: #c5a037; font-weight: 700; }
+</style>
+</head>
+<body>
+
+<!-- ===== PAGE 1: COVER ===== -->
+<div class="page cover">
+  <div class="gold-bar-top"></div>
+
+  <!-- Big crescent LEFT using emoji -->
+  <div class="crescent-big">🌙</div>
+
+  <!-- Small crescent RIGHT -->
+  <div class="crescent-small">🌙</div>
+
+  <!-- Stars -->
+  <div class="deco-star" style="top:25mm;right:30mm;font-size:14px;opacity:0.5;">✦</div>
+  <div class="deco-star" style="top:42mm;right:60mm;font-size:8px;opacity:0.3;">★</div>
+  <div class="deco-star" style="top:65mm;right:40mm;font-size:11px;opacity:0.4;">✦</div>
+  <div class="deco-star" style="top:30mm;left:60mm;font-size:9px;opacity:0.35;">★</div>
+  <div class="deco-star" style="top:90mm;left:25mm;font-size:7px;opacity:0.3;">✦</div>
+  <div class="deco-star" style="bottom:55mm;right:35mm;font-size:10px;opacity:0.3;">★</div>
+  <div class="deco-star" style="bottom:75mm;left:40mm;font-size:8px;opacity:0.35;">✦</div>
+  <div class="deco-star" style="top:110mm;right:20mm;font-size:12px;opacity:0.25;">★</div>
+  <div class="deco-star" style="bottom:45mm;right:65mm;font-size:7px;opacity:0.3;">✦</div>
+
+  <!-- Frame -->
+  <div class="cover-frame"></div>
+  <div class="cover-frame-inner"></div>
+
+  <!-- Main content -->
+  <div class="cover-content">
+    <div class="lanterns">🪔 &nbsp; 🌙 &nbsp; 🪔</div>
+
+    <div class="cover-badge">🗂️ مقترح رسمي — للمراجعة والاعتماد</div>
+
+    <div class="cover-org-label">ت ح ت &nbsp; م ظ ل ة</div>
+    <div class="cover-title">صفوة المهيدب</div>
+    <div class="cover-subtitle">البطولة الرمضانية للشيش</div>
+    <div class="cover-year">رمضان المبارك ١٤٤٨ هـ</div>
+
+    <div class="cover-divider"></div>
+
+    <div class="cover-stats">
+      <div class="cstat">
+        <div class="cstat-num">10</div>
+        <div class="cstat-lbl">فرق متنافسة</div>
+      </div>
+      <div class="cstat-sep"></div>
+      <div class="cstat">
+        <div class="cstat-num">45</div>
+        <div class="cstat-lbl">مباراة</div>
+      </div>
+      <div class="cstat-sep"></div>
+      <div class="cstat">
+        <div class="cstat-num">11</div>
+        <div class="cstat-lbl">يوماً</div>
+      </div>
+    </div>
+
+    <div class="cover-pills">
+      <div class="cpill">🏆 دوري + نهائيات</div>
+      <div class="cpill">🎯 نقاط ثلاثية</div>
+      <div class="cpill">🌙 بعد الإفطار</div>
+    </div>
+
+    <div class="cover-tagline">ليالي رمضان × حرارة المنافسة × شيش أصيل 🎲🔥</div>
+  </div>
+
+  <div class="gold-bar-bottom"></div>
+</div>
+
+<!-- ===== PAGE 2: PROPOSAL ===== -->
+<div class="page inner">
+  <div class="iheader">
+    <div class="iheader-brand">🎲 <span>بطولة صفوة المهيدب</span> الرمضانية للشيش</div>
+    <div class="iheader-page">الصفحة 1 من 3</div>
+  </div>
+
+  <div class="sec">
+    <div class="sec-head"><div class="sec-icon">🌙</div><div class="sec-title">نبذة عن البطولة</div></div>
+    <div class="info-box">
+      بطولة صفوة المهيدب الرمضانية للشيش فعالية ترفيهية تنافسية تُقام في رمضان المبارك 1448هـ، تجمع عشرة فرق في منافسة منظمة ومثيرة على مدى أحد عشر يوماً. تهدف إلى إحياء روح التنافس الشريف وتعزيز الروابط في أجواء رمضانية دافئة بعد الإفطار.
+    </div>
+  </div>
+
+  <div class="sec">
+    <div class="sec-head"><div class="sec-icon">💡</div><div class="sec-title">لماذا نظام الدوري + النهائيات؟</div></div>
+    <div class="reasons">
+      <div class="rcard">
+        <div class="rcard-num">01</div>
+        <div class="rcard-text"><strong>العدالة الكاملة</strong><br>كل فريق يواجه جميع الفرق مرة واحدة — الترتيب موضوعي 100٪</div>
+      </div>
+      <div class="rcard">
+        <div class="rcard-num">02</div>
+        <div class="rcard-text"><strong>الإثارة اليومية</strong><br>5 مباريات كل يوم تضمن تشويقاً متواصلاً طوال الدوري</div>
+      </div>
+      <div class="rcard">
+        <div class="rcard-num">03</div>
+        <div class="rcard-text"><strong>التوقيت المثالي</strong><br>11 يوماً تتناسب مع رمضان وليالي ما بعد الإفطار</div>
+      </div>
+      <div class="rcard">
+        <div class="rcard-num">04</div>
+        <div class="rcard-text"><strong>نهائيات حماسية</strong><br>يومان حاسمان يمنحان البطولة طابع الكبرى</div>
+      </div>
+    </div>
+  </div>
+
+  <div class="sec">
+    <div class="sec-head"><div class="sec-icon">📊</div><div class="sec-title">أرقام البطولة</div></div>
+    <div class="stats-row">
+      <div class="scard"><div class="n">10</div><div class="l">فريق</div></div>
+      <div class="scard"><div class="n">45</div><div class="l">مباراة</div></div>
+      <div class="scard"><div class="n">5</div><div class="l">مباريات/يوم</div></div>
+      <div class="scard"><div class="n">9</div><div class="l">أيام دوري</div></div>
+      <div class="scard"><div class="n">2</div><div class="l">أيام نهائي</div></div>
+      <div class="scard"><div class="n">11</div><div class="l">المجموع</div></div>
+    </div>
+  </div>
+
+  <div class="sec">
+    <div class="sec-head"><div class="sec-icon">🏗️</div><div class="sec-title">هيكل المراحل</div></div>
+    <div class="phases">
+      <div class="pcard" style="border-top:4px solid #1a3a5c;">
+        <div class="pcard-title" style="color:#0d1f3c;">🔵 مرحلة الدوري<br><small style="font-weight:400;color:#888;font-size:11px;">الأيام 1 → 9</small></div>
+        <ul>
+          <li>📅 كل فريق يلعب مع الجميع</li>
+          <li>⚽ 5 مباريات يومياً</li>
+          <li>📊 ترتيب بالنقاط</li>
+          <li>✅ أفضل 4 يتأهلون</li>
+        </ul>
+      </div>
+      <div class="pcard" style="border-top:4px solid #1a5c2a;">
+        <div class="pcard-title" style="color:#1a5c2a;">🟢 نصف النهائي<br><small style="font-weight:400;color:#888;font-size:11px;">اليوم 10</small></div>
+        <ul>
+          <li>⚔️ الأول ضد الرابع</li>
+          <li>⚔️ الثاني ضد الثالث</li>
+          <li>🏆 الفائزان للنهائي</li>
+          <li>🥉 الخاسران يتنافسان</li>
+        </ul>
+      </div>
+      <div class="pcard" style="border-top:4px solid #c5a037;">
+        <div class="pcard-title" style="color:#8B6914;">🏆 النهائيات<br><small style="font-weight:400;color:#888;font-size:11px;">اليوم 11</small></div>
+        <ul>
+          <li>🥉 مباراة المركز الثالث</li>
+          <li>🔥 النهائي الكبير</li>
+          <li>👑 تتويج البطل</li>
+          <li>🎁 توزيع الجوائز</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+
+  <div class="footer">
+    <span class="brand">🎲 بطولة صفوة المهيدب الرمضانية للشيش</span>
+    <span>مقترح رسمي — للمراجعة والاعتماد</span>
+    <span>1 / 3</span>
+  </div>
+</div>
+
+<!-- ===== PAGE 3: SCHEDULE ===== -->
+<div class="page inner">
+  <div class="iheader">
+    <div class="iheader-brand">🎲 <span>بطولة صفوة المهيدب</span> الرمضانية للشيش</div>
+    <div class="iheader-page">الصفحة 2 من 3</div>
+  </div>
+
+  <div class="sec">
+    <div class="sec-head"><div class="sec-icon">📅</div><div class="sec-title">جدول الدوري الكامل — الأيام 1 إلى 9</div></div>
+    <table class="stbl">
+      <thead>
+        <tr>
+          <th style="width:16%">اليوم</th>
+          <th class="center" style="width:5%">#</th>
+          <th style="width:33%">الفريق الأول</th>
+          <th class="center" style="width:7%">VS</th>
+          <th style="width:33%">الفريق الثاني</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr><td rowspan="5"><span class="dbadge">اليوم 1</span></td><td class="center">1</td><td>فريق 1</td><td class="vs">⚔️</td><td>فريق 10</td></tr>
+        <tr><td class="center">2</td><td>فريق 2</td><td class="vs">⚔️</td><td>فريق 9</td></tr>
+        <tr><td class="center">3</td><td>فريق 3</td><td class="vs">⚔️</td><td>فريق 8</td></tr>
+        <tr><td class="center">4</td><td>فريق 4</td><td class="vs">⚔️</td><td>فريق 7</td></tr>
+        <tr><td class="center">5</td><td>فريق 5</td><td class="vs">⚔️</td><td>فريق 6</td></tr>
+
+        <tr style="border-top:2px solid #ddd;"><td rowspan="5"><span class="dbadge">اليوم 2</span></td><td class="center">1</td><td>فريق 1</td><td class="vs">⚔️</td><td>فريق 9</td></tr>
+        <tr><td class="center">2</td><td>فريق 10</td><td class="vs">⚔️</td><td>فريق 8</td></tr>
+        <tr><td class="center">3</td><td>فريق 2</td><td class="vs">⚔️</td><td>فريق 7</td></tr>
+        <tr><td class="center">4</td><td>فريق 3</td><td class="vs">⚔️</td><td>فريق 6</td></tr>
+        <tr><td class="center">5</td><td>فريق 4</td><td class="vs">⚔️</td><td>فريق 5</td></tr>
+
+        <tr style="border-top:2px solid #ddd;"><td rowspan="5"><span class="dbadge">اليوم 3</span></td><td class="center">1</td><td>فريق 1</td><td class="vs">⚔️</td><td>فريق 8</td></tr>
+        <tr><td class="center">2</td><td>فريق 9</td><td class="vs">⚔️</td><td>فريق 7</td></tr>
+        <tr><td class="center">3</td><td>فريق 10</td><td class="vs">⚔️</td><td>فريق 6</td></tr>
+        <tr><td class="center">4</td><td>فريق 2</td><td class="vs">⚔️</td><td>فريق 5</td></tr>
+        <tr><td class="center">5</td><td>فريق 3</td><td class="vs">⚔️</td><td>فريق 4</td></tr>
+
+        <tr style="border-top:2px solid #ddd;"><td rowspan="5"><span class="dbadge">اليوم 4</span></td><td class="center">1</td><td>فريق 1</td><td class="vs">⚔️</td><td>فريق 7</td></tr>
+        <tr><td class="center">2</td><td>فريق 8</td><td class="vs">⚔️</td><td>فريق 6</td></tr>
+        <tr><td class="center">3</td><td>فريق 9</td><td class="vs">⚔️</td><td>فريق 5</td></tr>
+        <tr><td class="center">4</td><td>فريق 10</td><td class="vs">⚔️</td><td>فريق 4</td></tr>
+        <tr><td class="center">5</td><td>فريق 2</td><td class="vs">⚔️</td><td>فريق 3</td></tr>
+
+        <tr style="border-top:2px solid #ddd;"><td rowspan="5"><span class="dbadge">اليوم 5</span></td><td class="center">1</td><td>فريق 1</td><td class="vs">⚔️</td><td>فريق 6</td></tr>
+        <tr><td class="center">2</td><td>فريق 7</td><td class="vs">⚔️</td><td>فريق 5</td></tr>
+        <tr><td class="center">3</td><td>فريق 8</td><td class="vs">⚔️</td><td>فريق 4</td></tr>
+        <tr><td class="center">4</td><td>فريق 9</td><td class="vs">⚔️</td><td>فريق 3</td></tr>
+        <tr><td class="center">5</td><td>فريق 10</td><td class="vs">⚔️</td><td>فريق 2</td></tr>
+
+        <tr style="border-top:2px solid #ddd;"><td rowspan="5"><span class="dbadge">اليوم 6</span></td><td class="center">1</td><td>فريق 1</td><td class="vs">⚔️</td><td>فريق 5</td></tr>
+        <tr><td class="center">2</td><td>فريق 6</td><td class="vs">⚔️</td><td>فريق 4</td></tr>
+        <tr><td class="center">3</td><td>فريق 7</td><td class="vs">⚔️</td><td>فريق 3</td></tr>
+        <tr><td class="center">4</td><td>فريق 8</td><td class="vs">⚔️</td><td>فريق 2</td></tr>
+        <tr><td class="center">5</td><td>فريق 9</td><td class="vs">⚔️</td><td>فريق 10</td></tr>
+
+        <tr style="border-top:2px solid #ddd;"><td rowspan="5"><span class="dbadge">اليوم 7</span></td><td class="center">1</td><td>فريق 1</td><td class="vs">⚔️</td><td>فريق 4</td></tr>
+        <tr><td class="center">2</td><td>فريق 5</td><td class="vs">⚔️</td><td>فريق 3</td></tr>
+        <tr><td class="center">3</td><td>فريق 6</td><td class="vs">⚔️</td><td>فريق 2</td></tr>
+        <tr><td class="center">4</td><td>فريق 7</td><td class="vs">⚔️</td><td>فريق 10</td></tr>
+        <tr><td class="center">5</td><td>فريق 8</td><td class="vs">⚔️</td><td>فريق 9</td></tr>
+
+        <tr style="border-top:2px solid #ddd;"><td rowspan="5"><span class="dbadge">اليوم 8</span></td><td class="center">1</td><td>فريق 1</td><td class="vs">⚔️</td><td>فريق 3</td></tr>
+        <tr><td class="center">2</td><td>فريق 4</td><td class="vs">⚔️</td><td>فريق 2</td></tr>
+        <tr><td class="center">3</td><td>فريق 5</td><td class="vs">⚔️</td><td>فريق 10</td></tr>
+        <tr><td class="center">4</td><td>فريق 6</td><td class="vs">⚔️</td><td>فريق 9</td></tr>
+        <tr><td class="center">5</td><td>فريق 7</td><td class="vs">⚔️</td><td>فريق 8</td></tr>
+
+        <tr style="border-top:2.5px solid #c5a037; background:rgba(197,160,55,0.05);">
+          <td rowspan="5"><span class="dbadge gold">اليوم 9 🌟<br>الجولة الأخيرة</span></td>
+          <td class="center">1</td><td><strong>فريق 1</strong></td><td class="vs">⚔️</td><td><strong>فريق 2</strong></td>
+        </tr>
+        <tr style="background:rgba(197,160,55,0.05);"><td class="center">2</td><td>فريق 3</td><td class="vs">⚔️</td><td>فريق 10</td></tr>
+        <tr style="background:rgba(197,160,55,0.05);"><td class="center">3</td><td>فريق 4</td><td class="vs">⚔️</td><td>فريق 9</td></tr>
+        <tr style="background:rgba(197,160,55,0.05);"><td class="center">4</td><td>فريق 5</td><td class="vs">⚔️</td><td>فريق 8</td></tr>
+        <tr style="background:rgba(197,160,55,0.05);"><td class="center">5</td><td>فريق 6</td><td class="vs">⚔️</td><td>فريق 7</td></tr>
+      </tbody>
+    </table>
+  </div>
+
+  <div class="footer">
+    <span class="brand">🎲 بطولة صفوة المهيدب الرمضانية للشيش</span>
+    <span>مقترح رسمي — للمراجعة والاعتماد</span>
+    <span>2 / 3</span>
+  </div>
+</div>
+
+<!-- ===== PAGE 4: FINALS + RULES ===== -->
+<div class="page inner">
+  <div class="iheader">
+    <div class="iheader-brand">🎲 <span>بطولة صفوة المهيدب</span> الرمضانية للشيش</div>
+    <div class="iheader-page">الصفحة 3 من 3</div>
+  </div>
+
+  <div class="sec">
+    <div class="sec-head"><div class="sec-icon">🏅</div><div class="sec-title">جدول مرحلة النهائيات — اليومان 10 و 11</div></div>
+    <table class="stbl">
+      <thead>
+        <tr>
+          <th style="width:18%">اليوم</th>
+          <th class="center" style="width:5%">#</th>
+          <th style="width:29%">المتنافس الأول</th>
+          <th class="center" style="width:7%">VS</th>
+          <th style="width:29%">المتنافس الثاني</th>
+          <th class="center" style="width:12%">الهدف</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td rowspan="2"><span class="dbadge green">اليوم 10<br>نصف النهائي</span></td>
+          <td class="center">1</td><td>🥇 المركز الأول</td><td class="vs">⚔️</td><td>المركز الرابع</td>
+          <td class="center" style="font-size:10px;color:#1a5c2a;font-weight:700;">للنهائي ✅</td>
+        </tr>
+        <tr>
+          <td class="center">2</td><td>🥈 المركز الثاني</td><td class="vs">⚔️</td><td>المركز الثالث</td>
+          <td class="center" style="font-size:10px;color:#1a5c2a;font-weight:700;">للنهائي ✅</td>
+        </tr>
+        <tr style="border-top:2.5px solid #c5a037;">
+          <td rowspan="2"><span class="dbadge gold">اليوم 11 🔥<br>النهائيات</span></td>
+          <td class="center">1</td><td>🥉 الخاسر الأول</td><td class="vs">⚔️</td><td>الخاسر الثاني</td>
+          <td class="center" style="font-size:10px;color:#8B6914;font-weight:700;">المركز 3 🥉</td>
+        </tr>
+        <tr style="background:rgba(197,160,55,0.08);">
+          <td class="center">2</td><td><strong>🏆 الفائز الأول</strong></td><td class="vs">⚔️</td><td><strong>الفائز الثاني 🏆</strong></td>
+          <td class="center" style="font-size:11px;color:#8B6914;font-weight:900;">البطل 🏆</td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+
+  <div class="sec">
+    <div class="sec-head"><div class="sec-icon">📊</div><div class="sec-title">نظام النقاط</div></div>
+    <div class="pts-row">
+      <div class="pcard2 win"><div class="pe">🟢</div><div class="pl">فوز</div><div class="pn">3</div><div class="pu">نقاط</div></div>
+      <div class="pcard2 draw"><div class="pe">🟡</div><div class="pl">تعادل</div><div class="pn">1</div><div class="pu">نقطة</div></div>
+      <div class="pcard2 loss"><div class="pe">🔴</div><div class="pl">خسارة</div><div class="pn">0</div><div class="pu">نقطة</div></div>
+    </div>
+    <div class="note">
+      <strong>⚖️ معيار الفصل عند التعادل في الترتيب:</strong><br>
+      ١. المواجهة المباشرة &nbsp;•&nbsp; ٢. فارق النقاط &nbsp;•&nbsp; ٣. القرعة العادلة
+    </div>
+  </div>
+
+  <div class="sec">
+    <div class="sec-head"><div class="sec-icon">🗓️</div><div class="sec-title">الخط الزمني</div></div>
+    <div class="timeline">
+      <div class="tl">
+        <div class="tldot"></div>
+        <div>
+          <div class="tl-day">الأيام 1 → 9 · مرحلة الدوري</div>
+          <div class="tl-desc">كل فريق يلعب مع الجميع — 5 مباريات يومياً بعد الإفطار 🌙</div>
+        </div>
+      </div>
+      <div class="tl">
+        <div class="tldot s"></div>
+        <div>
+          <div class="tl-day">اليوم 10 · نصف النهائي</div>
+          <div class="tl-desc">أفضل 4 فرق في مباراتين حاسمتين</div>
+        </div>
+      </div>
+      <div class="tl">
+        <div class="tldot g"></div>
+        <div>
+          <div class="tl-day">اليوم 11 · يوم التتويج 🏆</div>
+          <div class="tl-desc">مباراة المركز الثالث ثم النهائي الكبير — تتويج بطل صفوة المهيدب 🎲🔥</div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="note" style="background:#f0f8ff;border-color:#b0d4f0;color:#1a3a5c;">
+    <strong>⏰ التوقيت:</strong> بعد الإفطار مباشرة 🌙 &nbsp;&nbsp; <strong>💡 ملاحظة:</strong> بعد الاعتماد يمكن إضافة أسماء الفرق واستخراج بوستر جاهز للنشر.
+  </div>
+
+  <div class="champ-box">
+    <div class="ci">🏆</div>
+    <div class="ct">بطل بطولة صفوة المهيدب الرمضانية 1448هـ</div>
+    <div class="cl">يُكتب هنا اسم البطل بعد النهائي الكبير</div>
+  </div>
+
+  <div class="footer">
+    <span class="brand">🎲 بطولة صفوة المهيدب الرمضانية للشيش</span>
+    <span>🌙 رمضان كريم 1448هـ</span>
+    <span>3 / 3</span>
+  </div>
+</div>
+
+</body>
+</html>

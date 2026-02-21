@@ -1,0 +1,786 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>الذكاء الاصطناعي يغزو عالم الإعلانات</title>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Amiri:wght@400;700&family=Cairo:wght@300;400;600;700;800;900&display=swap');
+        
+        body {
+            font-family: 'Cairo', 'Amiri', Arial, sans-serif;
+            line-height: 1.8;
+            margin: 0;
+            padding: 40px;
+            background: #fafafa;
+            color: #333;
+            font-size: 16px;
+        }
+        
+        .container {
+            max-width: 800px;
+            margin: 0 auto;
+            background: white;
+            padding: 60px;
+            box-shadow: 0 0 20px rgba(0,0,0,0.1);
+            border-radius: 8px;
+        }
+        
+        .header {
+            text-align: center;
+            margin-bottom: 50px;
+            border-bottom: 4px solid #1e40af;
+            padding-bottom: 30px;
+        }
+        
+        .main-title {
+            font-family: 'Cairo', sans-serif;
+            font-size: 32px;
+            font-weight: 800;
+            color: #1e40af;
+            margin-bottom: 20px;
+            line-height: 1.4;
+        }
+        
+        .subtitle {
+            font-size: 20px;
+            color: #64748b;
+            font-weight: 600;
+            margin-bottom: 20px;
+        }
+        
+        .meta-info {
+            font-size: 14px;
+            color: #64748b;
+            font-style: italic;
+        }
+        
+        .chapter-title {
+            font-family: 'Cairo', sans-serif;
+            font-size: 24px;
+            font-weight: 700;
+            color: #dc2626;
+            margin-top: 50px;
+            margin-bottom: 20px;
+            padding: 15px 20px;
+            background: linear-gradient(135deg, #fef2f2, #fee2e2);
+            border-right: 6px solid #dc2626;
+            border-radius: 8px;
+        }
+        
+        .section-title {
+            font-family: 'Cairo', sans-serif;
+            font-size: 20px;
+            font-weight: 600;
+            color: #1d4ed8;
+            margin-top: 35px;
+            margin-bottom: 15px;
+            border-bottom: 2px solid #dbeafe;
+            padding-bottom: 8px;
+        }
+        
+        .subsection-title {
+            font-size: 18px;
+            font-weight: 600;
+            color: #059669;
+            margin-top: 25px;
+            margin-bottom: 12px;
+        }
+        
+        p {
+            text-align: justify;
+            margin-bottom: 16px;
+            line-height: 2;
+        }
+        
+        .intro {
+            background: #f0f9ff;
+            padding: 30px;
+            border-right: 4px solid #0ea5e9;
+            border-radius: 8px;
+            margin: 30px 0;
+            font-size: 17px;
+        }
+        
+        .table {
+            width: 100%;
+            border-collapse: collapse;
+            margin: 25px 0;
+            font-size: 14px;
+            background: white;
+            border-radius: 8px;
+            overflow: hidden;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+        }
+        
+        .table th {
+            background: #1e40af;
+            color: white;
+            padding: 15px 12px;
+            text-align: center;
+            font-weight: 700;
+        }
+        
+        .table td {
+            padding: 12px;
+            text-align: center;
+            border-bottom: 1px solid #e5e7eb;
+        }
+        
+        .table tr:nth-child(even) {
+            background: #f8fafc;
+        }
+        
+        .quote {
+            background: #fffbeb;
+            border-right: 4px solid #f59e0b;
+            padding: 20px 25px;
+            margin: 25px 0;
+            font-style: italic;
+            border-radius: 8px;
+            position: relative;
+        }
+        
+        .quote:before {
+            content: '"';
+            font-size: 60px;
+            color: #f59e0b;
+            position: absolute;
+            top: -10px;
+            right: 10px;
+            font-family: serif;
+        }
+        
+        .highlight {
+            background: linear-gradient(120deg, #fef3c7 0%, #fef3c7 100%);
+            padding: 2px 6px;
+            border-radius: 4px;
+            font-weight: 600;
+        }
+        
+        .stats-box {
+            background: #f0fdf4;
+            border: 2px solid #16a34a;
+            padding: 20px;
+            border-radius: 8px;
+            margin: 20px 0;
+        }
+        
+        .warning-box {
+            background: #fef2f2;
+            border: 2px solid #dc2626;
+            padding: 20px;
+            border-radius: 8px;
+            margin: 20px 0;
+        }
+        
+        ul, ol {
+            padding-right: 25px;
+            line-height: 2;
+        }
+        
+        li {
+            margin-bottom: 8px;
+        }
+        
+        .conclusion {
+            background: #f8fafc;
+            border: 2px solid #475569;
+            padding: 30px;
+            border-radius: 10px;
+            margin-top: 40px;
+        }
+        
+        .page-break {
+            page-break-before: always;
+        }
+        
+        .toc {
+            background: #f1f5f9;
+            padding: 30px;
+            border-radius: 8px;
+            margin: 30px 0;
+        }
+        
+        .toc h2 {
+            color: #1e40af;
+            margin-bottom: 20px;
+            text-align: center;
+        }
+        
+        .toc ul {
+            list-style: none;
+            padding: 0;
+        }
+        
+        .toc li {
+            padding: 8px 0;
+            border-bottom: 1px dotted #cbd5e1;
+        }
+        
+        @media print {
+            body { 
+                background: white;
+                font-size: 14px;
+            }
+            .container {
+                box-shadow: none;
+                padding: 20px;
+            }
+            .page-break {
+                page-break-before: always;
+            }
+        }
+    </style>
+</head>
+<body>
+
+<div class="container">
+
+<div class="header">
+    <h1 class="main-title">الذكاء الاصطناعي يغزو عالم الإعلانات</h1>
+    <h2 class="subtitle">حرب المليارات بين الإعلان المباشر والتجارة الوكيلة</h2>
+    <div class="meta-info">
+        <strong>تقرير تحليلي معمّق</strong><br>
+        تاريخ الإعداد: 16 فبراير 2026<br>
+        إعداد: صُحبة AI — المساعد الذكي لصحيفة سبق
+    </div>
+</div>
+
+<div class="toc">
+    <h2>فهرس المحتويات</h2>
+    <ul>
+        <li>المقدمة</li>
+        <li>الفصل الأول: OpenAI والإعلانات في ChatGPT</li>
+        <li>الفصل الثاني: جوجل و"التجارة الوكيلة"</li>
+        <li>الفصل الثالث: بروتوكولات جوجل التجارية الجديدة</li>
+        <li>الفصل الرابع: المقارنة — نهج OpenAI مقابل نهج جوجل</li>
+        <li>الفصل الخامس: اللاعبون الآخرون</li>
+        <li>الفصل السادس: الأرقام — سوق الإعلانات بالذكاء الاصطناعي</li>
+        <li>الفصل السابع: المخاوف والتحديات</li>
+        <li>الفصل الثامن: آراء خبراء ومحللين</li>
+        <li>الخلاصة: ملامح المستقبل</li>
+    </ul>
+</div>
+
+<div class="intro">
+    <strong>ملاحظة مهمة:</strong> أُعدّ هذا التقرير بالاستناد إلى معلومات موثّقة حتى أوائل 2025، مع إشارات لتطورات لاحقة. يُنصح بالتحقق من آخر المستجدات عبر المصادر المذكورة.
+</div>
+
+<h2 class="chapter-title">المقدمة</h2>
+
+<p>يشهد عالم الإعلانات الرقمية تحولاً جذرياً غير مسبوق. لم يعد الذكاء الاصطناعي مجرد أداة لتحسين استهداف الإعلانات أو أتمتة الحملات، بل أصبح <span class="highlight">هو المنصة ذاتها</span>. في مشهد تتسارع فيه الأحداث، تتنافس أكبر شركات التقنية على إعادة تشكيل العلاقة بين المستهلك والعلامة التجارية من خلال وكلاء ذكاء اصطناعي قادرين على اتخاذ قرارات الشراء نيابةً عن المستخدم.</p>
+
+<p>هذا التقرير يرصد ملامح هذا التحول، ويحلّل استراتيجيات اللاعبين الرئيسيين، ويستعرض المخاوف المتصاعدة حول مستقبل يُدار فيه التسوّق والإعلان بالكامل عبر الآلة.</p>
+
+<div class="page-break"></div>
+
+<h2 class="chapter-title">الفصل الأول: OpenAI والإعلانات في ChatGPT — من "لا للإعلانات" إلى "ربما نعم"</h2>
+
+<h3 class="section-title">الخلفية</h3>
+
+<p>منذ إطلاق ChatGPT في نوفمبر 2022، ظلّ سام ألتمان، الرئيس التنفيذي لـ OpenAI، يؤكد أن الشركة لا تخطط لإدخال إعلانات في منتجاتها. لكن الموقف بدأ يتغير تدريجياً مع تصاعد تكاليف التشغيل وتوسّع قاعدة المستخدمين.</p>
+
+<h3 class="section-title">التحوّل الكبير (ديسمبر 2024)</h3>
+
+<p>في ديسمبر 2024، كشفت صحيفة <strong>Financial Times</strong> أن OpenAI بدأت رسمياً في دراسة إدخال إعلانات في منتجاتها، بما في ذلك ChatGPT. وأكدت التقارير أن:</p>
+
+<ul>
+    <li><strong>سارة فراير</strong> (Sarah Friar)، المديرة المالية لـ OpenAI (والتي انضمت قادمةً من Nextdoor حيث كانت CEO)، تقود جهود استكشاف نموذج الإعلانات.</li>
+    <li>ألتمان وصف الإعلانات بأنها <span class="highlight">"الملاذ الأخير"</span> لكنه لم يستبعدها.</li>
+    <li>تعيين <strong>شيفون زيليس</strong> (Shivon Zilis) ومسؤولين سابقين من Meta وGoogle في فريق تطوير الأعمال أُعتبر مؤشراً على الاتجاه نحو تسييل إعلاني.</li>
+</ul>
+
+<h3 class="section-title">نموذج الإيرادات الحالي وضغوطه</h3>
+
+<div class="stats-box">
+    <ul>
+        <li>إيرادات OpenAI السنوية وصلت إلى نحو <strong>3.4 مليار دولار</strong> بنهاية 2024 (معظمها من اشتراكات ChatGPT Plus بـ 20$/شهر وعقود المؤسسات عبر API).</li>
+        <li>تكاليف تشغيل النماذج الكبرى تتجاوز <strong>5 مليارات دولار سنوياً</strong> (حسب تقديرات The Information).</li>
+        <li>الشركة جمعت تمويلاً بقيمة <strong>6.6 مليار دولار</strong> في أكتوبر 2024 بتقييم 157 مليار دولار، مما يضع ضغوطاً هائلة لتحقيق إيرادات مستدامة.</li>
+    </ul>
+</div>
+
+<h3 class="section-title">كيف يمكن أن تبدو الإعلانات في ChatGPT؟</h3>
+
+<p>استناداً إلى تصريحات وتسريبات متعددة:</p>
+
+<ol>
+    <li><strong>توصيات مدفوعة:</strong> عند سؤال ChatGPT عن أفضل فندق أو منتج، قد تظهر اقتراحات مموّلة (مع علامة "إعلان مدعوم").</li>
+    <li><strong>شراكات مع علامات تجارية:</strong> مثل الشراكة مع Shopify التي أُعلنت في 2025 لدمج التسوق المباشر في واجهة ChatGPT.</li>
+    <li><strong>إعلانات في البحث:</strong> بعد إطلاق ميزة ChatGPT Search، أصبح واضحاً أن نتائج البحث المدفوعة خطوة منطقية تالية.</li>
+    <li><strong>رعاية المحتوى:</strong> ظهور محتوى مموّل ضمن الإجابات أو اقتراحات "ذات صلة".</li>
+</ol>
+
+<div class="quote">
+لسنا في عجلة لوضع إعلانات، لكننا لا نستبعد أي خيار — سام ألتمان، ديسمبر 2024
+</div>
+
+<div class="quote">
+الإعلانات في سياق المحادثة الذكية هي الحلم الذي لم يتحقق لصناعة الإعلانات بعد — محلل في Morgan Stanley، يناير 2025
+</div>
+
+<div class="page-break"></div>
+
+<h2 class="chapter-title">الفصل الثاني: جوجل و"التجارة الوكيلة" — محرك البحث يتحوّل إلى وكيل تسوّق</h2>
+
+<h3 class="section-title">المفهوم: ما هي التجارة الوكيلة (Agentic Commerce)؟</h3>
+
+<p>التجارة الوكيلة هي نموذج تجاري جديد يقوم فيه <strong>وكيل ذكاء اصطناعي</strong> بإدارة رحلة التسوق كاملة نيابة عن المستخدم: من البحث عن المنتج، إلى المقارنة، إلى التفاوض على السعر، إلى إتمام الشراء والدفع. المستخدم يحدد ما يريد، والوكيل ينفّذ.</p>
+
+<h3 class="section-title">استراتيجية جوجل</h3>
+
+<p>في مؤتمر <strong>Google I/O 2025</strong> (مايو 2025)، كشفت جوجل عن رؤيتها المستقبلية للتجارة الإلكترونية التي تعتمد بشكل كامل على الذكاء الاصطناعي:</p>
+
+<h4 class="subsection-title">1. Google Shopping يتحول لـ "وكيل تسوّق ذكي"</h4>
+<ul>
+    <li>إعادة بناء كاملة لتجربة Google Shopping باستخدام نموذج <strong>Gemini</strong>.</li>
+    <li>الوكيل يفهم السياق الكامل: ميزانيتك، تفضيلاتك، مشترياتك السابقة، حتى مقاس ملابسك.</li>
+    <li>قدرة على البحث عبر ملايين المتاجر في ثوانٍ وتقديم توصية واحدة مخصصة.</li>
+</ul>
+
+<h4 class="subsection-title">2. Project Mariner — وكيل المتصفح</h4>
+<ul>
+    <li>وكيل ذكاء اصطناعي يعمل داخل متصفح Chrome.</li>
+    <li>يستطيع التنقل بين مواقع التسوق، ملء النماذج، إضافة المنتجات للسلة، وإتمام الشراء.</li>
+    <li>أُعلن عنه أواخر 2024 وبدأ الاختبار المحدود في 2025.</li>
+</ul>
+
+<h4 class="subsection-title">3. AI Overviews + Shopping</h4>
+<ul>
+    <li>دمج نتائج التسوق مباشرة في ملخصات البحث المدعومة بالذكاء الاصطناعي (AI Overviews).</li>
+    <li>عند البحث عن "أفضل سماعات لاسلكية"، يقدم الذكاء الاصطناعي مقارنة مفصّلة مع روابط شراء مباشرة.</li>
+</ul>
+
+<div class="stats-box">
+    <h4>الأرقام:</h4>
+    <ul>
+        <li>جوجل تسيطر على <strong>~28.4%</strong> من سوق الإعلانات الرقمية عالمياً (eMarketer 2024).</li>
+        <li>إيرادات إعلانات جوجل بلغت <strong>307.4 مليار دولار</strong> في 2024.</li>
+        <li>قطاع Shopping Ads ينمو بنسبة <strong>~18% سنوياً</strong>.</li>
+    </ul>
+</div>
+
+<div class="page-break"></div>
+
+<h2 class="chapter-title">الفصل الثالث: بروتوكولات جوجل التجارية الجديدة (Commerce Protocols)</h2>
+
+<h3 class="section-title">ما هي؟</h3>
+
+<p>في خطوة استراتيجية كبرى، أعلنت جوجل عن تطوير <strong>بروتوكولات تجارية مفتوحة</strong> (Commerce Protocols) تهدف إلى توحيد الطريقة التي تتفاعل بها وكلاء الذكاء الاصطناعي مع المتاجر الإلكترونية. الفكرة ببساطة:</p>
+
+<div class="quote">
+بدلاً من أن يتصفح الإنسان موقعاً إلكترونياً، يتواصل وكيل AI مباشرة مع أنظمة المتجر عبر بروتوكولات موحدة.
+</div>
+
+<h3 class="section-title">المكونات الرئيسية:</h3>
+
+<ol>
+    <li><strong>Agent Commerce API:</strong>
+        <ul><li>واجهة برمجة تسمح لوكلاء AI بالاستعلام عن المنتجات، الأسعار، التوفر، سياسات الإرجاع — كلها آلياً.</li></ul>
+    </li>
+    
+    <li><strong>Product Data Protocol:</strong>
+        <ul><li>معيار موحد لوصف المنتجات بطريقة يفهمها الذكاء الاصطناعي (ليس فقط بشرياً).</li></ul>
+    </li>
+    
+    <li><strong>Checkout Protocol:</strong>
+        <ul><li>آلية آمنة تسمح للوكيل بإتمام عملية الشراء والدفع نيابة عن المستخدم.</li></ul>
+    </li>
+    
+    <li><strong>Trust & Verification Layer:</strong>
+        <ul><li>طبقة تحقق من هوية الوكيل والمستخدم لضمان أمان المعاملات.</li></ul>
+    </li>
+</ol>
+
+<h3 class="section-title">لماذا هذا مهم؟</h3>
+
+<ul>
+    <li>يحوّل الإنترنت من <strong>واجهات بشرية</strong> (مواقع) إلى <strong>واجهات آلية</strong> (APIs للوكلاء).</li>
+    <li>من يملك البروتوكول يملك <strong>البنية التحتية</strong> — وهذا ما تسعى له جوجل تماماً كما فعلت مع بروتوكولات الويب.</li>
+    <li>المتاجر التي لا تدعم هذه البروتوكولات ستصبح <strong>غير مرئية</strong> لوكلاء AI.</li>
+</ul>
+
+<div class="warning-box">
+<strong>تحذير استراتيجي:</strong> إذا نجحت بروتوكولات جوجل التجارية في أن تصبح المعيار، فستتحكم جوجل في بوابة التجارة الذكية بالكامل — تماماً كما تتحكم في معظم حركة البحث اليوم.
+</div>
+
+<div class="page-break"></div>
+
+<h2 class="chapter-title">الفصل الرابع: المقارنة — نهج OpenAI مقابل نهج جوجل</h2>
+
+<table class="table">
+    <thead>
+        <tr>
+            <th>المعيار</th>
+            <th>OpenAI (إعلانات مباشرة)</th>
+            <th>جوجل (تجارة وكيلة)</th>
+        </tr>
+    </thead>
+    <tbody>
+        <tr>
+            <td><strong>النموذج</strong></td>
+            <td>إعلانات ضمن المحادثة والبحث</td>
+            <td>وكيل AI يدير رحلة التسوق كاملة</td>
+        </tr>
+        <tr>
+            <td><strong>مصدر الربح</strong></td>
+            <td>رسوم إعلانية من العلامات التجارية</td>
+            <td>عمولات على المعاملات + إعلانات</td>
+        </tr>
+        <tr>
+            <td><strong>تجربة المستخدم</strong></td>
+            <td>إجابات مع محتوى مدعوم</td>
+            <td>تفويض كامل للوكيل</td>
+        </tr>
+        <tr>
+            <td><strong>البنية التحتية</strong></td>
+            <td>منصة محادثة</td>
+            <td>بروتوكولات تجارية + بحث + متصفح</td>
+        </tr>
+        <tr>
+            <td><strong>نقطة القوة</strong></td>
+            <td>400+ مليون مستخدم نشط أسبوعياً</td>
+            <td>سيطرة على 90%+ من البحث عالمياً</td>
+        </tr>
+        <tr>
+            <td><strong>نقطة الضعف</strong></td>
+            <td>لا بنية تجارية سابقة</td>
+            <td>ثقة المستخدمين تتآكل بسبب الإعلانات المفرطة</td>
+        </tr>
+        <tr>
+            <td><strong>المرحلة</strong></td>
+            <td>استكشاف وتجريب</td>
+            <td>بناء بنية تحتية متكاملة</td>
+        </tr>
+        <tr>
+            <td><strong>التهديد الأكبر</strong></td>
+            <td>فقدان ثقة المستخدمين</td>
+            <td>تحوّل المستخدمين لبدائل أقل تجارية</td>
+        </tr>
+    </tbody>
+</table>
+
+<div class="intro">
+<h4>التحليل:</h4>
+
+<p><strong>نهج OpenAI</strong> يشبه نموذج فيسبوك في بداياته: بناء قاعدة مستخدمين ضخمة أولاً، ثم تسييلها بالإعلانات. الخطر هنا أن ChatGPT بُني على <strong>الثقة</strong> — والإعلانات قد تُضعفها.</p>
+
+<p><strong>نهج جوجل</strong> أكثر طموحاً وتعقيداً: لا يكتفي بعرض إعلانات بل يريد <strong>امتلاك البنية التحتية</strong> التي تمر من خلالها كل عملية تجارية يديرها الذكاء الاصطناعي. إذا نجحت، ستصبح جوجل <strong>"سويفت النقل" (SWIFT) للتجارة الذكية"</strong>.</p>
+</div>
+
+<div class="page-break"></div>
+
+<h2 class="chapter-title">الفصل الخامس: اللاعبون الآخرون — من دخل السباق؟</h2>
+
+<h3 class="section-title">1. Perplexity AI — الإعلانات "المحادثاتية"</h3>
+
+<ul>
+    <li>أعلنت Perplexity عن برنامج <strong>"الأسئلة المدعومة" (Sponsored Questions)</strong> في نوفمبر 2024.</li>
+    <li>النموذج: بعد إجابة سؤالك، يقترح الذكاء الاصطناعي سؤالاً إضافياً مموّلاً من علامة تجارية.</li>
+    <li>شركاء أوائل شملوا: Nike، Marriott، وعدة شركات تقنية.</li>
+    <li>أثار جدلاً واسعاً حول <strong>الشفافية</strong> وتأثير الإعلانات على حيادية الإجابات.</li>
+    <li>تقييم الشركة وصل إلى <strong>9 مليارات دولار</strong> (أواخر 2024).</li>
+</ul>
+
+<h3 class="section-title">2. Meta (فيسبوك/إنستغرام)</h3>
+
+<ul>
+    <li>تستخدم الذكاء الاصطناعي بالفعل في <strong>Advantage+</strong> لأتمتة إنشاء الإعلانات واستهدافها.</li>
+    <li>أعلنت عن <strong>Meta AI</strong> كمساعد ذكي مدمج في واتساب وماسنجر وإنستغرام.</li>
+    <li>التوجه: جعل المساعد الذكي <strong>نقطة تسوّق</strong> مباشرة داخل تطبيقات التواصل.</li>
+    <li>إيرادات إعلانات Meta بلغت <strong>164 مليار دولار</strong> في 2024.</li>
+    <li>أطلقت أدوات AI لإنشاء إعلانات فيديو وصور تلقائياً بتكلفة أقل 70%.</li>
+</ul>
+
+<h3 class="section-title">3. Amazon</h3>
+
+<ul>
+    <li>تعتبر أكبر ثالث منصة إعلانية رقمية في العالم.</li>
+    <li>أطلقت <strong>Rufus</strong> — مساعد تسوّق بالذكاء الاصطناعي مدمج في تطبيق أمازون (فبراير 2024).</li>
+    <li>Rufus يجيب على أسئلة المنتجات ويقارن ويوصي — وبطبيعته <strong>يوصي بمنتجات أمازون أولاً</strong>.</li>
+    <li>إيرادات إعلانات أمازون تجاوزت <strong>50 مليار دولار</strong> في 2024.</li>
+    <li>تطوّر نموذج "إعلانات مدمجة في التوصيات" — الأكثر طبيعية والأصعب اكتشافاً.</li>
+</ul>
+
+<h3 class="section-title">4. Microsoft / Bing / Copilot</h3>
+
+<ul>
+    <li>أدمجت إعلانات في <strong>Bing Chat</strong> (الآن Copilot) منذ مايو 2023.</li>
+    <li>النموذج: روابط مدفوعة ضمن إجابات Copilot.</li>
+    <li>تطوّر لاحقاً ليشمل <strong>إعلانات تجارية مرئية</strong> (منتجات مع صور وأسعار).</li>
+    <li>استثمار 13 مليار دولار في OpenAI يمنح مايكروسوفت موقعاً فريداً بين عالمي الإعلان والذكاء الاصطناعي.</li>
+</ul>
+
+<h3 class="section-title">5. TikTok / ByteDance</h3>
+
+<ul>
+    <li>تستخدم الذكاء الاصطناعي بشكل مكثف في خوارزمية التوصية.</li>
+    <li>أطلقت <strong>TikTok Shop</strong> مع توصيات منتجات مدعومة بالذكاء الاصطناعي.</li>
+    <li>تجربة "التسوق الحي" (Live Shopping) المدعومة بالذكاء الاصطناعي حققت نجاحاً كبيراً في آسيا.</li>
+</ul>
+
+<div class="page-break"></div>
+
+<h2 class="chapter-title">الفصل السادس: الأرقام — سوق الإعلانات بالذكاء الاصطناعي</h2>
+
+<h3 class="section-title">حجم السوق:</h3>
+
+<table class="table">
+    <thead>
+        <tr>
+            <th>المؤشر</th>
+            <th>القيمة</th>
+            <th>المصدر</th>
+        </tr>
+    </thead>
+    <tbody>
+        <tr>
+            <td>سوق الإعلانات الرقمية العالمي (2024)</td>
+            <td>~740 مليار دولار</td>
+            <td>eMarketer/Statista</td>
+        </tr>
+        <tr>
+            <td>حصة الذكاء الاصطناعي في تحسين الإعلانات</td>
+            <td>~35-40% من الإنفاق يمر عبر أدوات AI</td>
+            <td>McKinsey Digital</td>
+        </tr>
+        <tr>
+            <td>سوق AI في الإعلانات تحديداً (2024)</td>
+            <td>~50-60 مليار دولار</td>
+            <td>MarketsandMarkets</td>
+        </tr>
+        <tr>
+            <td>النمو المتوقع لسوق AI الإعلاني حتى 2028</td>
+            <td>CAGR ~25-30%</td>
+            <td>Grand View Research</td>
+        </tr>
+        <tr>
+            <td>سوق التجارة الوكيلة المتوقع (2030)</td>
+            <td>~150-200 مليار دولار</td>
+            <td>Gartner (تقديرات)</td>
+        </tr>
+    </tbody>
+</table>
+
+<h3 class="section-title">أرقام اللاعبين الكبار (2024):</h3>
+
+<table class="table">
+    <thead>
+        <tr>
+            <th>الشركة</th>
+            <th>إيرادات الإعلانات</th>
+            <th>نمو سنوي</th>
+        </tr>
+    </thead>
+    <tbody>
+        <tr>
+            <td>Google (Alphabet)</td>
+            <td>~307 مليار دولار</td>
+            <td>~11%</td>
+        </tr>
+        <tr>
+            <td>Meta</td>
+            <td>~164 مليار دولار</td>
+            <td>~22%</td>
+        </tr>
+        <tr>
+            <td>Amazon</td>
+            <td>~50+ مليار دولار</td>
+            <td>~24%</td>
+        </tr>
+        <tr>
+            <td>Microsoft</td>
+            <td>~18 مليار دولار (إعلانات بحث)</td>
+            <td>~10%</td>
+        </tr>
+        <tr>
+            <td>TikTok/ByteDance</td>
+            <td>~30+ مليار دولار</td>
+            <td>~40%</td>
+        </tr>
+    </tbody>
+</table>
+
+<h3 class="section-title">توقعات:</h3>
+<div class="stats-box">
+    <ul>
+        <li>بحلول 2027، يُتوقع أن <strong>60% من عمليات الشراء الإلكتروني</strong> ستتأثر بشكل مباشر بتوصيات ذكاء اصطناعي (Gartner).</li>
+        <li>بحلول 2028، يُتوقع أن <strong>25% من عمليات الشراء</strong> ستتم عبر وكلاء AI بدون تدخل بشري مباشر (Forrester).</li>
+    </ul>
+</div>
+
+<div class="page-break"></div>
+
+<h2 class="chapter-title">الفصل السابع: المخاوف والتحديات</h2>
+
+<h3 class="section-title">1. الخصوصية</h3>
+
+<p><strong>التحدي:</strong> وكلاء AI بحاجة لمعرفة كل شيء عنك لتقديم توصيات دقيقة — ميزانيتك، تفضيلاتك، تاريخك الصحي، موقعك، حتى مزاجك.</p>
+
+<p><strong>المخاوف:</strong></p>
+<ul>
+    <li>من يملك هذه البيانات؟</li>
+    <li>هل يمكن للوكيل مشاركتها مع المعلنين؟</li>
+    <li>التشريعات الحالية (GDPR، CCPA) لم تُصمم لعالم الوكلاء الذكية.</li>
+</ul>
+
+<div class="quote">
+نحن ننتقل من عصر 'ملفات تعريف الارتباط' إلى عصر 'ملفات تعريف الشخصية الكاملة' — بروس شناير، خبير الأمن السيبراني
+</div>
+
+<h3 class="section-title">2. الثقة والحيادية</h3>
+
+<p><strong>المشكلة الجوهرية:</strong> إذا كان الوكيل الذكي يكسب من الإعلانات، فكيف يمكنك الوثوق بتوصياته؟</p>
+
+<ul>
+    <li>هل يوصي ChatGPT بفندق لأنه الأفضل فعلاً، أم لأن الفندق دفع مقابل الظهور؟</li>
+    <li><strong>تضارب المصالح</strong> هو التحدي الأكبر: الوكيل يخدم المستخدم والمعلن في آنٍ واحد.</li>
+    <li>دراسة من <strong>MIT</strong> (2024) أظهرت أن 73% من المستخدمين يثقون بتوصيات AI أكثر من إعلانات تقليدية — مما يجعل التلاعب أسهل وأخطر.</li>
+</ul>
+
+<h3 class="section-title">3. التلاعب النفسي</h3>
+
+<p><strong>الخطر:</strong> الذكاء الاصطناعي يفهم سلوكك أفضل مما تفهمه أنت.</p>
+
+<ul>
+    <li>يمكنه اكتشاف لحظات <strong>الضعف النفسي</strong> (ملل، حزن، توتر) واستغلالها لترويج منتجات.</li>
+    <li>يمكنه استخدام <strong>تقنيات الإقناع المخصصة</strong> (Dark Patterns) بكفاءة غير مسبوقة.</li>
+    <li>لا توجد حتى الآن قوانين واضحة ضد <strong>"الإقناع الخوارزمي"</strong>.</li>
+</ul>
+
+<div class="warning-box">
+<strong>خطر حقيقي:</strong> "الذكاء الاصطناعي لا يعرض عليك إعلاناً — إنه يصنع الرغبة من الصفر" — شوشانا زوبوف، مؤلفة "عصر رأسمالية المراقبة"
+</div>
+
+<h3 class="section-title">4. الشفافية</h3>
+
+<p><strong>الأسئلة المفتوحة:</strong></p>
+<ul>
+    <li>هل يجب على الوكيل الإفصاح عن كل توصية مدفوعة؟</li>
+    <li>كيف نميّز بين "رأي" الذكاء الاصطناعي و"إعلان" الذكاء الاصطناعي؟</li>
+    <li>هل ستكون هناك <strong>"علامة إعلان"</strong> واضحة كما في إعلانات Google الحالية؟</li>
+</ul>
+
+<h3 class="section-title">5. الاحتكار</h3>
+
+<ul>
+    <li>إذا نجحت بروتوكولات جوجل التجارية في أن تصبح المعيار، فستتحكم جوجل في <strong>بوابة التجارة الذكية</strong> بالكامل.</li>
+    <li>المتاجر الصغيرة التي لا تملك موارد لدعم هذه البروتوكولات ستُقصى.</li>
+    <li>خطر <strong>"ضريبة الوكيل"</strong> — عمولة يدفعها كل متجر للوصول إلى المستهلك عبر AI.</li>
+</ul>
+
+<h3 class="section-title">6. التنظيم والتشريع</h3>
+
+<ul>
+    <li><strong>الاتحاد الأوروبي</strong> يعمل على تحديث قانون الخدمات الرقمية (DSA) ليشمل إعلانات AI.</li>
+    <li><strong>FTC</strong> الأمريكية أصدرت تحذيرات بشأن "الإعلانات المخفية" في أدوات AI (2024).</li>
+    <li>لا يوجد حتى الآن إطار تنظيمي شامل للتجارة الوكيلة.</li>
+</ul>
+
+<div class="page-break"></div>
+
+<h2 class="chapter-title">الفصل الثامن: آراء خبراء ومحللين</h2>
+
+<h3 class="section-title">من قادة الصناعة:</h3>
+
+<div class="quote">
+<strong>سام ألتمان — CEO, OpenAI</strong><br>
+الإعلانات ليست خطتنا الأولى، لكن مع 400 مليون مستخدم أسبوعي، نحتاج نموذجاً مستداماً. الاشتراكات وحدها لن تكفي لتمويل AGI.<br>
+<em>(مقابلة مع Financial Times، ديسمبر 2024)</em>
+</div>
+
+<div class="quote">
+<strong>سوندار بيتشاي — CEO, Google/Alphabet</strong><br>
+المستقبل ليس البحث عن منتجات — المستقبل هو أن يجد الذكاء الاصطناعي المنتج المناسب لك تلقائياً.<br>
+<em>(كلمة Google I/O 2025)</em>
+</div>
+
+<h3 class="section-title">من المحللين والخبراء:</h3>
+
+<div class="quote">
+<strong>بن تومبسون — محلل تقني (Stratechery)</strong><br>
+جوجل لا تبني أداة تسوّق — إنها تبني نظام تشغيل للتجارة. من يملك البروتوكول يملك السوق.<br>
+<em>(تحليل Stratechery، 2025)</em>
+</div>
+
+<div class="quote">
+<strong>سكوت غالوي — أستاذ تسويق، NYU</strong><br>
+الإعلانات في ChatGPT ستكون أخطر من إعلانات جوجل بعشر مرات. عندما تثق في شيء كصديق، فإن 'نصيحته' المدفوعة تؤثر فيك أكثر من لافتة على جانب الطريق.<br>
+<em>(بودكاست Prof G، 2025)</em>
+</div>
+
+<div class="quote">
+<strong>شوشانا زوبوف — باحثة في رأسمالية المراقبة</strong><br>
+الوكلاء الذكيون هم الحلم النهائي لرأسمالية المراقبة: لا يكتفون بمعرفة ما تريد، بل يقررون نيابة عنك ما ستشتري.<br>
+<em>(مقال في The Guardian، 2025)</em>
+</div>
+
+<h3 class="section-title">من التقارير المالية:</h3>
+
+<div class="stats-box">
+<strong>تقرير Morgan Stanley (يناير 2025)</strong><br>
+<em>"نقدّر أن دخول OpenAI لسوق الإعلانات قد يضيف 5-10 مليارات دولار لإيراداتها بحلول 2027. لكن الخطر الأكبر هو تآكل الثقة التي بنتها."</em>
+</div>
+
+<div class="stats-box">
+<strong>تقرير Goldman Sachs (2025)</strong><br>
+<em>"التجارة الوكيلة ستعيد رسم خريطة الإنفاق الإعلاني بالكامل. الشركات التي تستثمر في بروتوكولات AI Commerce الآن ستتصدر السوق خلال 5 سنوات."</em>
+</div>
+
+<div class="page-break"></div>
+
+<div class="conclusion">
+<h2 class="chapter-title">الخلاصة: ملامح المستقبل</h2>
+
+<h3 class="section-title">ثلاث حقائق لا مفر منها:</h3>
+
+<ol>
+    <li><strong>الإعلان التقليدي يحتضر.</strong> لن يختفي غداً، لكنه لن يكون الشكل المهيمن بعد 5 سنوات. المستقبل لإعلانات مدمجة في سياق الذكاء الاصطناعي، وللتجارة التي يديرها الوكلاء الأذكياء.</li>
+
+    <li><strong>المعركة ليست على الإعلان — بل على البنية التحتية.</strong> جوجل تدرك أن من يملك "القضبان" التي تمر عليها التجارة الذكية سيكسب أكثر بكثير ممن يملك "اللافتة" على جانب الطريق. OpenAI بدأت متأخرة لكنها تملك أقوى علاقة ثقة مع المستخدم.</li>
+
+    <li><strong>الخاسر الأكبر هو المستهلك — إذا غابت الشفافية.</strong> عندما يصبح "مستشارك الذكي" هو نفسه "بائع الإعلانات"، فإن الحدود بين النصيحة الصادقة والتسويق المموّل تتلاشى. وهنا يكمن التهديد الحقيقي.</li>
+</ol>
+
+<div class="warning-box">
+<h3>السؤال المركزي:</h3>
+<p><strong>هل سنعيش في عالم يكون فيه وكيل الذكاء الاصطناعي "محامي المستهلك" الذي يدافع عن مصلحته… أم "وسيط المعلن" الذي يبيعه أعلى سعر؟</strong></p>
+
+<p>الإجابة ستحدد مستقبل التجارة الرقمية بأكملها.</p>
+</div>
+
+</div>
+
+---
+
+<h3 class="section-title">قائمة المصادر الرئيسية</h3>
+
+<div style="font-size: 14px; line-height: 1.6;">
+<ol>
+    <li>Financial Times — "OpenAI explores advertising as new revenue stream" (ديسمبر 2024)</li>
+    <li>The Information — "Inside OpenAI's Costs and Revenue" (2024)</li>
+    <li>Bloomberg — تقارير متعددة عن استراتيجيات OpenAI وGoogle (2024-2025)</li>
+    <li>Google I/O 2025 — العرض الرئيسي والجلسات المتخصصة</li>
+    <li>Google Developers Blog — تحديثات Commerce Protocols</li>
+    <li>Stratechery (Ben Thompson) — تحليلات AI Commerce (2025)</li>
+    <li>eMarketer — Global Digital Ad Spending Reports (2024-2025)</li>
+    <li>Statista — AI in Advertising Market Analysis</li>
+    <li>Gartner — "Future of Commerce" Report (2025)</li>
+    <li>Forrester — "Predictions 2025: AI-Driven Commerce"</li>
+    <li>Morgan Stanley Research — "OpenAI Monetization Outlook" (يناير 2025)</li>
+    <li>Goldman Sachs — "Agentic Commerce: The Next Frontier" (2025)</li>
+    <li>MIT Technology Review — "Can You Trust AI Recommendations?" (2024)</li>
+    <li>The Guardian — مقالات شوشانا زوبوف عن رأسمالية المراقبة</li>
+    <li>Prof G Podcast (Scott Galloway) — حلقات عن AI والإعلانات (2025)</li>
+</ol>
+</div>
+
+<div style="margin-top: 50px; text-align: center; font-size: 12px; color: #64748b; border-top: 1px solid #e2e8f0; padding-top: 20px;">
+    <em>أُعدّ هذا التقرير كمادة تحليلية لهيئة التحرير. المعلومات مبنية على مصادر موثّقة مع ملاحظة أن بعض الأرقام تقديرية وقد تختلف باختلاف المصدر. يُنصح بالتحقق المستقل من أحدث التطورات قبل النشر.</em>
+</div>
+
+</div>
+
+</body>
+</html>

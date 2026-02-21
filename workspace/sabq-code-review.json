@@ -1,0 +1,296 @@
+{
+  "project": "sabq.org — صحيفة سبق الإلكترونية",
+  "reviewDate": "2026-02-14",
+  "stack": "React 18 + Vite + Express + PostgreSQL + Drizzle ORM + TypeScript",
+  "totalFiles": 2439,
+  "summary": "مشروع ضخم ومتطور — بنية قوية مع نقاط تحتاج اهتمام في الأمان والأداء",
+
+  "sections": [
+    {
+      "category": "البنية العامة (Architecture)",
+      "score": "جيد جداً",
+      "strengths": [
+        "فصل ممتاز: client/ + server/ + shared/",
+        "Monorepo مع Shared schema (Drizzle ORM) = type safety",
+        "Routes منفصلة لكل خدمة (microservices pattern)"
+      ],
+      "issues": [
+        {
+          "severity": "🔴 حرج",
+          "issue": "ملف routes.ts ضخم جداً (40k+ سطر)",
+          "impact": "صعوبة الصيانة + بطء IDE + merge conflicts",
+          "fix": "تقسيمه لملفات حسب الوظيفة (articles.routes.ts, users.routes.ts, etc.)"
+        },
+        {
+          "severity": "🟡 مهم",
+          "issue": "ملف index.ts مكتظ بـ background jobs",
+          "impact": "صعوبة debugging + خلط المسؤوليات",
+          "fix": "نقل jobs لمجلد server/jobs/ منفصل مع job manager"
+        },
+        {
+          "severity": "🔴 حرج",
+          "issue": "عدد dependencies كبير جداً (100+)",
+          "impact": "مخاطر أمنية + bundle size كبير",
+          "fix": "مراجعة وحذف غير المستخدم + npm audit بشكل دوري"
+        }
+      ]
+    },
+    {
+      "category": "الأمان (Security)",
+      "score": "جيد مع ثغرات تحتاج إصلاح",
+      "strengths": [
+        "CSRF protection قوي",
+        "Helmet.js للـ security headers",
+        "RBAC system متطور",
+        "Session management آمن مع PostgreSQL store",
+        "Password hashing بـ bcrypt"
+      ],
+      "issues": [
+        {
+          "severity": "🔴 حرج",
+          "issue": "مفاتيح API في environment variables بدون encryption",
+          "impact": "لو تسرب الـ env = كل المفاتيح مكشوفة",
+          "fix": "استخدام secret manager (AWS Secrets Manager / GCP Secret Manager / Vault)"
+        },
+        {
+          "severity": "🔴 حرج",
+          "issue": "Rate limiting ضعيف على بعض endpoints",
+          "impact": "عرضة لـ DDoS و brute force",
+          "fix": "إضافة express-rate-limit لكل endpoint حساس (login, API, upload)"
+        },
+        {
+          "severity": "🟡 مهم",
+          "issue": "CORS مفتوح لنطاقات متعددة",
+          "impact": "ممكن استغلاله من مواقع خارجية",
+          "fix": "تحديد النطاقات المسموحة بشكل صارم في whitelist"
+        },
+        {
+          "severity": "🟡 مهم",
+          "issue": "Two-factor authentication موجود لكن اختياري",
+          "impact": "حسابات الإدارة قابلة للاختراق بكلمة سر فقط",
+          "fix": "فرض 2FA على حسابات admin و editor"
+        },
+        {
+          "severity": "🟡 مهم",
+          "issue": "Content Security Policy يحتاج تشديد",
+          "impact": "عرضة لـ XSS attacks",
+          "fix": "تشديد CSP: إزالة unsafe-inline و unsafe-eval حيث ممكن"
+        }
+      ]
+    },
+    {
+      "category": "الأداء (Performance)",
+      "score": "جيد مع فرص تحسين كبيرة",
+      "strengths": [
+        "Drizzle ORM للأداء العالي",
+        "Compression middleware مفعل",
+        "CDN caching headers محسنة",
+        "Background jobs منفصلة"
+      ],
+      "issues": [
+        {
+          "severity": "🔴 حرج",
+          "issue": "Bundle size كبير — كثرة dependencies",
+          "impact": "بطء تحميل الصفحة خصوصاً على الجوال",
+          "fix": "تفعيل code splitting + lazy loading لكل route + تحليل bundle بـ vite-bundle-visualizer"
+        },
+        {
+          "severity": "🟡 مهم",
+          "issue": "Database connection pool = 25 max",
+          "impact": "ممكن يصل للاستنزاف وقت الترافيك العالي",
+          "fix": "زيادة Pool لـ 50-100 أو استخدام PgBouncer"
+        },
+        {
+          "severity": "🟡 مهم",
+          "issue": "Memory cache TTL قصير (5 دقائق)",
+          "impact": "ضغط زائد على الداتابيس",
+          "fix": "زيادة TTL لـ 15-30 دقيقة للمحتوى الثابت + cache invalidation عند التحديث"
+        },
+        {
+          "severity": "🟡 مهم",
+          "issue": "N+1 queries في بعض nested selects",
+          "impact": "بطء في الصفحات اللي فيها قوائم مقالات",
+          "fix": "استخدام JOIN أو batch loading بدل nested queries"
+        },
+        {
+          "severity": "🟢 تحسين",
+          "issue": "تحسين الصور محدود رغم وجود sharp",
+          "impact": "صور كبيرة = بطء تحميل",
+          "fix": "تفعيل auto-resize + WebP conversion + responsive images"
+        }
+      ]
+    },
+    {
+      "category": "SEO",
+      "score": "ممتاز",
+      "strengths": [
+        "seoInjector.ts و socialCrawler.ts متطوران",
+        "Open Graph + Twitter Cards مطبقة بشكل مثالي",
+        "Schema.org structured data (NewsArticle + Organization + WebSite)",
+        "Canonical URLs + hreflang tags",
+        "Dynamic meta tags لكل مقال وفئة",
+        "عنصر article مخفي للمحتوى"
+      ],
+      "issues": [
+        {
+          "severity": "🟢 تحسين",
+          "issue": "Sitemap.xml يمكن أن يكون تلقائي أكثر",
+          "impact": "أخبار جديدة ممكن تتأخر في الأرشفة",
+          "fix": "Google News sitemap تلقائي يتحدث كل 15 دقيقة"
+        },
+        {
+          "severity": "🟢 تحسين",
+          "issue": "robots.txt يحتاج تحديث للمسارات الجديدة",
+          "impact": "بعض الصفحات الإدارية ممكن تتأرشف",
+          "fix": "إضافة Disallow للمسارات الداخلية (/dashboard, /admin, /api)"
+        }
+      ]
+    },
+    {
+      "category": "جودة الكود",
+      "score": "جيد جداً",
+      "strengths": [
+        "TypeScript strict mode",
+        "Zod schemas للـ validation",
+        "Error handling شامل",
+        "Naming conventions متسقة"
+      ],
+      "issues": [
+        {
+          "severity": "🟡 مهم",
+          "issue": "Code duplication في API routes",
+          "impact": "صعوبة الصيانة + bugs متكررة",
+          "fix": "استخراج shared utilities + middleware مشترك"
+        },
+        {
+          "severity": "🟢 تحسين",
+          "issue": "بعض functions طويلة جداً",
+          "impact": "صعوبة القراءة والاختبار",
+          "fix": "تقسيم لـ helper functions أصغر + unit tests"
+        }
+      ]
+    },
+    {
+      "category": "قاعدة البيانات",
+      "score": "جيد جداً",
+      "strengths": [
+        "Schema design محكم مع relationships",
+        "Drizzle migrations منظمة",
+        "Connection pooling",
+        "JSON fields للمرونة"
+      ],
+      "issues": [
+        {
+          "severity": "🟡 مهم",
+          "issue": "بعض queries بدون indexes مناسبة",
+          "impact": "بطء في الاستعلامات الكبيرة",
+          "fix": "إضافة indexes على: published_at, category_id, slug, status — وفحص بـ EXPLAIN ANALYZE"
+        },
+        {
+          "severity": "🟢 تحسين",
+          "issue": "Database cleanup jobs تحتاج تحسين",
+          "impact": "تراكم بيانات قديمة",
+          "fix": "جدولة cleanup أسبوعي + partitioning للجداول الكبيرة"
+        }
+      ]
+    },
+    {
+      "category": "البنية التحتية",
+      "score": "جيد",
+      "strengths": [
+        "Docker-ready",
+        "Health checks",
+        "Leader election للـ jobs",
+        "Graceful shutdown"
+      ],
+      "issues": [
+        {
+          "severity": "🟡 مهم",
+          "issue": "Monitoring و logging محدود",
+          "impact": "صعوبة اكتشاف المشاكل بسرعة",
+          "fix": "إضافة structured logging (Winston/Pino) + APM tool (Datadog/New Relic)"
+        },
+        {
+          "severity": "🟡 مهم",
+          "issue": "Database backups بحاجة automation",
+          "impact": "خطر فقدان بيانات",
+          "fix": "Automated daily backups + point-in-time recovery"
+        }
+      ]
+    },
+    {
+      "category": "الـ API",
+      "score": "جيد",
+      "strengths": [
+        "RESTful design",
+        "Consistent JSON responses",
+        "Zod validation"
+      ],
+      "issues": [
+        {
+          "severity": "🟡 مهم",
+          "issue": "بعض endpoints بدون pagination",
+          "impact": "responses ضخمة = بطء + استهلاك memory",
+          "fix": "إضافة cursor-based pagination لكل list endpoint"
+        },
+        {
+          "severity": "🟢 تحسين",
+          "issue": "Swagger documentation ناقص",
+          "impact": "صعوبة على المطورين الجدد",
+          "fix": "إكمال OpenAPI spec لكل endpoint"
+        }
+      ]
+    },
+    {
+      "category": "الـ Frontend",
+      "score": "جيد جداً",
+      "strengths": [
+        "React 18 + hooks",
+        "Wouter (خفيف) للـ routing",
+        "TanStack Query للـ state",
+        "Shadcn/ui components",
+        "Accessibility support قوي",
+        "دعم 3 لغات (عربي + إنجليزي + أوردو)"
+      ],
+      "issues": [
+        {
+          "severity": "🟡 مهم",
+          "issue": "بعض components كبيرة جداً",
+          "impact": "بطء rendering + صعوبة صيانة",
+          "fix": "تقسيم المكونات الكبيرة + React.memo للمكونات الثقيلة"
+        },
+        {
+          "severity": "🟢 تحسين",
+          "issue": "State management موزع بين contexts متعددة",
+          "impact": "re-renders غير ضرورية",
+          "fix": "استخدام Zustand أو Jotai لـ global state"
+        }
+      ]
+    }
+  ],
+
+  "priorities": {
+    "urgent": [
+      "تقسيم routes.ts (40k سطر)",
+      "Rate limiting على endpoints الحساسة",
+      "مراجعة وتقليل dependencies",
+      "Secret manager بدل plain env vars"
+    ],
+    "important": [
+      "Database indexes optimization",
+      "Bundle splitting + lazy loading",
+      "Connection pool increase",
+      "Monitoring + structured logging",
+      "فرض 2FA على حسابات الإدارة"
+    ],
+    "nice_to_have": [
+      "Google News sitemap تلقائي",
+      "OpenAPI documentation كامل",
+      "Zustand لـ state management",
+      "Image optimization pipeline"
+    ]
+  },
+
+  "overallScore": "7.5/10",
+  "verdict": "مشروع متطور وناضج — البنية الأساسية قوية، SEO ممتاز بعد التحديث الأخير، الأمان جيد مع ثغرات تحتاج سد. الأولوية: تقسيم الملفات الضخمة + تقوية الأمان + تحسين الأداء."
+}

@@ -1,0 +1,291 @@
+<!DOCTYPE html>
+<html dir="rtl" lang="ar">
+<head>
+<meta charset="UTF-8">
+<style>
+@page {
+    size: A4;
+    margin: 2.5cm 2cm 2.5cm 2cm;
+    @bottom-center {
+        content: counter(page);
+        font-family: 'Cairo', sans-serif;
+        font-size: 10pt;
+        color: #888;
+    }
+}
+
+* {
+    box-sizing: border-box;
+}
+
+body {
+    font-family: 'Cairo', sans-serif;
+    font-size: 12pt;
+    line-height: 1.9;
+    color: #1a1a1a;
+    direction: rtl;
+    text-align: justify;
+}
+
+/* Header */
+.header {
+    text-align: center;
+    border-bottom: 3px solid #1b5e20;
+    padding-bottom: 20px;
+    margin-bottom: 30px;
+}
+
+.header .org {
+    font-size: 11pt;
+    color: #555;
+    margin-bottom: 5px;
+}
+
+.header h1 {
+    font-size: 22pt;
+    font-weight: 800;
+    color: #1b5e20;
+    margin: 10px 0 5px;
+    line-height: 1.4;
+}
+
+.header .subtitle {
+    font-size: 13pt;
+    color: #333;
+    font-weight: 600;
+}
+
+.header .date {
+    font-size: 10pt;
+    color: #777;
+    margin-top: 8px;
+}
+
+/* Section Headers */
+h2 {
+    font-size: 16pt;
+    font-weight: 800;
+    color: #1b5e20;
+    border-right: 5px solid #1b5e20;
+    padding-right: 12px;
+    margin-top: 30px;
+    margin-bottom: 15px;
+}
+
+h3 {
+    font-size: 13pt;
+    font-weight: 700;
+    color: #2e7d32;
+    margin-top: 20px;
+    margin-bottom: 8px;
+}
+
+/* Paragraphs */
+p {
+    margin-bottom: 10px;
+    text-align: justify;
+}
+
+/* Tables */
+table {
+    width: 100%;
+    border-collapse: collapse;
+    margin: 15px 0;
+    font-size: 11pt;
+}
+
+th {
+    background-color: #1b5e20;
+    color: white;
+    font-weight: 700;
+    padding: 10px 12px;
+    text-align: right;
+}
+
+td {
+    padding: 8px 12px;
+    border-bottom: 1px solid #ddd;
+    text-align: right;
+    vertical-align: top;
+}
+
+tr:nth-child(even) {
+    background-color: #f5f5f5;
+}
+
+/* Highlight box */
+.highlight {
+    background-color: #e8f5e9;
+    border-right: 4px solid #1b5e20;
+    padding: 15px 20px;
+    margin: 15px 0;
+    border-radius: 0 8px 8px 0;
+}
+
+.highlight strong {
+    color: #1b5e20;
+}
+
+/* Signature */
+.signature {
+    margin-top: 40px;
+    padding-top: 20px;
+    border-top: 2px solid #1b5e20;
+    text-align: right;
+}
+
+.signature .name {
+    font-size: 14pt;
+    font-weight: 800;
+    color: #1b5e20;
+}
+
+.signature .title {
+    font-size: 11pt;
+    color: #555;
+}
+
+/* Numbered items */
+.point {
+    margin-bottom: 18px;
+}
+
+.point-title {
+    font-weight: 700;
+    color: #1b5e20;
+    font-size: 12pt;
+}
+
+.suggestion {
+    background-color: #fff3e0;
+    border-right: 3px solid #e65100;
+    padding: 8px 15px;
+    margin: 8px 0;
+    border-radius: 0 6px 6px 0;
+    font-size: 11pt;
+}
+
+.suggestion strong {
+    color: #e65100;
+}
+</style>
+</head>
+<body>
+
+<!-- Header -->
+<div class="header">
+    <div class="org">جامعة الدفاع الوطني | وزارة الدفاع</div>
+    <h1>ورقة تغذية راجعة</h1>
+    <div class="subtitle">الجلسة الحوارية: السردية الاستراتيجية الوطنية — الواقع والمأمول</div>
+    <div class="date">16 فبراير 2026م | 28 شعبان 1447هـ</div>
+</div>
+
+<!-- التقييم العام -->
+<h2>أولاً: التقييم العام</h2>
+<p>
+جلسة حوارية ثرية ومتقدمة في طرحها، نجحت في توسيع مفهوم الأمن الوطني من إطاره العسكري التقليدي إلى رؤية شاملة تضم الإعلام والاقتصاد والصحة والإسكان. الربط بين النظرية والواقع من خلال دراسات الحالة (سنغافورة، استجابة المملكة لكوفيد-19، حظر النفط 1973) أعطى المحتوى عمقاً عملياً ميّزه عن الطرح الأكاديمي المجرّد.
+</p>
+
+<!-- نقاط القوة -->
+<h2>ثانياً: نقاط القوة</h2>
+
+<div class="point">
+    <h3>1. إطار DIME+ كأداة تحليل</h3>
+    <p>تقديم إطار DIME+ بشكل واضح ومبسّط ساعد الحضور على فهم كيف تتكامل أدوات الدولة. تشبيه «الأوركسترا والمايسترو» كان فعّالاً جداً في إيصال فكرة التنسيق بين المؤسسات.</p>
+</div>
+
+<div class="point">
+    <h3>2. القوة المعلوماتية كسلاح استراتيجي</h3>
+    <p>الطرح حول أن أكثر من 90% من القرارات يقودها اللاوعي، وأن القصص تخترق حيث تفشل الرسائل المباشرة — كان من أقوى لحظات الجلسة حوارية. هذا المفهوم يحتاج أن يُدرَّس لكل إعلامي ومسؤول اتصال حكومي.</p>
+</div>
+
+<div class="point">
+    <h3>3. دراسات الحالة الواقعية</h3>
+    <p>استجابة المملكة العربية السعودية لجائحة كوفيد-19 كانت دراسة حالة مثالية للتكامل بين الأدوات: القرار الاستباقي بإيقاف الصلاة في المسجد الحرام قبل إعلان منظمة الصحة العالمية أظهر نموذجاً فريداً في سرعة الاستجابة وجرأة القرار.</p>
+</div>
+
+<div class="point">
+    <h3>4. بنية السرد الثلاثية</h3>
+    <p>تقسيم السرد إلى ثلاثة أُطر (تشخيصي، تنبؤي، تحفيزي) قدّم أداة عملية يمكن تطبيقها فوراً في غرف الأخبار والحملات الإعلامية.</p>
+</div>
+
+<!-- الملاحظات -->
+<h2>ثالثاً: ملاحظات ومقترحات تطويرية</h2>
+
+<div class="point">
+    <h3>1. الفجوة بين النظرية والتطبيق المحلي</h3>
+    <p>الجلسة حوارية قدّمت إطاراً نظرياً متيناً، لكنها لم تتعمق بشكل كافٍ في كيفية تطبيق هذه المفاهيم داخل المنظومة السعودية حالياً. سؤال «من هو المايسترو؟» في سياقنا المحلي ظلّ مفتوحاً.</p>
+    <div class="suggestion"><strong>مقترح:</strong> تخصيص جزء من الجلسة لعرض نموذج التنسيق الحالي بين الجهات السعودية (وزارة الإعلام، هيئة الأفلام، هيئة السياحة) وتقييم فعاليته.</div>
+</div>
+
+<div class="point">
+    <h3>2. غياب البعد التقني الحديث</h3>
+    <p>لم تتناول الجلسة حوارية بشكل كافٍ دور الذكاء الاصطناعي في تشكيل السرديات وصناعة المحتوى المضلل. في عام 2026، الخصم لم يعد إعلامياً فقط — بل خوارزمية قادرة على إنتاج ملايين الرسائل المخصصة.</p>
+    <div class="suggestion"><strong>مقترح:</strong> إضافة محور عن التهديدات المعلوماتية المدعومة بالذكاء الاصطناعي وكيفية بناء سرديات مقاومة لها.</div>
+</div>
+
+<div class="point">
+    <h3>3. دور الإعلام المحلي كشريك استراتيجي</h3>
+    <p>الجلسة حوارية ركّزت على البعد المؤسسي والحكومي، لكن الإعلام المحلي هو من يصنع السردية يومياً بالممارسة. هناك فرصة كبيرة في إشراك رؤساء التحرير والإعلاميين كشركاء في بناء السردية — لا مجرد ناقلين لها.</p>
+    <div class="suggestion"><strong>مقترح:</strong> إنشاء آلية تشاور دورية بين جامعة الدفاع الوطني والمؤسسات الإعلامية لمواءمة السرديات.</div>
+</div>
+
+<div class="point">
+    <h3>4. قياس الأثر</h3>
+    <p>طُرحت أدوات ومفاهيم مهمة، لكن كيف نقيس نجاح السردية؟ لم يُعالَج بعمق كافٍ.</p>
+    <div class="suggestion"><strong>مقترح:</strong> تطوير مؤشرات أداء (KPIs) للسردية الوطنية تشمل: الوصول، التفاعل، تغيّر المواقف، سرعة الاستجابة للسرديات المضادة.</div>
+</div>
+
+<div class="point">
+    <h3>5. سرعة الاستجابة</h3>
+    <p>في عصر وسائل التواصل الاجتماعي، السردية المضادة تنتشر في ثوانٍ بينما الاستجابة الرسمية قد تستغرق أياماً. الجلسة حوارية أشارت لهذا التحدي لكنها لم تقدم آليات عملية للاستجابة السريعة.</p>
+    <div class="suggestion"><strong>مقترح:</strong> تأسيس «غرفة عمليات سردية» تعمل على مدار الساعة بقدرات رصد وتحليل واستجابة فورية.</div>
+</div>
+
+<!-- فرص البناء -->
+<h2>رابعاً: فرص البناء عليه</h2>
+
+<table>
+    <tr>
+        <th>الفرصة</th>
+        <th>التفصيل</th>
+    </tr>
+    <tr>
+        <td><strong>برنامج تدريبي للإعلاميين</strong></td>
+        <td>تحويل مفاهيم الجلسة حوارية إلى ورش عمل عملية لصنّاع المحتوى والمتحدثين الرسميين</td>
+    </tr>
+    <tr>
+        <td><strong>دليل السرد الاستراتيجي</strong></td>
+        <td>إعداد دليل مرجعي سعودي يوثّق الإطار النظري مع أدوات التطبيق العملي</td>
+    </tr>
+    <tr>
+        <td><strong>محاكاة أزمات معلوماتية</strong></td>
+        <td>تمارين محاكاة تجمع إعلاميين ومسؤولين لاختبار الاستجابة السردية تحت الضغط</td>
+    </tr>
+    <tr>
+        <td><strong>شراكة أكاديمية — إعلامية</strong></td>
+        <td>تعاون مستمر بين الجامعة والمؤسسات الإعلامية في البحث والتطوير والتدريب</td>
+    </tr>
+</table>
+
+<!-- الخلاصة -->
+<h2>خامساً: الخلاصة</h2>
+
+<div class="highlight">
+<p>
+الجلسة حوارية قدّمت إطاراً فكرياً متقدماً يضع السردية الاستراتيجية في مكانها الصحيح كركيزة للأمن الوطني. التحدي القادم هو <strong>تحويل هذا الإطار إلى ممارسة يومية</strong> عبر التنسيق المؤسسي، إشراك الإعلام المحلي، وبناء قدرات الاستجابة السريعة في عصر الذكاء الاصطناعي.
+</p>
+<p>
+نحن في صحيفة سبق، كمنصة إعلامية رقمية تخدم أكثر من 30 مليون زائر شهرياً، نرى أنفسنا شريكاً طبيعياً في هذا الجهد — ونتطلع للتعاون مع جامعة الدفاع الوطني في تطوير هذا المسار.
+</p>
+</div>
+
+<!-- التوقيع -->
+<div class="signature">
+    <div class="name">علي الحازمي</div>
+    <div class="title">رئيس تحرير صحيفة سبق الإلكترونية</div>
+    <div class="title">16 فبراير 2026م</div>
+</div>
+
+</body>
+</html>
