@@ -1,0 +1,25 @@
+{
+  "version": 1,
+  "skills": {
+    "content-strategy": {
+      "version": "0.1.0",
+      "installedAt": 1771746334480
+    },
+    "powerpoint-pptx": {
+      "version": "1.0.0",
+      "installedAt": 1771746339344
+    },
+    "find-skills": {
+      "version": "0.1.0",
+      "installedAt": 1771746364381
+    },
+    "on-page-seo-auditor": {
+      "version": "2.0.0",
+      "installedAt": 1771746369301
+    },
+    "copywriter": {
+      "version": "1.1.0",
+      "installedAt": 1771746396532
+    }
+  }
+}

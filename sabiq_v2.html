@@ -1,0 +1,553 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Cairo:wght@400;600;700;800;900&display=swap" rel="stylesheet">
+<style>
+@page {
+  size: A4;
+  margin: 0;
+}
+
+* { margin: 0; padding: 0; box-sizing: border-box; }
+
+body {
+  font-family: 'Cairo', -apple-system, 'Geeza Pro', 'SF Arabic', sans-serif;
+  color: #333;
+  font-size: 13px;
+  line-height: 1.9;
+  -webkit-print-color-adjust: exact !important;
+  print-color-adjust: exact !important;
+}
+
+/* ===== PAGE SYSTEM ===== */
+.page {
+  width: 210mm;
+  height: 297mm;
+  position: relative;
+  overflow: hidden;
+  page-break-after: always;
+  page-break-inside: avoid;
+}
+
+.page-body {
+  padding: 22mm 25mm 25mm 25mm;
+}
+
+.hdr {
+  position: absolute;
+  top: 0; left: 0; right: 0;
+  height: 12mm;
+  background: #00A859;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 0 25mm;
+  color: #fff;
+  font-size: 11px;
+  font-weight: 700;
+}
+
+.ftr {
+  position: absolute;
+  bottom: 0; left: 0; right: 0;
+  height: 10mm;
+  border-top: 2px solid #00A859;
+  margin: 0 25mm;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  font-size: 9px;
+  color: #aaa;
+}
+
+/* ===== COVER ===== */
+.cover {
+  background: linear-gradient(160deg, #00C96A 0%, #00A859 35%, #007A3D 70%, #004D26 100%);
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  text-align: center;
+  color: #fff;
+}
+.cover .badge {
+  background: rgba(255,255,255,0.15);
+  border: 1px solid rgba(255,255,255,0.3);
+  border-radius: 30px;
+  padding: 6px 35px;
+  font-size: 13px;
+  font-weight: 600;
+  letter-spacing: 3px;
+  margin-bottom: 50px;
+}
+.cover .icon { font-size: 70px; margin-bottom: 20px; }
+.cover h1 { font-size: 56px; font-weight: 900; letter-spacing: 2px; margin-bottom: 8px; }
+.cover .sub { font-size: 22px; font-weight: 600; opacity: 0.95; margin-bottom: 50px; }
+.cover .line { width: 60px; height: 3px; background: rgba(255,255,255,0.4); border-radius: 3px; margin: 0 auto 40px; }
+.cover .desc { font-size: 15px; opacity: 0.85; max-width: 420px; line-height: 2.2; }
+.cover .bottom { position: absolute; bottom: 35mm; font-size: 12px; opacity: 0.5; }
+
+/* ===== TYPOGRAPHY ===== */
+h2 {
+  font-size: 24px;
+  font-weight: 800;
+  color: #00A859;
+  margin-bottom: 18px;
+  padding-bottom: 8px;
+  border-bottom: 3px solid #00A859;
+  display: inline-block;
+}
+h3 {
+  font-size: 16px;
+  font-weight: 700;
+  color: #007A3D;
+  margin: 18px 0 10px;
+}
+p { margin-bottom: 8px; }
+
+/* ===== COMPONENTS ===== */
+.green-box {
+  background: #f0faf4;
+  border-right: 4px solid #00A859;
+  border-radius: 8px;
+  padding: 14px 18px;
+  margin: 12px 0;
+}
+
+.vision-box {
+  background: linear-gradient(135deg, #00A859, #007A3D);
+  color: #fff;
+  border-radius: 12px;
+  padding: 28px 25px;
+  text-align: center;
+  font-size: 15px;
+  line-height: 2.2;
+  margin: 15px 0;
+}
+
+.card {
+  background: #fff;
+  border: 1px solid #e5e5e5;
+  border-right: 4px solid #00A859;
+  border-radius: 8px;
+  padding: 14px 18px;
+  margin: 10px 0;
+  page-break-inside: avoid;
+}
+.card .num {
+  display: inline-block;
+  background: #00A859;
+  color: #fff;
+  width: 26px; height: 26px;
+  border-radius: 50%;
+  text-align: center;
+  line-height: 26px;
+  font-size: 13px;
+  font-weight: 800;
+  margin-left: 8px;
+}
+.card .ttl { font-size: 15px; font-weight: 700; color: #333; display: inline; }
+.card .meta { font-size: 11px; color: #888; margin: 4px 0; }
+.card p { font-size: 12.5px; margin: 0; }
+.card .highlight { color: #00A859; font-weight: 700; font-size: 12px; margin-top: 5px; }
+
+table {
+  width: 100%;
+  border-collapse: collapse;
+  margin: 12px 0;
+  page-break-inside: avoid;
+}
+th {
+  background: #00A859;
+  color: #fff;
+  padding: 10px 14px;
+  text-align: right;
+  font-weight: 700;
+  font-size: 12px;
+}
+td {
+  padding: 9px 14px;
+  border-bottom: 1px solid #eee;
+  font-size: 12.5px;
+}
+tr:nth-child(even) { background: #fafafa; }
+
+ul { padding-right: 18px; margin: 6px 0; }
+li { margin-bottom: 4px; font-size: 12.5px; }
+
+/* Timeline */
+.tl { margin: 12px 0; }
+.tl-item {
+  display: flex;
+  align-items: flex-start;
+  margin: 10px 0;
+  page-break-inside: avoid;
+}
+.tl-dot {
+  width: 36px; height: 36px;
+  background: #00A859;
+  border-radius: 50%;
+  color: #fff;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-weight: 800;
+  font-size: 14px;
+  flex-shrink: 0;
+  margin-left: 12px;
+}
+.tl-body {
+  background: #f5f5f5;
+  border-radius: 8px;
+  padding: 12px 16px;
+  flex: 1;
+  font-size: 12.5px;
+}
+.tl-body strong { color: #007A3D; }
+
+/* Grid */
+.grid6 {
+  display: grid;
+  grid-template-columns: 1fr 1fr 1fr;
+  gap: 10px;
+  margin: 14px 0;
+}
+.g-card {
+  background: #f0faf4;
+  border-radius: 10px;
+  padding: 14px 10px;
+  text-align: center;
+  page-break-inside: avoid;
+}
+.g-card .ic { font-size: 26px; margin-bottom: 4px; }
+.g-card .lb { font-weight: 700; color: #007A3D; font-size: 11.5px; line-height: 1.6; }
+
+/* Pipeline */
+.pipeline {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  margin: 15px 0;
+  flex-direction: row-reverse;
+}
+.pipe-step {
+  background: #00A859;
+  color: #fff;
+  border-radius: 8px;
+  padding: 8px 12px;
+  text-align: center;
+  font-size: 11px;
+  font-weight: 700;
+  min-width: 80px;
+}
+.pipe-arrow { font-size: 18px; color: #00A859; }
+</style>
+</head>
+<body>
+
+<!-- ==================== PAGE 1: COVER ==================== -->
+<div class="page cover">
+  <div class="badge">صحيفة سبق الإلكترونية</div>
+  <div class="icon">🎙️</div>
+  <h1>سابق</h1>
+  <div class="sub">مراسل ومذيع سبق الافتراضي</div>
+  <div class="line"></div>
+  <div class="desc">
+    أول مراسل ومذيع افتراضي عربي<br>
+    بهوية سعودية حقيقية<br>
+    يقدم الأخبار على مدار الساعة
+  </div>
+  <div class="bottom">وثيقة المشروع — 2026</div>
+</div>
+
+<!-- ==================== PAGE 2: VISION & IDENTITY ==================== -->
+<div class="page">
+  <div class="hdr"><span>مشروع سابق — مراسل ومذيع سبق الافتراضي</span><span>الرؤية والهوية</span></div>
+  <div class="page-body" style="padding-top:18mm;">
+
+    <h2>🔭 الرؤية</h2>
+    <div class="vision-box">
+      أول مراسل ومذيع افتراضي عربي بهوية سعودية حقيقية<br>
+      يقدم الأخبار 24/7 بجودة بشرية<br><br>
+      ليس مجرد صوت آلي يقرأ نصوصاً — <strong>سابق</strong> شخصية إعلامية كاملة<br>
+      له وجه، صوت، أسلوب، وحضور إعلامي متكامل
+    </div>
+
+    <h2 style="margin-top:22px;">🧬 الهوية والشخصية</h2>
+
+    <h3>👤 المظهر</h3>
+    <div class="green-box">
+      <ul>
+        <li><strong>شاب سعودي (28-32 سنة)</strong> — ملامح واضحة وودودة ومألوفة</li>
+        <li><strong>نشرة رسمية:</strong> ثوب أبيض + شماغ</li>
+        <li><strong>تغطية ميدانية:</strong> فيست صحفي + كاب يحمل شعار سبق</li>
+        <li><strong>محتوى شبابي:</strong> كاجوال سمارت</li>
+        <li><strong>مناسبات وطنية:</strong> بشت</li>
+        <li>شعار سبق حاضر دائماً (ميكروفون / شاشة خلفية / badge)</li>
+      </ul>
+    </div>
+
+    <h3>🎤 الصوت</h3>
+    <div class="green-box">
+      <ul>
+        <li>عربي فصيح واضح — نبرة إخبارية احترافية</li>
+        <li>يتحول للهجة سعودية خفيفة في المحتوى غير الرسمي</li>
+        <li>مولّد بالذكاء الاصطناعي مع تدريب صوت خاص وفريد لسبق</li>
+      </ul>
+    </div>
+
+  </div>
+  <div class="ftr"><span>صحيفة سبق الإلكترونية — سري</span><span>2</span></div>
+</div>
+
+<!-- ==================== PAGE 3: IDENTITY CONT + PRODUCTS ==================== -->
+<div class="page">
+  <div class="hdr"><span>مشروع سابق</span><span>الشخصية + المنتجات الإعلامية</span></div>
+  <div class="page-body" style="padding-top:18mm;">
+
+    <h3>🌟 الشخصية</h3>
+    <div class="green-box">
+      <ul>
+        <li>مهني وموثوق — يستخدم تعابير وجه طبيعية</li>
+        <li>كاريزما عالية — الجمهور يتعلق به ويتابعه كأنه شخصية حقيقية</li>
+        <li>له حسابات على كافة منصات التواصل الاجتماعي باسمه</li>
+        <li>القدرة على تغيير النبرة: عاجل = حاد وسريع، تقرير = هادئ، شبابي = خفيف</li>
+      </ul>
+    </div>
+
+    <h2 style="margin-top:18px;">📺 المنتجات الإعلامية (7 منتجات)</h2>
+
+    <div class="card">
+      <span class="num">1</span><span class="ttl">📰 نشرة سبق السريعة (Flash Bulletin)</span>
+      <div class="meta">المدة: 60-90 ثانية | التكرار: كل 3 ساعات (8 نشرات يومياً)</div>
+      <p>أهم 3-5 أخبار الساعة. سابق يقف أمام شاشة عرض مع غرافيكس متحركة. التوزيع على تويتر/X، سناب، تيك توك، إنستا ريلز، يوتيوب شورتس.</p>
+      <div class="highlight">⚡ الميزة: أسرع نشرة في السعودية — خبر ينزل → 10 دقائق يكون سابق يقدمه</div>
+    </div>
+
+    <div class="card">
+      <span class="num">2</span><span class="ttl">🔴 التغطية الميدانية الافتراضية</span>
+      <div class="meta">Virtual Field Report — أول مراسل افتراضي عربي في الميدان</div>
+      <p>سابق يظهر في موقع الحدث فعلياً — خلفية حقيقية + شخصية مدمجة بالذكاء الاصطناعي. أمام ملعب الجوهرة، في موسم الرياض، أمام مبنى وزارة عند صدور قرار جديد.</p>
+      <div class="highlight">🏆 ما أحد سواها عربياً — سبق أول</div>
+    </div>
+
+  </div>
+  <div class="ftr"><span>صحيفة سبق الإلكترونية — سري</span><span>3</span></div>
+</div>
+
+<!-- ==================== PAGE 4: PRODUCTS 3-4 ==================== -->
+<div class="page">
+  <div class="hdr"><span>مشروع سابق</span><span>المنتجات الإعلامية (تابع)</span></div>
+  <div class="page-body" style="padding-top:18mm;">
+
+    <div class="card">
+      <span class="num">3</span><span class="ttl">🌙 نشرة المساء المفصلة (Evening Edition)</span>
+      <div class="meta">المدة: 5-8 دقائق | يومياً الساعة 9 مساءً</div>
+      <p>ملخص اليوم + تحليل معمّق + ماذا نتوقع غداً. استوديو افتراضي كامل بديسك وشاشات وغرافيكس. تُصبح موعداً يومياً ينتظره الجمهور.</p>
+    </div>
+
+    <div class="card">
+      <span class="num">4</span><span class="ttl">⚡ العاجل (Breaking News)</span>
+      <div class="meta">من لحظة الخبر العاجل → سابق يقدمه خلال 3-5 دقائق</div>
+      <p>شاشة حمراء + موسيقى عاجل + سابق بنبرة حادة. أسرع من أي قناة تلفزيونية — بدون استوديو، بدون مكياج، بدون انتظار.</p>
+    </div>
+
+    <div class="card">
+      <span class="num">5</span><span class="ttl">📊 سابق يحلل (Analysis Segment)</span>
+      <div class="meta">حلقات 3-5 دقائق | أسبوعياً 3-4 حلقات</div>
+      <p>شرح قرارات اقتصادية، أحداث رياضية، ظواهر اجتماعية. إنفوجرافيكس + أرقام + مقارنات بصرية جذابة.</p>
+    </div>
+
+    <div class="card">
+      <span class="num">6</span><span class="ttl">💬 سابق يسأل (Interactive Segment)</span>
+      <div class="meta">تفاعل يومي مع الجمهور</div>
+      <p>يطرح سؤال اليوم، يجمع الإجابات من تويتر وسناب، ويقدم ملخصاً بالنتائج مع تعليقات مختارة من الجمهور.</p>
+    </div>
+
+    <div class="card">
+      <span class="num">7</span><span class="ttl">🎤 بودكاست سابق (مرحلة متقدمة)</span>
+      <div class="meta">حوارات مع ضيوف حقيقيين</div>
+      <p>سابق يحاور ضيوفاً حقيقيين — تجربة فريدة تمزج الذكاء الاصطناعي بالتفاعل البشري المباشر.</p>
+    </div>
+
+  </div>
+  <div class="ftr"><span>صحيفة سبق الإلكترونية — سري</span><span>4</span></div>
+</div>
+
+<!-- ==================== PAGE 5: TECH ==================== -->
+<div class="page">
+  <div class="hdr"><span>مشروع سابق</span><span>البنية التقنية</span></div>
+  <div class="page-body" style="padding-top:18mm;">
+
+    <h2>🛠️ البنية التقنية</h2>
+
+    <h3>🎬 توليد الفيديو</h3>
+    <table>
+      <tr><th>التقنية</th><th>الاستخدام</th></tr>
+      <tr><td><strong>HeyGen</strong></td><td>توليد الفيديو الأساسي — أفضل جودة حالياً</td></tr>
+      <tr><td><strong>D-ID</strong></td><td>سريع — مناسب للأخبار العاجلة</td></tr>
+      <tr><td><strong>Synthesia</strong></td><td>بديل ممتاز للنشرات الرسمية</td></tr>
+      <tr><td><strong>Runway Gen-3</strong></td><td>مشاهد سينمائية وتأثيرات خاصة</td></tr>
+    </table>
+
+    <h3>🎤 الصوت</h3>
+    <div class="green-box">
+      <strong>التوصية:</strong> تدريب صوت خاص وفريد لسبق عبر ElevenLabs — صوت مميز لا يشبه أي صوت آخر في السوق.
+    </div>
+
+  </div>
+  <div class="ftr"><span>صحيفة سبق الإلكترونية — سري</span><span>5</span></div>
+</div>
+
+<!-- ==================== PAGE 6: PIPELINE + TEAM ==================== -->
+<div class="page">
+  <div class="hdr"><span>مشروع سابق</span><span>سير العمل والفريق</span></div>
+  <div class="page-body" style="padding-top:18mm;">
+
+    <h2>⚙️ محرك المحتوى (Content Engine)</h2>
+
+    <h3>سير العمل التلقائي</h3>
+    <div class="pipeline">
+      <div class="pipe-step">📰<br>خبر جديد</div>
+      <div class="pipe-arrow">←</div>
+      <div class="pipe-step">✍️<br>سكربت إذاعي</div>
+      <div class="pipe-arrow">←</div>
+      <div class="pipe-step">✅<br>اعتماد المحرر</div>
+      <div class="pipe-arrow">←</div>
+      <div class="pipe-step">🎤<br>توليد صوت</div>
+      <div class="pipe-arrow">←</div>
+      <div class="pipe-step">🎬<br>توليد فيديو</div>
+      <div class="pipe-arrow">←</div>
+      <div class="pipe-step">📱<br>نشر تلقائي</div>
+    </div>
+    <div class="green-box" style="text-align:center;">
+      مصدر الأخبار: موقع سبق مباشرة (API) → الذكاء الاصطناعي يحوّل الخبر لسكربت إذاعي → محرر بشري يعتمد → توليد ونشر تلقائي على كل المنصات
+    </div>
+
+    <h3>🎨 الاستوديوهات الافتراضية</h3>
+    <table>
+      <tr><th>البيئة</th><th>الاستخدام</th></tr>
+      <tr><td>🏢 استوديو النشرة</td><td>ديسك + شاشات عرض + لوقو سبق</td></tr>
+      <tr><td>📍 خلفية ميدانية</td><td>تتغير حسب موقع الحدث الفعلي</td></tr>
+      <tr><td>📊 خلفية تحليلية</td><td>غرافيكس + أرقام + رسوم بيانية</td></tr>
+      <tr><td>😊 خلفية كاجوال</td><td>للمحتوى الخفيف والتفاعلي</td></tr>
+    </table>
+
+    <h3>📱 التوزيع التلقائي</h3>
+    <div class="green-box">
+      الفيديو يُولّد ويُوزّع تلقائياً على جميع المنصات بالحجم والطول المناسب لكل واحدة:<br>
+      <strong>تويتر/X</strong> · <strong>سناب شات</strong> · <strong>تيك توك</strong> · <strong>إنستا ريلز</strong> · <strong>يوتيوب</strong> · <strong>تطبيق سبق</strong>
+    </div>
+
+    <h2 style="margin-top:22px;">👥 الفريق المطلوب</h2>
+    <table>
+      <tr><th>الدور</th><th>العدد</th><th>المهام الرئيسية</th></tr>
+      <tr><td>🎯 مشرف المشروع</td><td>1</td><td>إدارة وتنسيق المشروع بالكامل</td></tr>
+      <tr><td>✍️ محرر سكربتات</td><td>1-2</td><td>تحويل الأخبار إلى نصوص إذاعية</td></tr>
+      <tr><td>🎨 مصمم / مونتير</td><td>1</td><td>الفيديو النهائي والغرافيكس</td></tr>
+      <tr><td>💻 مطور تقني</td><td>1</td><td>بناء الأتمتة وسير العمل</td></tr>
+    </table>
+    <div class="green-box" style="text-align:center; font-size:14px;">
+      <strong>4-5 أشخاص فقط</strong> ينتجون محتوى يعادل قناة تلفزيونية كاملة 🚀
+    </div>
+
+  </div>
+  <div class="ftr"><span>صحيفة سبق الإلكترونية — سري</span><span>6</span></div>
+</div>
+
+<!-- ==================== PAGE 7: TIMELINE + ADVANTAGES ==================== -->
+<div class="page">
+  <div class="hdr"><span>مشروع سابق</span><span>خطة التنفيذ والمزايا</span></div>
+  <div class="page-body" style="padding-top:18mm;">
+
+    <h2>📅 خطة التنفيذ (12 أسبوع)</h2>
+
+    <div class="tl">
+      <div class="tl-item">
+        <div class="tl-dot">1</div>
+        <div class="tl-body">
+          <strong>المرحلة الأولى: التأسيس (أسبوع 1-3)</strong><br>
+          تصميم شخصية سابق النهائية · تدريب الصوت الخاص · بناء أول استوديو افتراضي · إنتاج نشرة تجريبية أولى
+        </div>
+      </div>
+      <div class="tl-item">
+        <div class="tl-dot">2</div>
+        <div class="tl-body">
+          <strong>المرحلة الثانية: البناء (أسبوع 4-6)</strong><br>
+          بناء سير العمل التلقائي الكامل · تصميم باقي الاستوديوهات · إنتاج 10 نشرات تجريبية · ضبط الجودة والسرعة
+        </div>
+      </div>
+      <div class="tl-item">
+        <div class="tl-dot">3</div>
+        <div class="tl-body">
+          <strong>المرحلة الثالثة: الاختبار (أسبوع 7-9)</strong><br>
+          نشر داخلي لفريق سبق فقط · جمع الملاحظات والتحسين · اختبار تقديم الأخبار العاجلة (خبر → فيديو في 5 دقائق)
+        </div>
+      </div>
+      <div class="tl-item">
+        <div class="tl-dot">4</div>
+        <div class="tl-body">
+          <strong>المرحلة الرابعة: الإطلاق 🚀 (أسبوع 10-12)</strong><br>
+          تيزر تشويقي "مين سابق؟" · إطلاق رسمي بنشرة مساء كاملة · تفعيل النشرات اليومية · إطلاق حسابات سابق على السوشال
+        </div>
+      </div>
+    </div>
+
+    <h2 style="margin-top:20px;">🏆 لماذا هذا المشروع فارق؟</h2>
+    <div class="grid6">
+      <div class="g-card"><div class="ic">🥇</div><div class="lb">أول مذيع افتراضي<br>عربي سعودي</div></div>
+      <div class="g-card"><div class="ic">⏰</div><div class="lb">يعمل 24/7<br>بدون توقف</div></div>
+      <div class="g-card"><div class="ic">⚡</div><div class="lb">عاجل في 3 دقائق<br>أسرع من أي قناة</div></div>
+      <div class="g-card"><div class="ic">💰</div><div class="lb">تكلفة 5%<br>من قناة تلفزيونية</div></div>
+      <div class="g-card"><div class="ic">📈</div><div class="lb">قابل للتطوير<br>والتوسع</div></div>
+      <div class="g-card"><div class="ic">💬</div><div class="lb">تفاعلي<br>مع الجمهور</div></div>
+    </div>
+
+  </div>
+  <div class="ftr"><span>صحيفة سبق الإلكترونية — سري</span><span>7</span></div>
+</div>
+
+<!-- ==================== PAGE 8: FUTURE + CLOSING ==================== -->
+<div class="page">
+  <div class="hdr"><span>مشروع سابق</span><span>المستقبل</span></div>
+  <div class="page-body" style="padding-top:18mm;">
+
+    <h2>🔮 آفاق المستقبل</h2>
+    <div class="green-box">
+      <ul style="font-size:14px; line-height:2.4;">
+        <li><strong>سابقة</strong> — مراسلة افتراضية أنثى للتغطيات النسائية وتعزيز التنوع</li>
+        <li><strong>Sabiq English</strong> — نسخة إنجليزية للجمهور الدولي والمقيمين</li>
+        <li><strong>بث مباشر</strong> — سابق يقدم بثاً حياً لحظياً للأحداث الكبرى</li>
+        <li><strong>تفاعل ذكي</strong> — الجمهور يسأل وسابق يجاوب فورياً عبر فيديو</li>
+        <li><strong>نسخة للأطفال</strong> — أخبار مبسطة بأسلوب ممتع للناشئة</li>
+        <li><strong>ترخيص التقنية</strong> — بيع الحل لمؤسسات إعلامية أخرى</li>
+      </ul>
+    </div>
+
+    <div style="margin-top:60px;"></div>
+
+    <div class="vision-box" style="padding:40px;">
+      <div style="font-size:40px; margin-bottom:15px;">🎙️</div>
+      <div style="font-size:28px; font-weight:900; margin-bottom:12px;">سابق</div>
+      <div style="font-size:18px; font-weight:600; margin-bottom:25px;">مستقبل الإعلام يبدأ من هنا</div>
+      <div style="width:50px; height:2px; background:rgba(255,255,255,0.4); margin:0 auto 25px;"></div>
+      <div style="font-size:15px; opacity:0.9;">
+        سبق دائماً أول<br>
+        وسابق… هو الخطوة القادمة
+      </div>
+    </div>
+
+    <div style="text-align:center; margin-top:50px; color:#999; font-size:11px;">
+      2026 © صحيفة سبق الإلكترونية — جميع الحقوق محفوظة
+    </div>
+
+  </div>
+  <div class="ftr"><span>صحيفة سبق الإلكترونية — سري</span><span>8</span></div>
+</div>
+
+</body>
+</html>
