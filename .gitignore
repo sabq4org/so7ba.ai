@@ -23,3 +23,5 @@ __pycache__/
 # Sensitive (handled separately)
 .openclaw/
 publisher-credits/
+api-dashboard/.env
+**/.env

@@ -1,0 +1,510 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>صُحبة — لوحة التحكم</title>
+<link href="https://fonts.googleapis.com/css2?family=Cairo:wght@300;400;600;700;900&display=swap" rel="stylesheet">
+<style>
+*{margin:0;padding:0;box-sizing:border-box}
+body{background:#f0f2f5;font-family:'Cairo',sans-serif;color:#1a1a2e;min-height:100vh}
+
+/* ===== HERO ===== */
+.hero{
+  background:linear-gradient(135deg,#4158D0 0%,#C850C0 46%,#FFCC70 100%);
+  padding:36px 40px 90px;color:#fff;position:relative;overflow:hidden;
+}
+.hero::before{content:'';position:absolute;width:300px;height:300px;background:rgba(255,255,255,.07);border-radius:50%;top:-80px;left:-60px}
+.hero::after{content:'';position:absolute;width:200px;height:200px;background:rgba(255,255,255,.05);border-radius:50%;bottom:-40px;right:10%}
+.hero-row{display:flex;justify-content:space-between;align-items:flex-start;position:relative;z-index:1;flex-wrap:wrap;gap:16px}
+.hero-right{text-align:left;direction:ltr}
+.greeting{font-size:15px;opacity:.85;font-weight:300}
+.hero-date{font-size:28px;font-weight:900;margin-top:2px;line-height:1.3}
+.hero-hijri{font-size:14px;opacity:.75;font-weight:300;margin-top:2px}
+.clock{font-size:44px;font-weight:900;line-height:1}
+.clock .ampm{font-size:16px;font-weight:400;opacity:.7;margin-left:4px}
+
+/* ===== GRID ===== */
+.grid{
+  max-width:1280px;margin:-56px auto 0;padding:0 28px 40px;
+  display:grid;grid-template-columns:1fr 1fr 1fr;gap:20px;
+  position:relative;z-index:2;
+}
+@media(max-width:1000px){.grid{grid-template-columns:1fr 1fr}}
+@media(max-width:640px){.grid{grid-template-columns:1fr;padding:0 16px 32px}.hero{padding:24px 20px 70px}.hero-date{font-size:22px}.clock{font-size:34px}}
+
+/* ===== CARDS ===== */
+.card{background:#fff;border-radius:16px;box-shadow:0 2px 12px rgba(0,0,0,.05);overflow:hidden}
+.card-head{padding:16px 20px 0;display:flex;align-items:center;gap:8px;font-size:14px;font-weight:700;color:#888}
+.card-head .icon{font-size:18px}
+.card-body{padding:14px 20px 18px}
+
+/* ===== WEATHER CARD ===== */
+.weather-card{grid-column:span 1;background:linear-gradient(135deg,#667eea,#764ba2);color:#fff;border-radius:16px;padding:22px 24px;position:relative;overflow:hidden}
+.weather-card::after{content:'';position:absolute;width:120px;height:120px;background:rgba(255,255,255,.06);border-radius:50%;top:-30px;left:-30px}
+.weather-main{display:flex;align-items:center;gap:16px;position:relative;z-index:1}
+.weather-temp{font-size:48px;font-weight:900;line-height:1}
+.weather-temp .unit{font-size:20px;font-weight:400;opacity:.7}
+.weather-info{flex:1}
+.weather-desc{font-size:15px;font-weight:600}
+.weather-detail{font-size:12px;opacity:.8;margin-top:4px}
+.weather-range{margin-top:10px;font-size:13px;opacity:.8;display:flex;gap:14px;position:relative;z-index:1}
+
+/* ===== PRAYER CARD ===== */
+.prayer-card{grid-column:span 2}
+.prayer-strip{display:flex;gap:0;flex-wrap:wrap}
+.prayer-item{flex:1;min-width:80px;text-align:center;padding:12px 8px;border-left:1px solid #f0f0f5;position:relative}
+.prayer-item:last-child{border-left:none}
+.prayer-item .name{font-size:12px;color:#999;font-weight:600}
+.prayer-item .time{font-size:16px;font-weight:900;color:#4158D0;margin-top:4px;direction:ltr}
+.prayer-item.active{background:#f7f5ff}
+.prayer-item.active .name{color:#4158D0}
+.prayer-item.active::before{content:'';position:absolute;bottom:0;left:20%;right:20%;height:3px;background:linear-gradient(90deg,#4158D0,#C850C0);border-radius:3px}
+.prayer-next{text-align:center;padding:8px;background:#f7f5ff;font-size:12px;color:#4158D0;font-weight:600}
+
+/* ===== EVENTS CARD ===== */
+.events-card{grid-column:span 2}
+.ev-list{max-height:420px;overflow-y:auto}
+.ev-list::-webkit-scrollbar{width:4px}
+.ev-list::-webkit-scrollbar-thumb{background:#ddd;border-radius:4px}
+.ev-day-label{font-size:12px;font-weight:700;color:#C850C0;padding:10px 0 6px;display:flex;align-items:center;gap:8px}
+.ev-day-label::after{content:'';flex:1;height:1px;background:#f0f0f5}
+.ev-item{display:flex;align-items:center;gap:14px;padding:10px 0;border-bottom:1px solid #f8f8fb}
+.ev-item:last-child{border-bottom:none}
+.ev-stripe{width:4px;height:36px;border-radius:2px;flex-shrink:0}
+.ev-content{flex:1;min-width:0}
+.ev-title{font-size:14px;font-weight:600;color:#1a1a2e;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.ev-loc{font-size:11px;color:#aaa;margin-top:1px}
+.ev-time{font-size:13px;font-weight:700;color:#4158D0;direction:ltr;white-space:nowrap}
+.ev-allday{font-size:11px;color:#a78bfa;background:#f3f0ff;padding:2px 10px;border-radius:6px;font-weight:600}
+
+/* ===== NEXT EVENT CARD ===== */
+.next-card{
+  background:linear-gradient(135deg,#f093fb,#f5576c);
+  color:#fff;border-radius:16px;padding:22px 24px;
+}
+.next-label{font-size:11px;font-weight:700;letter-spacing:1px;opacity:.8;text-transform:uppercase}
+.next-title{font-size:17px;font-weight:700;margin-top:10px;line-height:1.5}
+.next-time{font-size:13px;margin-top:4px;opacity:.9}
+.next-countdown{font-size:24px;font-weight:900;margin-top:12px;direction:ltr;text-align:right}
+
+/* ===== AGENTS CARD ===== */
+.agents-card{grid-column:span 1}
+.agent-list{}
+.agent-row{display:flex;align-items:center;gap:10px;padding:8px 0;border-bottom:1px solid #f8f8fb}
+.agent-row:last-child{border-bottom:none}
+.agent-emoji{font-size:20px;width:32px;height:32px;display:flex;align-items:center;justify-content:center;background:#f7f5ff;border-radius:8px;flex-shrink:0}
+.agent-info{flex:1;min-width:0}
+.agent-name{font-size:13px;font-weight:700;color:#1a1a2e}
+.agent-role{font-size:11px;color:#999}
+.agent-model{font-size:10px;color:#bbb;direction:ltr;background:#f5f5f5;padding:2px 6px;border-radius:4px;white-space:nowrap}
+
+/* ===== STATS ROW ===== */
+.stats-row{grid-column:span 3;display:grid;grid-template-columns:repeat(4,1fr);gap:12px}
+@media(max-width:1000px){.stats-row{grid-column:span 2;grid-template-columns:repeat(2,1fr)}}
+@media(max-width:640px){.stats-row{grid-column:span 1;grid-template-columns:repeat(2,1fr)}}
+.stat-box{background:#fff;border-radius:14px;padding:18px;text-align:center;box-shadow:0 2px 12px rgba(0,0,0,.04)}
+.stat-icon{font-size:24px;margin-bottom:4px}
+.stat-num{font-size:28px;font-weight:900;background:linear-gradient(135deg,#4158D0,#C850C0);-webkit-background-clip:text;-webkit-text-fill-color:transparent}
+.stat-label{font-size:11px;color:#999;margin-top:2px}
+
+/* ===== IMSAK BANNER ===== */
+.imsak-banner{
+  grid-column:span 3;background:linear-gradient(135deg,#1B2A4A,#2D4263);
+  color:#fff;border-radius:14px;padding:16px 24px;
+  display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:12px;
+}
+@media(max-width:1000px){.imsak-banner{grid-column:span 2}}
+@media(max-width:640px){.imsak-banner{grid-column:span 1}}
+.imsak-banner .label{font-size:14px;font-weight:600}
+.imsak-banner .times{display:flex;gap:24px;font-size:14px;font-weight:700;direction:ltr}
+.imsak-banner .times span{opacity:.7;font-weight:400;margin-left:4px}
+
+/* ===== API MONITORING ===== */
+.api-section{grid-column:span 3}
+@media(max-width:1000px){.api-section{grid-column:span 2}}
+@media(max-width:640px){.api-section{grid-column:span 1}}
+.api-section-title{font-size:13px;font-weight:700;color:#888;margin-bottom:14px;display:flex;align-items:center;gap:8px}
+.api-section-title::after{content:'';flex:1;height:1px;background:#f0f0f5}
+.api-cards{display:grid;grid-template-columns:repeat(4,1fr);gap:14px}
+@media(max-width:1000px){.api-cards{grid-template-columns:repeat(2,1fr)}}
+@media(max-width:640px){.api-cards{grid-template-columns:repeat(2,1fr)}}
+.api-card{background:#fff;border-radius:14px;padding:18px 20px;box-shadow:0 2px 12px rgba(0,0,0,.04)}
+.api-card-header{display:flex;align-items:center;justify-content:space-between;margin-bottom:10px}
+.api-card-name{font-size:13px;font-weight:700;color:#1a1a2e}
+.api-card-logo{font-size:22px}
+.api-stat{font-size:26px;font-weight:900;background:linear-gradient(135deg,#4158D0,#C850C0);-webkit-background-clip:text;-webkit-text-fill-color:transparent}
+.api-sublabel{font-size:11px;color:#999;margin-top:3px}
+.api-meter{background:#f0f0f5;border-radius:4px;height:5px;margin:8px 0 4px;overflow:hidden}
+.api-meter-fill{height:100%;border-radius:4px;transition:width .6s ease}
+.api-console-btn{display:inline-block;margin-top:10px;font-size:11px;color:#4158D0;text-decoration:none;background:#f0f4ff;padding:4px 10px;border-radius:6px;font-weight:600}
+.api-console-btn:hover{background:#4158D0;color:#fff}
+.api-badge{font-size:10px;padding:2px 7px;border-radius:5px;font-weight:600;background:#f0fff4;color:#16a34a}
+
+/* ===== FOOTER ===== */
+.footer{text-align:center;padding:16px;font-size:12px;color:#ccc}
+.refresh-btn{background:#fff;border:1px solid #e0e0e0;color:#4158D0;font-family:'Cairo',sans-serif;font-size:12px;font-weight:600;padding:6px 16px;border-radius:8px;cursor:pointer;transition:all .2s;margin-left:10px}
+.refresh-btn:hover{background:#4158D0;color:#fff;border-color:#4158D0}
+
+/* ===== LOADING ===== */
+.loading-box{text-align:center;padding:40px 20px;color:#bbb;font-size:14px}
+.spinner{display:inline-block;width:28px;height:28px;border:3px solid #eee;border-top-color:#4158D0;border-radius:50%;animation:spin .7s linear infinite;margin-bottom:8px}
+@keyframes spin{to{transform:rotate(360deg)}}
+</style>
+</head>
+<body>
+
+<div class="hero">
+  <div class="hero-row">
+    <div>
+      <div class="greeting" id="greeting">مساء الخير يا أبو محمد 👋</div>
+      <div class="hero-date" id="hero-date"></div>
+      <div class="hero-hijri" id="hero-hijri">—</div>
+    </div>
+    <div class="hero-right">
+      <div class="clock" id="clock"></div>
+    </div>
+  </div>
+</div>
+
+<div class="grid">
+
+  <!-- Stats Row -->
+  <div class="stats-row" id="stats-row">
+    <div class="stat-box"><div class="stat-icon">📅</div><div class="stat-num" id="s-today">—</div><div class="stat-label">مواعيد اليوم</div></div>
+    <div class="stat-box"><div class="stat-icon">📆</div><div class="stat-num" id="s-week">—</div><div class="stat-label">هالأسبوع</div></div>
+    <div class="stat-box"><div class="stat-icon">🤖</div><div class="stat-num" id="s-agents">—</div><div class="stat-label">وكيل نشط</div></div>
+    <div class="stat-box"><div class="stat-icon">🌡️</div><div class="stat-num" id="s-temp">—</div><div class="stat-label">الرياض الآن</div></div>
+  </div>
+
+  <!-- Ramadan Banner -->
+  <div class="imsak-banner" id="imsak-banner" style="display:none">
+    <div class="label">🌙 رمضان مبارك</div>
+    <div class="times">
+      <div>🍽️ إفطار <span id="iftar-time">—</span></div>
+      <div>🌅 إمساك <span id="imsak-time">—</span></div>
+    </div>
+  </div>
+
+  <!-- Weather -->
+  <div class="weather-card" id="weather-card">
+    <div class="weather-main">
+      <div class="weather-temp" id="w-temp">—<span class="unit">°</span></div>
+      <div class="weather-info">
+        <div class="weather-desc" id="w-desc">—</div>
+        <div class="weather-detail" id="w-detail">—</div>
+      </div>
+    </div>
+    <div class="weather-range" id="w-range"></div>
+  </div>
+
+  <!-- Prayer -->
+  <div class="card prayer-card" id="prayer-card">
+    <div class="card-head"><span class="icon">🕌</span> مواقيت الصلاة — الرياض</div>
+    <div class="card-body" style="padding:0">
+      <div class="prayer-next" id="prayer-next">—</div>
+      <div class="prayer-strip" id="prayer-strip">
+        <div class="loading-box"><div class="spinner"></div></div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Events -->
+  <div class="card events-card" id="events-card">
+    <div class="card-head"><span class="icon">📅</span> المواعيد القادمة</div>
+    <div class="card-body">
+      <div class="ev-list" id="ev-list">
+        <div class="loading-box"><div class="spinner"></div><div>جارٍ التحميل…</div></div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Next Event -->
+  <div id="next-wrap" style="display:none">
+    <div class="next-card" id="next-card">
+      <div class="next-label">⏭ الموعد القادم</div>
+      <div class="next-title" id="n-title">—</div>
+      <div class="next-time" id="n-time">—</div>
+      <div class="next-countdown" id="n-count">—</div>
+    </div>
+
+    <!-- Agents -->
+    <div class="card agents-card" id="agents-card" style="margin-top:20px">
+      <div class="card-head"><span class="icon">🤖</span> فريق الوكلاء</div>
+      <div class="card-body">
+        <div class="agent-list" id="agent-list">
+          <div class="loading-box"><div class="spinner"></div></div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- API Monitoring -->
+  <div class="api-section">
+    <div class="api-section-title">🔑 مراقبة الـ APIs</div>
+    <div class="api-cards">
+
+      <!-- OpenAI -->
+      <div class="api-card">
+        <div class="api-card-header">
+          <div class="api-card-name">OpenAI</div>
+          <div class="api-card-logo">⚡</div>
+        </div>
+        <div class="api-stat" id="oai-usage">—</div>
+        <div class="api-sublabel" id="oai-period">استهلاك الشهر</div>
+        <div class="api-meter"><div class="api-meter-fill" id="oai-meter" style="width:0%;background:linear-gradient(90deg,#4158D0,#C850C0)"></div></div>
+        <div class="api-sublabel" id="oai-limit">—</div>
+      </div>
+
+      <!-- ElevenLabs -->
+      <div class="api-card">
+        <div class="api-card-header">
+          <div class="api-card-name">ElevenLabs</div>
+          <div class="api-card-logo">🎙️</div>
+        </div>
+        <div class="api-stat" id="el-usage">—</div>
+        <div class="api-sublabel" id="el-label">حرف مستخدم</div>
+        <div class="api-meter"><div class="api-meter-fill" id="el-meter" style="width:0%;background:linear-gradient(90deg,#f093fb,#f5576c)"></div></div>
+        <div class="api-sublabel" id="el-limit">—</div>
+      </div>
+
+      <!-- Anthropic -->
+      <div class="api-card">
+        <div class="api-card-header">
+          <div class="api-card-name">Anthropic</div>
+          <div class="api-card-logo">🧠</div>
+        </div>
+        <div style="margin-top:6px">
+          <div class="api-sublabel">لا تتوفر Usage API عامة</div>
+          <a class="api-console-btn" href="https://console.anthropic.com/settings/billing" target="_blank">→ الكونسول</a>
+        </div>
+      </div>
+
+      <!-- Gemini -->
+      <div class="api-card">
+        <div class="api-card-header">
+          <div class="api-card-name">Google Gemini</div>
+          <div class="api-card-logo">✨</div>
+        </div>
+        <div style="margin-top:6px">
+          <div class="api-sublabel">لا تتوفر Usage API عامة</div>
+          <a class="api-console-btn" href="https://console.cloud.google.com/billing" target="_blank">→ الكونسول</a>
+        </div>
+      </div>
+
+    </div>
+  </div>
+
+</div>
+
+<div class="footer">
+  <button class="refresh-btn" onclick="loadAll()">🔄 تحديث</button>
+  <span id="last-refresh">—</span>
+  &nbsp;·&nbsp; يتحدث كل 5 دقائق
+</div>
+
+<script>
+const TZ='Asia/Riyadh';
+const AR_DAYS=['الأحد','الاثنين','الثلاثاء','الأربعاء','الخميس','الجمعة','السبت'];
+const AR_MONTHS=['يناير','فبراير','مارس','أبريل','مايو','يونيو','يوليو','أغسطس','سبتمبر','أكتوبر','نوفمبر','ديسمبر'];
+const COLORS={1:'#a4bdfc',2:'#7ae7bf',3:'#dbadff',4:'#ff887c',5:'#fbd75b',6:'#ffb878',7:'#46d6db',8:'#b8b8b8',9:'#5484ed',10:'#51b749',11:'#dc2127',default:'#4158D0'};
+const PRAYER_AR={Fajr:'الفجر',Sunrise:'الشروق',Dhuhr:'الظهر',Asr:'العصر',Maghrib:'المغرب',Isha:'العشاء'};
+
+function nowR(){return new Date(new Date().toLocaleString('en-US',{timeZone:TZ}))}
+function todayKey(){return nowR().toLocaleDateString('en-CA')}
+
+function fmtT(d){if(!d)return'';return new Date(d).toLocaleTimeString('en-US',{hour:'numeric',minute:'2-digit',timeZone:TZ,hour12:true})}
+
+function dayKey(ev){
+  if(ev.start?.date)return ev.start.date;
+  return new Date(ev.start.dateTime).toLocaleDateString('en-CA',{timeZone:TZ})
+}
+
+function dayLabel(k){
+  const d=new Date(k+'T12:00:00'),tk=todayKey(),tmrw=new Date(nowR().getTime()+86400000).toLocaleDateString('en-CA');
+  const dn=AR_DAYS[d.getDay()],ds=`${d.getDate()} ${AR_MONTHS[d.getMonth()]}`;
+  if(k===tk)return'📅 اليوم — '+dn+' '+ds;
+  if(k===tmrw)return'⏭ غداً — '+dn+' '+ds;
+  return dn+'، '+ds
+}
+
+function timeDiff(target){
+  const diff=new Date(target)-new Date();if(diff<=0)return'الآن!';
+  const m=Math.floor(diff/60000);if(m<60)return'بعد '+m+' دقيقة';
+  const h=Math.floor(m/60),rm=m%60;if(h<24)return'بعد '+h+' ساعة'+(rm>0?' و '+rm+' د':'');
+  return'بعد '+Math.floor(h/24)+' يوم'
+}
+
+// Clock
+function updateClock(){
+  const n=nowR(),h=n.getHours(),m=n.getMinutes(),s=n.getSeconds();
+  const h12=h%12||12,ap=h<12?'ص':'م',pad=v=>String(v).padStart(2,'0');
+  document.getElementById('clock').innerHTML=`${h12}:${pad(m)}:${pad(s)} <span class="ampm">${ap}</span>`;
+  document.getElementById('hero-date').textContent=`${AR_DAYS[n.getDay()]}، ${n.getDate()} ${AR_MONTHS[n.getMonth()]} ${n.getFullYear()}`;
+  const gr=h<12?'صباح الخير':h<17?'مساء النور':'مساء الخير';
+  document.getElementById('greeting').textContent=gr+' يا أبو محمد 👋'
+}
+
+// Prayer
+function renderPrayer(data){
+  if(!data.ok)return;
+  const t=data.timings,h=data.hijri;
+  document.getElementById('hero-hijri').textContent=`${h.day} ${h.month} ${h.year} هـ`;
+
+  // Ramadan banner
+  if(h.month==='رَمَضان'||h.month==='رمضان'){
+    document.getElementById('imsak-banner').style.display='flex';
+    document.getElementById('iftar-time').textContent=t.Maghrib;
+    document.getElementById('imsak-time').textContent=t.Imsak;
+  }
+
+  // Find next prayer
+  const now=nowR(),nowMin=now.getHours()*60+now.getMinutes();
+  const order=['Fajr','Sunrise','Dhuhr','Asr','Maghrib','Isha'];
+  let nextP=null;
+  for(const p of order){
+    const [hh,mm]=t[p].split(':').map(Number);
+    if(hh*60+mm>nowMin){nextP=p;break}
+  }
+
+  let strip='';
+  order.forEach(p=>{
+    const isActive=p===nextP;
+    strip+=`<div class="prayer-item${isActive?' active':''}"><div class="name">${PRAYER_AR[p]}</div><div class="time">${t[p]}</div></div>`
+  });
+  document.getElementById('prayer-strip').innerHTML=strip;
+
+  if(nextP){
+    const [hh,mm]=t[nextP].split(':').map(Number);
+    const diff=(hh*60+mm)-nowMin;
+    document.getElementById('prayer-next').textContent=`⏰ ${PRAYER_AR[nextP]} بعد ${diff>60?Math.floor(diff/60)+' ساعة و '+(diff%60)+' دقيقة':diff+' دقيقة'}`
+  } else {
+    document.getElementById('prayer-next').textContent='✅ انتهت صلوات اليوم'
+  }
+}
+
+// Weather
+function renderWeather(data){
+  if(!data.ok){document.getElementById('w-desc').textContent='تعذّر التحميل';return}
+  const c=data.current;
+  document.getElementById('w-temp').innerHTML=c.temp+'<span class="unit">°C</span>';
+  document.getElementById('w-desc').textContent=c.desc;
+  document.getElementById('w-detail').textContent=`الإحساس ${c.feelsLike}° · الرطوبة ${c.humidity}% · الرياح ${c.windSpeed} كم/س`;
+  document.getElementById('s-temp').textContent=c.temp+'°';
+  if(data.today){
+    document.getElementById('w-range').innerHTML=`<div>🔺 العظمى ${data.today.maxTemp}°</div><div>🔻 الصغرى ${data.today.minTemp}°</div>`
+  }
+}
+
+// Events
+let allEvents=[];
+function renderEvents(data){
+  if(!data.ok)return;
+  allEvents=data.events;
+  const tk=todayKey(),in7=new Date(nowR().getTime()+7*86400000).toLocaleDateString('en-CA');
+  document.getElementById('s-today').textContent=allEvents.filter(e=>dayKey(e)===tk).length;
+  document.getElementById('s-week').textContent=allEvents.filter(e=>dayKey(e)<=in7).length;
+
+  // Next event
+  const upcoming=allEvents.filter(e=>e.start?.dateTime&&new Date(e.start.dateTime)>new Date());
+  const nw=document.getElementById('next-wrap');
+  if(upcoming.length){
+    nw.style.display='block';
+    document.getElementById('n-title').textContent=upcoming[0].summary||'—';
+    document.getElementById('n-time').textContent='🕐 '+fmtT(upcoming[0].start.dateTime);
+    document.getElementById('n-count').textContent=timeDiff(upcoming[0].start.dateTime)
+  } else { nw.style.display='block' }
+
+  // Group by day
+  const groups={};
+  allEvents.forEach(ev=>{const k=dayKey(ev);if(!groups[k])groups[k]=[];groups[k].push(ev)});
+  const keys=Object.keys(groups).sort();
+
+  let html='';
+  keys.forEach(k=>{
+    html+=`<div class="ev-day-label">${dayLabel(k)}</div>`;
+    groups[k].forEach(ev=>{
+      const isAllDay=!ev.start?.dateTime;
+      const color=COLORS[ev.colorId]||COLORS.default;
+      const title=ev.summary||'(بدون عنوان)';
+      const loc=ev.location?`<div class="ev-loc">📍 ${ev.location}</div>`:'';
+      const time=isAllDay?'<span class="ev-allday">طوال اليوم</span>':`<span class="ev-time">${fmtT(ev.start.dateTime)}</span>`;
+      html+=`<div class="ev-item"><div class="ev-stripe" style="background:${color}"></div><div class="ev-content"><div class="ev-title">${title}</div>${loc}</div>${time}</div>`
+    })
+  });
+  if(!html)html='<div style="text-align:center;padding:30px;color:#bbb">🎉 ما عندك مواعيد</div>';
+  document.getElementById('ev-list').innerHTML=html;
+}
+
+// Agents
+function renderAgents(data){
+  if(!data.ok)return;
+  document.getElementById('s-agents').textContent=data.agents.length;
+  const modelShort=m=>{
+    if(m.includes('opus'))return'Opus';
+    if(m.includes('sonnet'))return'Sonnet';
+    if(m.includes('flash'))return'Flash';
+    if(m.includes('gemini-2.5-pro'))return'Gemini Pro';
+    return m.split('/').pop()
+  };
+  let html='';
+  data.agents.forEach(a=>{
+    html+=`<div class="agent-row">
+      <div class="agent-emoji">${a.emoji}</div>
+      <div class="agent-info"><div class="agent-name">${a.name}</div><div class="agent-role">${a.role}</div></div>
+      <div class="agent-model">${modelShort(a.model)}</div>
+    </div>`
+  });
+  document.getElementById('agent-list').innerHTML=html
+}
+
+// OpenAI
+function renderOpenAI(d){
+  if(!d.ok){document.getElementById('oai-usage').textContent='خطأ';document.getElementById('oai-period').textContent=d.error||'تعذر التحميل';return}
+  document.getElementById('oai-usage').textContent='$'+d.totalUsage;
+  document.getElementById('oai-period').textContent=`${d.startDate} → ${d.endDate}`;
+  if(d.hardLimit){
+    const pct=Math.min(100,(d.totalUsage/d.hardLimit*100)).toFixed(1);
+    document.getElementById('oai-meter').style.width=pct+'%';
+    document.getElementById('oai-limit').textContent=`${pct}% من الحد $${d.hardLimit}`;
+  }
+}
+
+// ElevenLabs
+function renderElevenLabs(d){
+  if(!d.ok){document.getElementById('el-usage').textContent='خطأ';document.getElementById('el-label').textContent=d.error||'تعذر التحميل';return}
+  const usedK=(d.characterCount/1000).toFixed(1);
+  const limitK=(d.characterLimit/1000).toFixed(0);
+  document.getElementById('el-usage').textContent=usedK+'K';
+  document.getElementById('el-label').textContent=`من أصل ${limitK}K حرف — ${d.plan}`;
+  document.getElementById('el-meter').style.width=d.usagePercent+'%';
+  const remK=Math.round(d.remaining/1000);
+  document.getElementById('el-limit').textContent=`متبقي ${remK}K${d.nextReset?' · يتجدد '+d.nextReset:''}`;
+}
+
+// Load all
+function loadAll(){
+  fetch('/api/events').then(r=>r.json()).then(renderEvents).catch(()=>{});
+  fetch('/api/prayer').then(r=>r.json()).then(renderPrayer).catch(()=>{});
+  fetch('/api/weather').then(r=>r.json()).then(renderWeather).catch(()=>{});
+  fetch('/api/agents').then(r=>r.json()).then(renderAgents).catch(()=>{});
+  fetch('/api/openai').then(r=>r.json()).then(renderOpenAI).catch(()=>{});
+  fetch('/api/elevenlabs').then(r=>r.json()).then(renderElevenLabs).catch(()=>{});
+  const now=new Date().toLocaleTimeString('ar-SA',{hour:'2-digit',minute:'2-digit',timeZone:TZ,hour12:true});
+  document.getElementById('last-refresh').textContent='آخر تحديث: '+now
+}
+
+// Countdown ticker
+setInterval(()=>{
+  if(!allEvents.length)return;
+  const up=allEvents.filter(e=>e.start?.dateTime&&new Date(e.start.dateTime)>new Date());
+  if(up.length)document.getElementById('n-count').textContent=timeDiff(up[0].start.dateTime)
+},30000);
+
+updateClock();
+setInterval(updateClock,1000);
+loadAll();
+setInterval(loadAll,5*60*1000);
+</script>
+</body>
+</html>

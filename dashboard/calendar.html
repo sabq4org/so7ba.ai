@@ -1,0 +1,296 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>مواعيد أبو محمد</title>
+<link href="https://fonts.googleapis.com/css2?family=Cairo:wght@400;600;700;900&display=swap" rel="stylesheet">
+<style>
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+
+  body {
+    font-family: 'Cairo', sans-serif;
+    background: #0f1117;
+    color: #e8eaf0;
+    min-height: 100vh;
+    padding: 24px;
+  }
+
+  .header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin-bottom: 28px;
+  }
+
+  .header h1 {
+    font-size: 26px;
+    font-weight: 900;
+    color: #fff;
+  }
+
+  .header .date-now {
+    font-size: 14px;
+    color: #888;
+    background: #1a1d2e;
+    padding: 8px 16px;
+    border-radius: 20px;
+    border: 1px solid #2a2d3e;
+  }
+
+  .powered {
+    font-size: 12px;
+    color: #555;
+    text-align: center;
+    margin-bottom: 24px;
+  }
+
+  .powered span {
+    color: #6c8cff;
+    font-weight: 700;
+  }
+
+  .section-title {
+    font-size: 13px;
+    color: #666;
+    text-transform: uppercase;
+    letter-spacing: 2px;
+    margin-bottom: 14px;
+    padding-right: 4px;
+  }
+
+  .events-grid {
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+    margin-bottom: 32px;
+  }
+
+  .event-card {
+    background: #1a1d2e;
+    border-radius: 16px;
+    padding: 16px 20px;
+    border: 1px solid #2a2d3e;
+    display: flex;
+    align-items: center;
+    gap: 16px;
+    transition: transform 0.2s, border-color 0.2s;
+    cursor: pointer;
+  }
+
+  .event-card:hover {
+    transform: translateX(-4px);
+    border-color: #6c8cff44;
+  }
+
+  .event-card.today {
+    border-color: #6c8cff66;
+    background: linear-gradient(135deg, #1a1d2e, #1e2240);
+  }
+
+  .event-card.past {
+    opacity: 0.45;
+  }
+
+  .date-badge {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    width: 52px;
+    height: 52px;
+    border-radius: 14px;
+    flex-shrink: 0;
+    font-weight: 900;
+  }
+
+  .date-badge .day { font-size: 20px; line-height: 1; }
+  .date-badge .month { font-size: 10px; margin-top: 2px; opacity: 0.8; }
+
+  .badge-today { background: linear-gradient(135deg, #6c8cff, #a78bfa); color: white; }
+  .badge-tomorrow { background: linear-gradient(135deg, #22c55e, #16a34a); color: white; }
+  .badge-future { background: #252840; color: #8892b0; }
+  .badge-past { background: #1e1e1e; color: #555; }
+
+  .event-info { flex: 1; }
+  .event-title { font-size: 15px; font-weight: 700; color: #e8eaf0; margin-bottom: 5px; }
+  .event-time { font-size: 13px; color: #8892b0; display: flex; align-items: center; gap: 6px; }
+  .event-time .dot { width: 6px; height: 6px; border-radius: 50%; background: currentColor; opacity: 0.5; }
+
+  .event-tag {
+    font-size: 11px;
+    padding: 4px 10px;
+    border-radius: 20px;
+    font-weight: 600;
+    flex-shrink: 0;
+  }
+
+  .tag-today { background: #6c8cff22; color: #6c8cff; border: 1px solid #6c8cff44; }
+  .tag-work { background: #f59e0b22; color: #f59e0b; border: 1px solid #f59e0b44; }
+  .tag-social { background: #ec489922; color: #ec4899; border: 1px solid #ec489944; }
+  .tag-finance { background: #22c55e22; color: #22c55e; border: 1px solid #22c55e44; }
+  .tag-food { background: #f9731622; color: #f97316; border: 1px solid #f9731644; }
+  .tag-health { background: #06b6d422; color: #06b6d4; border: 1px solid #06b6d444; }
+
+  .now-indicator {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    margin: 8px 0;
+    padding: 0 4px;
+    font-size: 12px;
+    color: #6c8cff;
+    font-weight: 600;
+  }
+  .now-indicator::before, .now-indicator::after {
+    content: '';
+    flex: 1;
+    height: 1px;
+    background: #6c8cff44;
+  }
+
+  .stats-row {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 12px;
+    margin-bottom: 16px;
+  }
+
+  .stat-card {
+    background: #1a1d2e;
+    border: 1px solid #2a2d3e;
+    border-radius: 14px;
+    padding: 16px;
+    text-align: center;
+  }
+
+  .stat-num { font-size: 28px; font-weight: 900; color: #fff; }
+  .stat-label { font-size: 12px; color: #666; margin-top: 4px; }
+
+  .footer {
+    text-align: center;
+    font-size: 12px;
+    color: #444;
+    margin-top: 24px;
+  }
+</style>
+</head>
+<body>
+
+<div class="header">
+  <h1>📅 مواعيدي</h1>
+  <div class="date-now" id="dateNow">الاثنين، 23 فبراير 2026</div>
+</div>
+
+<div class="powered">مدعوم بـ <span>صُحبة 🧠</span> — يتحدث تلقائياً من Google Calendar</div>
+
+<div class="stats-row">
+  <div class="stat-card">
+    <div class="stat-num" style="color:#6c8cff">2</div>
+    <div class="stat-label">مواعيد اليوم</div>
+  </div>
+  <div class="stat-card">
+    <div class="stat-num" style="color:#22c55e">5</div>
+    <div class="stat-label">هذا الأسبوع</div>
+  </div>
+  <div class="stat-card">
+    <div class="stat-num" style="color:#f97316">1</div>
+    <div class="stat-label">اجتماع قادم</div>
+  </div>
+</div>
+
+<div class="section-title">اليوم — الاثنين 23 فبراير</div>
+<div class="events-grid">
+
+  <div class="event-card past">
+    <div class="date-badge badge-past">
+      <div class="day">23</div>
+      <div class="month">فبراير</div>
+    </div>
+    <div class="event-info">
+      <div class="event-title">🔧 إصلاح تطبيقات سبق</div>
+      <div class="event-time"><div class="dot"></div>10:30 ص – 11:30 ص</div>
+    </div>
+    <div class="event-tag tag-work">عمل</div>
+  </div>
+
+  <div class="now-indicator">الآن — 6:50 م</div>
+
+  <div class="event-card today">
+    <div class="date-badge badge-today">
+      <div class="day">23</div>
+      <div class="month">فبراير</div>
+    </div>
+    <div class="event-info">
+      <div class="event-title">فعالية تأكد صحتك — وزارة الصحة</div>
+      <div class="event-time"><div class="dot"></div>11:00 م – 12:00 ص</div>
+    </div>
+    <div class="event-tag tag-health">صحة</div>
+  </div>
+
+</div>
+
+<div class="section-title">قادم قريباً</div>
+<div class="events-grid">
+
+  <div class="event-card">
+    <div class="date-badge badge-tomorrow">
+      <div class="day">24</div>
+      <div class="month">فبراير</div>
+    </div>
+    <div class="event-info">
+      <div class="event-title">🥩 عشاء Beefbar Riyadh | #FF882</div>
+      <div class="event-time"><div class="dot"></div>5:15 م – 7:15 م • شخصان</div>
+    </div>
+    <div class="event-tag tag-food">إفطار</div>
+  </div>
+
+  <div class="event-card">
+    <div class="date-badge badge-future">
+      <div class="day">25</div>
+      <div class="month">فبراير</div>
+    </div>
+    <div class="event-info">
+      <div class="event-title">📌 نقل النظام من السيرفر إلى الماك</div>
+      <div class="event-time"><div class="dot"></div>10:00 ص – 11:00 ص</div>
+    </div>
+    <div class="event-tag tag-work">عمل</div>
+  </div>
+
+  <div class="event-card">
+    <div class="date-badge badge-future">
+      <div class="day">25</div>
+      <div class="month">فبراير</div>
+    </div>
+    <div class="event-info">
+      <div class="event-title">🌙 سُحور الدرعية 2026 — دعوة خاصة</div>
+      <div class="event-time"><div class="dot"></div>10:30 م – 12:30 ص</div>
+    </div>
+    <div class="event-tag tag-social">اجتماعي</div>
+  </div>
+
+  <div class="event-card">
+    <div class="date-badge badge-future">
+      <div class="day">26</div>
+      <div class="month">فبراير</div>
+    </div>
+    <div class="event-info">
+      <div class="event-title">💰 نزول الراتب</div>
+      <div class="event-time"><div class="dot"></div>طوال اليوم</div>
+    </div>
+    <div class="event-tag tag-finance">مالي</div>
+  </div>
+
+</div>
+
+<div class="footer">آخر تحديث: اليوم 6:50 م • صُحبة 🧠</div>
+
+<script>
+  const now = new Date();
+  const days = ['الأحد','الاثنين','الثلاثاء','الأربعاء','الخميس','الجمعة','السبت'];
+  const months = ['يناير','فبراير','مارس','أبريل','مايو','يونيو','يوليو','أغسطس','سبتمبر','أكتوبر','نوفمبر','ديسمبر'];
+  document.getElementById('dateNow').textContent = `${days[now.getDay()]}، ${now.getDate()} ${months[now.getMonth()]} ${now.getFullYear()}`;
+</script>
+
+</body>
+</html>

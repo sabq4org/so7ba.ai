@@ -1,0 +1,685 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>صوّر وتصرّف — Mockup</title>
+<style>
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  
+  body {
+    background: #0a0a0f;
+    font-family: -apple-system, 'SF Pro Display', 'Helvetica Neue', Arial, sans-serif;
+    display: flex;
+    justify-content: center;
+    align-items: flex-start;
+    gap: 40px;
+    padding: 40px 20px;
+    flex-wrap: wrap;
+    min-height: 100vh;
+  }
+
+  .screen-wrapper {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 12px;
+  }
+
+  .screen-label {
+    color: #666;
+    font-size: 13px;
+    letter-spacing: 1px;
+    text-transform: uppercase;
+  }
+
+  .phone {
+    width: 320px;
+    height: 680px;
+    background: #1A1A2E;
+    border-radius: 44px;
+    border: 8px solid #2a2a3e;
+    position: relative;
+    overflow: hidden;
+    box-shadow: 0 30px 80px rgba(0,0,0,0.6), inset 0 1px 0 rgba(255,255,255,0.05);
+  }
+
+  /* Notch */
+  .notch {
+    position: absolute;
+    top: 0;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 120px;
+    height: 28px;
+    background: #111;
+    border-radius: 0 0 20px 20px;
+    z-index: 100;
+  }
+
+  /* ====== SCREEN 1: CAMERA ====== */
+  .camera-screen {
+    width: 100%;
+    height: 100%;
+    background: #000;
+    position: relative;
+  }
+
+  .camera-bg {
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(180deg, #1a1a1a 0%, #0d0d0d 100%);
+    position: relative;
+    overflow: hidden;
+  }
+
+  .camera-grid {
+    position: absolute;
+    inset: 0;
+    background-image: 
+      linear-gradient(rgba(255,255,255,0.03) 1px, transparent 1px),
+      linear-gradient(90deg, rgba(255,255,255,0.03) 1px, transparent 1px);
+    background-size: 40px 40px;
+  }
+
+  .camera-frame {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -58%);
+    width: 220px;
+    height: 220px;
+  }
+
+  .corner {
+    position: absolute;
+    width: 24px;
+    height: 24px;
+    border-color: #E94560;
+    border-style: solid;
+    border-width: 0;
+  }
+  .corner.tl { top: 0; right: 0; border-top-width: 3px; border-right-width: 3px; border-radius: 0 4px 0 0; }
+  .corner.tr { top: 0; left: 0; border-top-width: 3px; border-left-width: 3px; border-radius: 4px 0 0 0; }
+  .corner.bl { bottom: 0; right: 0; border-bottom-width: 3px; border-right-width: 3px; border-radius: 0 0 0 4px; }
+  .corner.br { bottom: 0; left: 0; border-bottom-width: 3px; border-left-width: 3px; border-radius: 0 0 4px 0; }
+
+  .scan-line {
+    position: absolute;
+    top: 30%;
+    left: 10%;
+    right: 10%;
+    height: 2px;
+    background: linear-gradient(90deg, transparent, #E94560, transparent);
+    animation: scan 2s ease-in-out infinite;
+  }
+
+  @keyframes scan {
+    0%, 100% { top: 15%; opacity: 0; }
+    20% { opacity: 1; }
+    80% { opacity: 1; }
+    50% { top: 75%; }
+  }
+
+  .app-title {
+    position: absolute;
+    top: 48px;
+    width: 100%;
+    text-align: center;
+    color: white;
+    font-size: 17px;
+    font-weight: 700;
+    letter-spacing: 0.5px;
+  }
+
+  .app-subtitle {
+    position: absolute;
+    top: 70px;
+    width: 100%;
+    text-align: center;
+    color: rgba(255,255,255,0.4);
+    font-size: 11px;
+  }
+
+  .camera-hint {
+    position: absolute;
+    top: 58%;
+    width: 100%;
+    text-align: center;
+    color: rgba(255,255,255,0.5);
+    font-size: 12px;
+  }
+
+  .capture-area {
+    position: absolute;
+    bottom: 60px;
+    width: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 30px;
+  }
+
+  .capture-btn {
+    width: 72px;
+    height: 72px;
+    border-radius: 50%;
+    background: linear-gradient(135deg, #E94560, #c73652);
+    border: 4px solid rgba(255,255,255,0.2);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    box-shadow: 0 0 30px rgba(233,69,96,0.5);
+  }
+
+  .capture-btn-inner {
+    width: 52px;
+    height: 52px;
+    border-radius: 50%;
+    background: #E94560;
+    border: 2px solid rgba(255,255,255,0.3);
+  }
+
+  .gallery-btn {
+    width: 44px;
+    height: 44px;
+    border-radius: 12px;
+    background: rgba(255,255,255,0.1);
+    border: 1px solid rgba(255,255,255,0.15);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: white;
+    font-size: 20px;
+  }
+
+  .flash-btn {
+    width: 44px;
+    height: 44px;
+    border-radius: 50%;
+    background: rgba(255,255,255,0.08);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: rgba(255,255,255,0.6);
+    font-size: 18px;
+  }
+
+  /* Tab Bar */
+  .tab-bar {
+    position: absolute;
+    bottom: 0;
+    width: 100%;
+    height: 54px;
+    background: rgba(15,15,26,0.95);
+    backdrop-filter: blur(20px);
+    border-top: 1px solid rgba(255,255,255,0.07);
+    display: flex;
+    align-items: center;
+    justify-content: space-around;
+    padding: 0 16px;
+  }
+
+  .tab-item {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 3px;
+    opacity: 0.4;
+    flex: 1;
+  }
+  .tab-item.active { opacity: 1; }
+  .tab-icon { font-size: 20px; }
+  .tab-label { font-size: 9px; color: #aaa; }
+  .tab-item.active .tab-label { color: #E94560; }
+
+  /* ====== SCREEN 2: RESULT ====== */
+  .result-screen {
+    width: 100%;
+    height: 100%;
+    background: #0F0F1A;
+    overflow: hidden;
+  }
+
+  .result-image-area {
+    width: 100%;
+    height: 200px;
+    position: relative;
+    overflow: hidden;
+  }
+
+  .result-image-bg {
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(135deg, #1e1e3f 0%, #2d1b3d 50%, #1a2040 100%);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 60px;
+    filter: brightness(0.7);
+  }
+
+  .result-image-overlay {
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    height: 80px;
+    background: linear-gradient(transparent, #0F0F1A);
+  }
+
+  .back-btn {
+    position: absolute;
+    top: 44px;
+    right: 16px;
+    width: 32px;
+    height: 32px;
+    border-radius: 50%;
+    background: rgba(0,0,0,0.5);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: white;
+    font-size: 16px;
+  }
+
+  .category-badge {
+    position: absolute;
+    bottom: 16px;
+    right: 16px;
+    padding: 5px 12px;
+    border-radius: 20px;
+    background: rgba(233,69,96,0.2);
+    border: 1px solid rgba(233,69,96,0.4);
+    color: #E94560;
+    font-size: 11px;
+    font-weight: 600;
+  }
+
+  .result-content {
+    padding: 16px;
+    overflow-y: auto;
+    height: calc(100% - 200px - 54px);
+  }
+
+  .result-card {
+    background: rgba(255,255,255,0.04);
+    border: 1px solid rgba(255,255,255,0.07);
+    border-radius: 16px;
+    padding: 14px;
+    margin-bottom: 10px;
+  }
+
+  .result-card-title {
+    color: rgba(255,255,255,0.4);
+    font-size: 10px;
+    font-weight: 600;
+    letter-spacing: 1px;
+    margin-bottom: 7px;
+    text-transform: uppercase;
+  }
+
+  .result-what {
+    color: #fff;
+    font-size: 15px;
+    font-weight: 600;
+    line-height: 1.5;
+  }
+
+  .step-item {
+    display: flex;
+    align-items: flex-start;
+    gap: 10px;
+    margin-bottom: 8px;
+  }
+
+  .step-num {
+    width: 22px;
+    height: 22px;
+    border-radius: 50%;
+    background: rgba(233,69,96,0.15);
+    border: 1px solid rgba(233,69,96,0.3);
+    color: #E94560;
+    font-size: 10px;
+    font-weight: 700;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-shrink: 0;
+    margin-top: 1px;
+  }
+
+  .step-text {
+    color: rgba(255,255,255,0.8);
+    font-size: 12px;
+    line-height: 1.5;
+  }
+
+  .warning-card {
+    background: rgba(255,165,0,0.08);
+    border: 1px solid rgba(255,165,0,0.25);
+    border-radius: 12px;
+    padding: 10px 14px;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    margin-bottom: 10px;
+  }
+
+  .warning-text {
+    color: #FFA500;
+    font-size: 11px;
+    line-height: 1.4;
+  }
+
+  .cta-btn {
+    width: 100%;
+    height: 46px;
+    border-radius: 14px;
+    background: linear-gradient(135deg, #E94560, #c73652);
+    color: white;
+    font-size: 14px;
+    font-weight: 700;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin-bottom: 10px;
+    box-shadow: 0 8px 24px rgba(233,69,96,0.3);
+  }
+
+  /* ====== SCREEN 3: HISTORY ====== */
+  .history-screen {
+    width: 100%;
+    height: 100%;
+    background: #0F0F1A;
+  }
+
+  .history-header {
+    padding: 52px 16px 16px;
+    border-bottom: 1px solid rgba(255,255,255,0.06);
+  }
+
+  .history-title {
+    color: white;
+    font-size: 22px;
+    font-weight: 700;
+  }
+
+  .history-subtitle {
+    color: rgba(255,255,255,0.3);
+    font-size: 12px;
+    margin-top: 3px;
+  }
+
+  .history-list {
+    padding: 12px;
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    height: calc(100% - 100px - 54px);
+    overflow-y: auto;
+  }
+
+  .history-item {
+    background: rgba(255,255,255,0.04);
+    border: 1px solid rgba(255,255,255,0.07);
+    border-radius: 16px;
+    padding: 12px;
+    display: flex;
+    gap: 12px;
+    align-items: center;
+  }
+
+  .history-thumb {
+    width: 52px;
+    height: 52px;
+    border-radius: 12px;
+    font-size: 26px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-shrink: 0;
+  }
+
+  .history-thumb.type1 { background: rgba(233,69,96,0.15); }
+  .history-thumb.type2 { background: rgba(100,200,100,0.15); }
+  .history-thumb.type3 { background: rgba(100,150,255,0.15); }
+  .history-thumb.type4 { background: rgba(255,200,50,0.15); }
+
+  .history-info { flex: 1; }
+  .history-cat {
+    display: inline-block;
+    padding: 2px 8px;
+    border-radius: 8px;
+    background: rgba(233,69,96,0.15);
+    color: #E94560;
+    font-size: 9px;
+    font-weight: 600;
+    margin-bottom: 4px;
+  }
+  .history-what {
+    color: white;
+    font-size: 13px;
+    font-weight: 600;
+    line-height: 1.3;
+  }
+  .history-time {
+    color: rgba(255,255,255,0.3);
+    font-size: 10px;
+    margin-top: 3px;
+  }
+  .history-arrow {
+    color: rgba(255,255,255,0.2);
+    font-size: 14px;
+  }
+
+  /* Page title label */
+  .page-header {
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    padding: 12px 20px 8px;
+    text-align: center;
+    color: rgba(255,255,255,0.9);
+    font-size: 14px;
+    font-weight: 600;
+    background: rgba(15,15,26,0.8);
+    z-index: 10;
+  }
+</style>
+</head>
+<body>
+
+<!-- SCREEN 1: CAMERA -->
+<div class="screen-wrapper">
+  <div class="screen-label">شاشة الكاميرا</div>
+  <div class="phone">
+    <div class="notch"></div>
+    <div class="camera-screen">
+      <div class="camera-bg">
+        <div class="camera-grid"></div>
+        <div class="app-title">صوّر وتصرّف</div>
+        <div class="app-subtitle">صوّر أي شيء يحيّرك</div>
+
+        <div class="camera-frame">
+          <div class="corner tl"></div>
+          <div class="corner tr"></div>
+          <div class="corner bl"></div>
+          <div class="corner br"></div>
+          <div class="scan-line"></div>
+        </div>
+
+        <div class="camera-hint">وجّه الكاميرا نحو الشيء الذي تريد فهمه</div>
+
+        <div class="capture-area">
+          <div class="flash-btn">⚡</div>
+          <div class="capture-btn">
+            <div class="capture-btn-inner"></div>
+          </div>
+          <div class="gallery-btn">🖼</div>
+        </div>
+      </div>
+
+      <div class="tab-bar">
+        <div class="tab-item">
+          <div class="tab-icon">🕐</div>
+          <div class="tab-label">السجل</div>
+        </div>
+        <div class="tab-item active">
+          <div class="tab-icon" style="color:#E94560">📸</div>
+          <div class="tab-label" style="color:#E94560">صوّر</div>
+        </div>
+        <div class="tab-item">
+          <div class="tab-icon">⚙️</div>
+          <div class="tab-label">الإعدادات</div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- SCREEN 2: RESULT -->
+<div class="screen-wrapper">
+  <div class="screen-label">شاشة النتيجة</div>
+  <div class="phone">
+    <div class="notch"></div>
+    <div class="result-screen">
+      <div class="result-image-area">
+        <div class="result-image-bg">🔌</div>
+        <div class="result-image-overlay"></div>
+        <div class="back-btn">✕</div>
+        <div class="category-badge">⚡ كهرباء وأجهزة</div>
+      </div>
+
+      <div class="result-content">
+        <div class="result-card">
+          <div class="result-card-title">🔍 ما هذا؟</div>
+          <div class="result-what">كابل HDMI 2.0 — يستخدم لنقل الصوت والصورة بدقة 4K بين الأجهزة</div>
+        </div>
+
+        <div class="result-card">
+          <div class="result-card-title">✅ وش تسوي؟</div>
+          <div class="step-item">
+            <div class="step-num">١</div>
+            <div class="step-text">وصّله بمنفذ HDMI في التلفزيون أو الشاشة</div>
+          </div>
+          <div class="step-item">
+            <div class="step-num">٢</div>
+            <div class="step-text">الطرف الثاني في الجهاز (PS5، لابتوب، ستريمر)</div>
+          </div>
+          <div class="step-item">
+            <div class="step-num">٣</div>
+            <div class="step-text">غيّر مصدر الإدخال من ريموت التلفزيون</div>
+          </div>
+        </div>
+
+        <div class="warning-card">
+          <span>⚠️</span>
+          <div class="warning-text">لا تثني الكابل بزاوية حادة — يتلف السلك الداخلي</div>
+        </div>
+
+        <div class="cta-btn">🔍 أقرب محل إلكترونيات</div>
+      </div>
+
+      <div class="tab-bar">
+        <div class="tab-item">
+          <div class="tab-icon">🕐</div>
+          <div class="tab-label">السجل</div>
+        </div>
+        <div class="tab-item active">
+          <div class="tab-icon">📸</div>
+          <div class="tab-label">صوّر</div>
+        </div>
+        <div class="tab-item">
+          <div class="tab-icon">⚙️</div>
+          <div class="tab-label">الإعدادات</div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- SCREEN 3: HISTORY -->
+<div class="screen-wrapper">
+  <div class="screen-label">شاشة السجل</div>
+  <div class="phone">
+    <div class="notch"></div>
+    <div class="history-screen">
+      <div class="history-header">
+        <div class="history-title">السجل</div>
+        <div class="history-subtitle">٨ تحليلات هذا الأسبوع</div>
+      </div>
+
+      <div class="history-list">
+        <div class="history-item">
+          <div class="history-thumb type1">🔌</div>
+          <div class="history-info">
+            <div class="history-cat">⚡ كهرباء</div>
+            <div class="history-what">كابل HDMI 2.0</div>
+            <div class="history-time">منذ ٥ دقائق</div>
+          </div>
+          <div class="history-arrow">‹</div>
+        </div>
+
+        <div class="history-item">
+          <div class="history-thumb type2">🌿</div>
+          <div class="history-info">
+            <div class="history-cat" style="background:rgba(100,200,100,0.15);color:#64C864">🌿 نباتات</div>
+            <div class="history-what">نبتة الصبّار الهندي</div>
+            <div class="history-time">أمس ٩:٣٠ص</div>
+          </div>
+          <div class="history-arrow">‹</div>
+        </div>
+
+        <div class="history-item">
+          <div class="history-thumb type3">💊</div>
+          <div class="history-info">
+            <div class="history-cat" style="background:rgba(100,150,255,0.15);color:#6496FF">💊 أدوية</div>
+            <div class="history-what">دواء أوجمنتين ٦٢٥</div>
+            <div class="history-time">أمس ٢:١٥م</div>
+          </div>
+          <div class="history-arrow">‹</div>
+        </div>
+
+        <div class="history-item">
+          <div class="history-thumb type4">🚗</div>
+          <div class="history-info">
+            <div class="history-cat" style="background:rgba(255,200,50,0.15);color:#FFC832">🚗 سيارات</div>
+            <div class="history-what">مصباح Check Engine</div>
+            <div class="history-time">٢ أيام مضت</div>
+          </div>
+          <div class="history-arrow">‹</div>
+        </div>
+
+        <div class="history-item">
+          <div class="history-thumb type1">📄</div>
+          <div class="history-info">
+            <div class="history-cat">📄 وثائق</div>
+            <div class="history-what">إشعار من أمانة الرياض</div>
+            <div class="history-time">٣ أيام مضت</div>
+          </div>
+          <div class="history-arrow">‹</div>
+        </div>
+      </div>
+
+      <div class="tab-bar">
+        <div class="tab-item active">
+          <div class="tab-icon">🕐</div>
+          <div class="tab-label" style="color:#E94560">السجل</div>
+        </div>
+        <div class="tab-item">
+          <div class="tab-icon">📸</div>
+          <div class="tab-label">صوّر</div>
+        </div>
+        <div class="tab-item">
+          <div class="tab-icon">⚙️</div>
+          <div class="tab-label">الإعدادات</div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+</body>
+</html>

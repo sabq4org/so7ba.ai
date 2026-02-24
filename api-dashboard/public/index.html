@@ -1,0 +1,777 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>API Dashboard — لوحة المراقبة</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Tajawal:wght@300;400;500;700;800&display=swap" rel="stylesheet" />
+  <style>
+    /* ── Reset & base ── */
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    :root {
+      --bg:        #f8fafc;
+      --card:      #ffffff;
+      --text:      #1a1a2e;
+      --subtext:   #64748b;
+      --border:    #e2e8f0;
+      --shadow:    0 4px 24px rgba(0,0,0,.07);
+      --shadow-hover: 0 8px 32px rgba(0,0,0,.12);
+      --radius:    18px;
+      --accent:    #6366f1;
+      --accent2:   #8b5cf6;
+      --green:     #22c55e;
+      --orange:    #f59e0b;
+      --red:       #ef4444;
+      --transition: .35s cubic-bezier(.4,0,.2,1);
+    }
+
+    body.dark {
+      --bg:      #0f172a;
+      --card:    #1e293b;
+      --text:    #f1f5f9;
+      --subtext: #94a3b8;
+      --border:  #334155;
+      --shadow:  0 4px 24px rgba(0,0,0,.4);
+      --shadow-hover: 0 8px 32px rgba(0,0,0,.6);
+    }
+
+    body {
+      font-family: 'Tajawal', sans-serif;
+      background: var(--bg);
+      color: var(--text);
+      min-height: 100vh;
+      transition: background var(--transition), color var(--transition);
+    }
+
+    /* ── Header ── */
+    header {
+      padding: 24px 32px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      flex-wrap: wrap;
+      gap: 16px;
+      border-bottom: 1px solid var(--border);
+      backdrop-filter: blur(8px);
+      position: sticky;
+      top: 0;
+      z-index: 100;
+      background: var(--bg);
+      transition: background var(--transition), border-color var(--transition);
+    }
+
+    .header-left { display: flex; align-items: center; gap: 12px; }
+    .logo { font-size: 28px; }
+
+    h1 {
+      font-size: 1.5rem;
+      font-weight: 800;
+      background: linear-gradient(135deg, var(--accent), var(--accent2));
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+    }
+
+    .header-right { display: flex; align-items: center; gap: 12px; }
+
+    .timestamp {
+      font-size: .8rem;
+      color: var(--subtext);
+      direction: ltr;
+      text-align: right;
+    }
+
+    /* ── Buttons ── */
+    .btn {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      padding: 9px 18px;
+      border-radius: 12px;
+      border: none;
+      cursor: pointer;
+      font-family: 'Tajawal', sans-serif;
+      font-size: .9rem;
+      font-weight: 600;
+      transition: all var(--transition);
+    }
+
+    .btn-primary {
+      background: linear-gradient(135deg, var(--accent), var(--accent2));
+      color: #fff;
+    }
+    .btn-primary:hover { transform: translateY(-2px); box-shadow: 0 6px 20px rgba(99,102,241,.4); }
+    .btn-primary:active { transform: translateY(0); }
+    .btn-primary.loading { opacity: .7; pointer-events: none; }
+
+    .btn-ghost {
+      background: var(--card);
+      color: var(--text);
+      border: 1px solid var(--border);
+      box-shadow: var(--shadow);
+    }
+    .btn-ghost:hover { background: var(--border); transform: translateY(-1px); }
+
+    .btn-console {
+      background: transparent;
+      border: 1.5px solid var(--accent);
+      color: var(--accent);
+      padding: 7px 14px;
+      font-size: .82rem;
+      border-radius: 10px;
+      text-decoration: none;
+    }
+    .btn-console:hover { background: var(--accent); color: #fff; }
+
+    /* ── Grid ── */
+    main {
+      max-width: 1200px;
+      margin: 40px auto;
+      padding: 0 24px;
+    }
+
+    .grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+      gap: 24px;
+    }
+
+    /* ── Cards ── */
+    .card {
+      background: var(--card);
+      border: 1px solid var(--border);
+      border-radius: var(--radius);
+      padding: 28px;
+      box-shadow: var(--shadow);
+      transition: all var(--transition);
+      position: relative;
+      overflow: hidden;
+    }
+    .card:hover { box-shadow: var(--shadow-hover); transform: translateY(-3px); }
+
+    .card::before {
+      content: '';
+      position: absolute;
+      top: 0; right: 0;
+      width: 80px; height: 80px;
+      border-radius: 0 var(--radius) 0 80px;
+      opacity: .08;
+    }
+
+    .card.openai::before   { background: #10a37f; }
+    .card.elevenlabs::before { background: #f59e0b; }
+    .card.anthropic::before  { background: #d97706; }
+    .card.gemini::before     { background: #4285f4; }
+
+    .card-header {
+      display: flex;
+      align-items: flex-start;
+      justify-content: space-between;
+      margin-bottom: 20px;
+    }
+
+    .card-title-group { display: flex; align-items: center; gap: 12px; }
+
+    .card-icon {
+      width: 48px; height: 48px;
+      border-radius: 14px;
+      display: flex; align-items: center; justify-content: center;
+      font-size: 22px;
+      flex-shrink: 0;
+    }
+
+    .card.openai   .card-icon { background: rgba(16,163,127,.12); }
+    .card.elevenlabs .card-icon { background: rgba(245,158,11,.12); }
+    .card.anthropic  .card-icon { background: rgba(217,119,6,.12); }
+    .card.gemini     .card-icon { background: rgba(66,133,244,.12); }
+
+    .card-title  { font-size: 1rem; font-weight: 700; }
+    .card-subtitle { font-size: .78rem; color: var(--subtext); margin-top: 2px; }
+
+    /* Status badge */
+    .status-badge {
+      display: inline-flex;
+      align-items: center;
+      gap: 5px;
+      font-size: .75rem;
+      font-weight: 600;
+      padding: 4px 10px;
+      border-radius: 20px;
+      white-space: nowrap;
+    }
+    .status-badge.ok          { background: rgba(34,197,94,.12); color: #16a34a; }
+    .status-badge.error       { background: rgba(239,68,68,.12);  color: #dc2626; }
+    .status-badge.placeholder { background: rgba(100,116,139,.1); color: var(--subtext); }
+    .status-badge.loading     { background: rgba(99,102,241,.1);  color: var(--accent); }
+
+    /* Metric row */
+    .metric-row {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 12px;
+    }
+    .metric-label { font-size: .82rem; color: var(--subtext); }
+    .metric-value {
+      font-size: 1.6rem;
+      font-weight: 800;
+      color: var(--text);
+      direction: ltr;
+    }
+    .metric-value.small { font-size: 1rem; font-weight: 600; }
+    .currency { font-size: .9rem; color: var(--subtext); font-weight: 500; }
+
+    /* Progress bar */
+    .progress-wrapper { margin-top: 16px; }
+    .progress-header {
+      display: flex;
+      justify-content: space-between;
+      font-size: .78rem;
+      color: var(--subtext);
+      margin-bottom: 8px;
+    }
+    .progress-track {
+      width: 100%;
+      height: 8px;
+      background: var(--border);
+      border-radius: 99px;
+      overflow: hidden;
+    }
+    .progress-fill {
+      height: 100%;
+      border-radius: 99px;
+      transition: width .7s ease, background .5s ease;
+    }
+
+    .info-message {
+      color: var(--subtext);
+      font-size: .85rem;
+      line-height: 1.7;
+      margin-bottom: 16px;
+    }
+
+    .divider {
+      height: 1px;
+      background: var(--border);
+      margin: 16px 0;
+    }
+
+    /* Spinner */
+    .spinner {
+      width: 20px; height: 20px;
+      border: 2.5px solid transparent;
+      border-top-color: currentColor;
+      border-right-color: currentColor;
+      border-radius: 50%;
+      animation: spin .6s linear infinite;
+      display: none;
+    }
+    .loading .spinner { display: block; }
+
+    @keyframes spin { to { transform: rotate(360deg); } }
+
+    /* Dark toggle */
+    .toggle-track {
+      width: 48px; height: 26px;
+      background: var(--border);
+      border-radius: 99px;
+      position: relative;
+      cursor: pointer;
+      transition: background var(--transition);
+      flex-shrink: 0;
+    }
+    body.dark .toggle-track { background: var(--accent); }
+    .toggle-thumb {
+      position: absolute;
+      top: 3px; right: 3px;
+      width: 20px; height: 20px;
+      border-radius: 50%;
+      background: #fff;
+      transition: transform var(--transition);
+      box-shadow: 0 1px 4px rgba(0,0,0,.2);
+    }
+    body.dark .toggle-thumb { transform: translateX(-22px); }
+
+    /* ── Tabs ── */
+    .tabs-bar {
+      display: flex;
+      align-items: center;
+      gap: 4px;
+      padding: 12px 32px 0;
+      border-bottom: 1px solid var(--border);
+      background: var(--bg);
+      transition: background var(--transition), border-color var(--transition);
+      position: sticky;
+      top: 73px;
+      z-index: 90;
+    }
+
+    .tab-btn {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      padding: 10px 20px;
+      border: none;
+      background: transparent;
+      color: var(--subtext);
+      font-family: 'Tajawal', sans-serif;
+      font-size: .92rem;
+      font-weight: 600;
+      cursor: pointer;
+      border-radius: 12px 12px 0 0;
+      position: relative;
+      transition: all var(--transition);
+      outline: none;
+    }
+
+    .tab-btn::after {
+      content: '';
+      position: absolute;
+      bottom: -1px;
+      right: 0; left: 0;
+      height: 3px;
+      border-radius: 3px 3px 0 0;
+      background: var(--accent);
+      transform: scaleX(0);
+      transition: transform var(--transition);
+    }
+
+    .tab-btn:hover {
+      background: rgba(99,102,241,.08);
+      color: var(--text);
+    }
+
+    .tab-btn.active {
+      color: var(--accent);
+      background: rgba(99,102,241,.1);
+    }
+
+    .tab-btn.active::after {
+      transform: scaleX(1);
+    }
+
+    .tab-icon { font-size: 1.1rem; }
+
+    /* ── Tab panels ── */
+    .tab-panel { display: none; animation: fadeIn .3s ease; }
+    .tab-panel.active { display: block; }
+
+    @keyframes fadeIn {
+      from { opacity: 0; transform: translateY(6px); }
+      to   { opacity: 1; transform: translateY(0); }
+    }
+
+    /* ── Calendar tab ── */
+    .calendar-wrapper {
+      max-width: 1200px;
+      margin: 32px auto;
+      padding: 0 24px;
+    }
+
+    .calendar-header {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      flex-wrap: wrap;
+      gap: 12px;
+      margin-bottom: 20px;
+    }
+
+    .calendar-title {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      font-size: 1.1rem;
+      font-weight: 700;
+      color: var(--text);
+    }
+
+    .calendar-frame-wrapper {
+      background: var(--card);
+      border: 1px solid var(--border);
+      border-radius: var(--radius);
+      box-shadow: var(--shadow);
+      overflow: hidden;
+      transition: all var(--transition);
+    }
+
+    .calendar-frame-wrapper iframe {
+      width: 100%;
+      min-height: 700px;
+      border: none;
+      display: block;
+    }
+
+    /* Footer */
+    footer {
+      text-align: center;
+      padding: 32px;
+      color: var(--subtext);
+      font-size: .8rem;
+    }
+
+    /* Responsive */
+    @media (max-width: 600px) {
+      header { padding: 16px 20px; }
+      .tabs-bar { padding: 10px 16px 0; top: 65px; }
+      .tab-btn { padding: 8px 14px; font-size: .84rem; }
+      main { margin: 24px auto; padding: 0 16px; }
+      .calendar-wrapper { margin: 20px auto; padding: 0 16px; }
+      h1 { font-size: 1.2rem; }
+      .grid { gap: 16px; }
+      .card { padding: 20px; }
+      .calendar-frame-wrapper iframe { min-height: 500px; }
+    }
+  </style>
+</head>
+<body>
+
+<header>
+  <div class="header-left">
+    <span class="logo">📊</span>
+    <h1>لوحة مراقبة APIs</h1>
+  </div>
+  <div class="header-right">
+    <div>
+      <div class="timestamp" id="lastUpdated">—</div>
+      <div class="timestamp" style="color:var(--subtext); font-size:.72rem;">آخر تحديث</div>
+    </div>
+    <button class="btn btn-primary" id="refreshBtn" onclick="fetchAll()">
+      <div class="spinner" id="spinner"></div>
+      <span id="refreshLabel">🔄 تحديث</span>
+    </button>
+    <div class="toggle-track" onclick="toggleDark()" title="تبديل الوضع">
+      <div class="toggle-thumb"></div>
+    </div>
+  </div>
+</header>
+
+<!-- ── Tabs Bar ── -->
+<nav class="tabs-bar" role="tablist" aria-label="أقسام لوحة التحكم">
+  <button class="tab-btn active" id="tab-api" role="tab" aria-selected="true"
+          aria-controls="panel-api" onclick="switchTab('api')">
+    <span class="tab-icon">📊</span> لوحة API
+  </button>
+  <button class="tab-btn" id="tab-calendar" role="tab" aria-selected="false"
+          aria-controls="panel-calendar" onclick="switchTab('calendar')">
+    <span class="tab-icon">📅</span> التقويم
+  </button>
+</nav>
+
+<!-- ── Panel: API Dashboard ── -->
+<div id="panel-api" class="tab-panel active" role="tabpanel" aria-labelledby="tab-api">
+<main>
+  <div class="grid">
+
+    <!-- OpenAI Card -->
+    <div class="card openai">
+      <div class="card-header">
+        <div class="card-title-group">
+          <div class="card-icon">🤖</div>
+          <div>
+            <div class="card-title">OpenAI</div>
+            <div class="card-subtitle">GPT-4, DALL·E, Whisper</div>
+          </div>
+        </div>
+        <span class="status-badge loading" id="openai-status">
+          <div class="spinner" style="display:block;width:10px;height:10px;border-width:1.5px;"></div>
+          جاري…
+        </span>
+      </div>
+
+      <div class="metric-row">
+        <span class="metric-label">التكلفة هذا الشهر</span>
+        <span class="metric-value" id="openai-usage">—</span>
+      </div>
+
+      <div class="metric-row">
+        <span class="metric-label">الحد الأقصى</span>
+        <span class="metric-value small" id="openai-limit">—</span>
+      </div>
+
+      <div class="progress-wrapper" id="openai-progress-wrap" style="display:none">
+        <div class="progress-header">
+          <span id="openai-progress-label">الاستهلاك</span>
+          <span id="openai-progress-pct">0%</span>
+        </div>
+        <div class="progress-track">
+          <div class="progress-fill" id="openai-bar" style="width:0%"></div>
+        </div>
+      </div>
+    </div>
+
+    <!-- ElevenLabs Card -->
+    <div class="card elevenlabs">
+      <div class="card-header">
+        <div class="card-title-group">
+          <div class="card-icon">🎙️</div>
+          <div>
+            <div class="card-title">ElevenLabs</div>
+            <div class="card-subtitle">Text-to-Speech</div>
+          </div>
+        </div>
+        <span class="status-badge loading" id="eleven-status">
+          <div class="spinner" style="display:block;width:10px;height:10px;border-width:1.5px;"></div>
+          جاري…
+        </span>
+      </div>
+
+      <div class="metric-row">
+        <span class="metric-label">الكريديت المستخدم</span>
+        <span class="metric-value" id="eleven-used">—</span>
+      </div>
+
+      <div class="metric-row">
+        <span class="metric-label">المتبقي</span>
+        <span class="metric-value small" id="eleven-remaining">—</span>
+      </div>
+
+      <div class="metric-row">
+        <span class="metric-label">الخطة</span>
+        <span class="metric-value small" id="eleven-plan">—</span>
+      </div>
+
+      <div class="progress-wrapper">
+        <div class="progress-header">
+          <span>الاستهلاك</span>
+          <span id="eleven-pct">0%</span>
+        </div>
+        <div class="progress-track">
+          <div class="progress-fill" id="eleven-bar" style="width:0%"></div>
+        </div>
+      </div>
+
+      <div style="margin-top:12px; font-size:.78rem; color:var(--subtext);" id="eleven-reset"></div>
+    </div>
+
+    <!-- Anthropic Card -->
+    <div class="card anthropic">
+      <div class="card-header">
+        <div class="card-title-group">
+          <div class="card-icon">🧠</div>
+          <div>
+            <div class="card-title">Anthropic Claude</div>
+            <div class="card-subtitle">Claude 3.5, Claude 3</div>
+          </div>
+        </div>
+        <span class="status-badge placeholder" id="anthropic-status">لا يوجد API</span>
+      </div>
+
+      <p class="info-message">
+        Anthropic لا توفر Usage API عام حالياً. يمكن متابعة الاستهلاك والفوترة مباشرةً من Console.
+      </p>
+
+      <div class="divider"></div>
+
+      <a href="https://console.anthropic.com/settings/billing" target="_blank" class="btn btn-console">
+        🔗 فتح Anthropic Console
+      </a>
+    </div>
+
+    <!-- Gemini Card -->
+    <div class="card gemini">
+      <div class="card-header">
+        <div class="card-title-group">
+          <div class="card-icon">✨</div>
+          <div>
+            <div class="card-title">Google Gemini</div>
+            <div class="card-subtitle">Gemini Pro, Flash</div>
+          </div>
+        </div>
+        <span class="status-badge placeholder" id="gemini-status">لا يوجد API</span>
+      </div>
+
+      <p class="info-message">
+        Google Gemini لا توفر Usage API عام بشكل مباشر. يمكن متابعة الاستهلاك والتكاليف من Google Cloud Console.
+      </p>
+
+      <div class="divider"></div>
+
+      <a href="https://console.cloud.google.com/billing" target="_blank" class="btn btn-console" style="border-color:#4285f4;color:#4285f4;">
+        🔗 فتح Google Cloud Console
+      </a>
+    </div>
+
+  </div>
+</main>
+</div><!-- /panel-api -->
+
+<!-- ── Panel: Calendar ── -->
+<div id="panel-calendar" class="tab-panel" role="tabpanel" aria-labelledby="tab-calendar">
+  <div class="calendar-wrapper">
+    <div class="calendar-header">
+      <div class="calendar-title">
+        <span>📅</span>
+        <span>تقويم Google</span>
+      </div>
+      <a href="https://calendar.google.com/calendar/r" target="_blank" rel="noopener noreferrer"
+         class="btn btn-primary" style="text-decoration:none;">
+        🔗 فتح التقويم
+      </a>
+    </div>
+    <div class="calendar-frame-wrapper">
+      <iframe
+        src="https://calendar.google.com/calendar/embed?src=sabq4u%40gmail.com&ctz=Asia%2FRiyadh&hl=ar&mode=WEEK"
+        title="Google Calendar"
+        loading="lazy"
+        allowfullscreen
+      ></iframe>
+    </div>
+  </div>
+</div><!-- /panel-calendar -->
+
+<footer>لوحة مراقبة APIs · تتحدث تلقائياً كل 5 دقائق</footer>
+
+<script>
+  // ── Tabs ──
+  function switchTab(name) {
+    const tabs   = document.querySelectorAll('.tab-btn');
+    const panels = document.querySelectorAll('.tab-panel');
+
+    tabs.forEach(btn => {
+      const isActive = btn.id === 'tab-' + name;
+      btn.classList.toggle('active', isActive);
+      btn.setAttribute('aria-selected', isActive);
+    });
+
+    panels.forEach(panel => {
+      panel.classList.toggle('active', panel.id === 'panel-' + name);
+    });
+
+    // Persist last tab
+    localStorage.setItem('activeTab', name);
+  }
+
+  // Restore last tab on load
+  const savedTab = localStorage.getItem('activeTab');
+  if (savedTab) switchTab(savedTab);
+
+  // ── Dark mode ──
+  function toggleDark() {
+    document.body.classList.toggle('dark');
+    localStorage.setItem('theme', document.body.classList.contains('dark') ? 'dark' : 'light');
+  }
+  if (localStorage.getItem('theme') === 'dark') document.body.classList.add('dark');
+
+  // ── Progress bar color logic ──
+  function barColor(pct) {
+    if (pct < 50)  return '#22c55e';
+    if (pct < 80)  return '#f59e0b';
+    return '#ef4444';
+  }
+
+  function setBar(barId, pct) {
+    const bar = document.getElementById(barId);
+    if (!bar) return;
+    const clamped = Math.min(100, Math.max(0, pct));
+    bar.style.width = clamped + '%';
+    bar.style.background = barColor(clamped);
+  }
+
+  function fmt(n) {
+    return Number(n).toLocaleString('ar-SA');
+  }
+
+  // ── Status badge ──
+  function setStatus(id, type, text) {
+    const el = document.getElementById(id);
+    if (!el) return;
+    el.className = 'status-badge ' + type;
+    el.innerHTML = text;
+  }
+
+  // ── Fetch OpenAI ──
+  async function fetchOpenAI() {
+    setStatus('openai-status', 'loading', '<span style="font-size:.7rem">⏳</span> جاري…');
+    try {
+      const res = await fetch('/api/openai');
+      const d = await res.json();
+
+      if (d.status === 'error') {
+        setStatus('openai-status', 'error', '❌ خطأ');
+        document.getElementById('openai-usage').textContent = '—';
+        document.getElementById('openai-limit').textContent = d.error || 'خطأ في الاتصال';
+        return;
+      }
+
+      setStatus('openai-status', 'ok', '✅ متصل');
+      document.getElementById('openai-usage').innerHTML =
+        `<span class="currency">$</span>${d.totalUsage}`;
+
+      const limit = d.hardLimit ?? d.softLimit;
+      if (limit) {
+        document.getElementById('openai-limit').innerHTML =
+          `<span class="currency">$</span>${limit}`;
+        const pct = (d.totalUsage / limit) * 100;
+        const wrap = document.getElementById('openai-progress-wrap');
+        if (wrap) wrap.style.display = 'block';
+        document.getElementById('openai-progress-pct').textContent = pct.toFixed(1) + '%';
+        setBar('openai-bar', pct);
+      } else {
+        document.getElementById('openai-limit').textContent = 'غير محدد';
+      }
+    } catch (e) {
+      setStatus('openai-status', 'error', '❌ خطأ');
+      document.getElementById('openai-usage').textContent = 'فشل الاتصال';
+    }
+  }
+
+  // ── Fetch ElevenLabs ──
+  async function fetchElevenLabs() {
+    setStatus('eleven-status', 'loading', '<span style="font-size:.7rem">⏳</span> جاري…');
+    try {
+      const res = await fetch('/api/elevenlabs');
+      const d = await res.json();
+
+      if (d.status === 'error') {
+        setStatus('eleven-status', 'error', '❌ خطأ');
+        document.getElementById('eleven-used').textContent = '—';
+        document.getElementById('eleven-remaining').textContent = d.error || 'خطأ';
+        return;
+      }
+
+      setStatus('eleven-status', 'ok', '✅ متصل');
+      document.getElementById('eleven-used').textContent = fmt(d.characterCount) + ' حرف';
+      document.getElementById('eleven-remaining').textContent = fmt(d.remaining) + ' حرف';
+      document.getElementById('eleven-plan').textContent = d.plan;
+      document.getElementById('eleven-pct').textContent = d.usagePercent + '%';
+      setBar('eleven-bar', d.usagePercent);
+      if (d.nextReset) {
+        document.getElementById('eleven-reset').textContent = 'التجديد: ' + d.nextReset;
+      }
+    } catch (e) {
+      setStatus('eleven-status', 'error', '❌ خطأ');
+      document.getElementById('eleven-used').textContent = 'فشل الاتصال';
+    }
+  }
+
+  // ── Refresh all ──
+  async function fetchAll() {
+    const btn = document.getElementById('refreshBtn');
+    const label = document.getElementById('refreshLabel');
+    const spinner = document.getElementById('spinner');
+
+    btn.classList.add('loading');
+    label.textContent = 'جاري التحديث…';
+    spinner.style.display = 'block';
+
+    await Promise.allSettled([fetchOpenAI(), fetchElevenLabs()]);
+
+    const now = new Date();
+    document.getElementById('lastUpdated').textContent =
+      now.toLocaleTimeString('ar-SA', { hour: '2-digit', minute: '2-digit', second: '2-digit' });
+
+    btn.classList.remove('loading');
+    label.textContent = '🔄 تحديث';
+    spinner.style.display = 'none';
+  }
+
+  // ── Init ──
+  fetchAll();
+  setInterval(fetchAll, 5 * 60 * 1000); // auto-refresh every 5 min
+</script>
+</body>
+</html>

@@ -1,0 +1,523 @@
+<!DOCTYPE html>
+<html dir="rtl" lang="ar">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>تقرير أداء sabq.org</title>
+<style>
+  @import url('https://fonts.googleapis.com/css2?family=Tajawal:wght@300;400;500;700;800;900&display=swap');
+  
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  
+  body {
+    font-family: 'Tajawal', 'Arial', sans-serif;
+    background: #f0f4f8;
+    color: #1a1a2e;
+    direction: rtl;
+  }
+  
+  .page {
+    max-width: 900px;
+    margin: 0 auto;
+    background: white;
+    box-shadow: 0 0 40px rgba(0,0,0,0.1);
+  }
+  
+  /* HEADER */
+  .header {
+    background: linear-gradient(135deg, #0f0c29, #302b63, #24243e);
+    color: white;
+    padding: 50px 40px 40px;
+    position: relative;
+    overflow: hidden;
+  }
+  .header::before {
+    content: '';
+    position: absolute;
+    top: -50px; left: -50px;
+    width: 300px; height: 300px;
+    background: rgba(255,255,255,0.03);
+    border-radius: 50%;
+  }
+  .header::after {
+    content: '';
+    position: absolute;
+    bottom: -80px; right: -30px;
+    width: 250px; height: 250px;
+    background: rgba(255,255,255,0.04);
+    border-radius: 50%;
+  }
+  .header-badge {
+    display: inline-block;
+    background: rgba(255,255,255,0.15);
+    border: 1px solid rgba(255,255,255,0.3);
+    padding: 5px 15px;
+    border-radius: 20px;
+    font-size: 12px;
+    margin-bottom: 15px;
+    letter-spacing: 1px;
+  }
+  .header h1 {
+    font-size: 32px;
+    font-weight: 900;
+    margin-bottom: 8px;
+    position: relative;
+    z-index: 1;
+  }
+  .header p {
+    font-size: 14px;
+    opacity: 0.7;
+    position: relative;
+    z-index: 1;
+  }
+  .header-stats {
+    display: flex;
+    gap: 30px;
+    margin-top: 30px;
+    position: relative;
+    z-index: 1;
+  }
+  .header-stat {
+    text-align: center;
+    background: rgba(255,255,255,0.1);
+    border-radius: 12px;
+    padding: 15px 20px;
+    flex: 1;
+  }
+  .header-stat .num { font-size: 24px; font-weight: 800; }
+  .header-stat .lbl { font-size: 11px; opacity: 0.7; margin-top: 4px; }
+  .header-stat.red .num { color: #ff6b6b; }
+  .header-stat.orange .num { color: #ffa94d; }
+  .header-stat.green .num { color: #69db7c; }
+  
+  /* ALERT */
+  .alert {
+    background: linear-gradient(90deg, #fff5f5, #fff);
+    border-right: 5px solid #e52525;
+    margin: 30px 40px;
+    padding: 20px 25px;
+    border-radius: 8px;
+  }
+  .alert h3 { color: #e52525; font-size: 15px; font-weight: 800; margin-bottom: 6px; }
+  .alert p { color: #555; font-size: 13px; line-height: 1.8; }
+  
+  /* SECTION */
+  .section { padding: 0 40px 30px; }
+  .section-header {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    margin-bottom: 20px;
+    padding-bottom: 12px;
+    border-bottom: 2px solid #f0f0f0;
+  }
+  .section-icon {
+    width: 42px; height: 42px;
+    border-radius: 12px;
+    display: flex; align-items: center; justify-content: center;
+    font-size: 20px;
+    flex-shrink: 0;
+  }
+  .icon-blue { background: #e8f4fd; }
+  .icon-orange { background: #fff3e0; }
+  .icon-green { background: #e8f5e9; }
+  .section-title { font-size: 17px; font-weight: 800; color: #1a1a2e; }
+  .section-sub { font-size: 12px; color: #888; margin-top: 2px; }
+  
+  /* METRICS GRID */
+  .metrics-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 15px;
+    margin-bottom: 20px;
+  }
+  .metric-card {
+    border-radius: 12px;
+    padding: 18px;
+    text-align: center;
+    position: relative;
+    overflow: hidden;
+  }
+  .metric-card.good { background: #e8f5e9; border: 1px solid #a5d6a7; }
+  .metric-card.warn { background: #fff8e1; border: 1px solid #ffe082; }
+  .metric-card.bad { background: #ffebee; border: 1px solid #ef9a9a; }
+  .metric-pct { font-size: 32px; font-weight: 900; }
+  .metric-card.good .metric-pct { color: #2e7d32; }
+  .metric-card.warn .metric-pct { color: #e65100; }
+  .metric-card.bad .metric-pct { color: #c62828; }
+  .metric-label { font-size: 12px; color: #666; margin-top: 4px; font-weight: 500; }
+  
+  /* PROGRESS BARS */
+  .progress-bar {
+    height: 10px;
+    background: #eee;
+    border-radius: 5px;
+    overflow: hidden;
+    margin-bottom: 18px;
+  }
+  .progress-fill {
+    height: 100%;
+    border-radius: 5px;
+    display: flex;
+  }
+  .fill-green { background: #4caf50; }
+  .fill-orange { background: #ff9800; }
+  .fill-red { background: #f44336; }
+  
+  /* ISSUES */
+  .issues-list { margin-bottom: 20px; }
+  .issue-item {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    padding: 12px 15px;
+    border-radius: 10px;
+    margin-bottom: 8px;
+    background: #fafafa;
+    border: 1px solid #f0f0f0;
+  }
+  .issue-badge {
+    padding: 3px 10px;
+    border-radius: 20px;
+    font-size: 11px;
+    font-weight: 700;
+    white-space: nowrap;
+    flex-shrink: 0;
+  }
+  .badge-red { background: #ffebee; color: #c62828; border: 1px solid #ef9a9a; }
+  .badge-orange { background: #fff8e1; color: #e65100; border: 1px solid #ffe082; }
+  .issue-text { font-size: 13px; color: #333; flex: 1; }
+  .issue-count { font-size: 11px; color: #888; white-space: nowrap; }
+  
+  /* VISITS */
+  .visits-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 15px;
+  }
+  .visit-card {
+    background: #fafafa;
+    border: 1px solid #eee;
+    border-radius: 12px;
+    padding: 18px;
+    text-align: center;
+  }
+  .visit-num { font-size: 22px; font-weight: 900; color: #1a1a2e; }
+  .visit-change { font-size: 12px; margin-top: 5px; font-weight: 700; }
+  .visit-change.down { color: #c62828; }
+  .visit-change.up { color: #c62828; }
+  .visit-label { font-size: 11px; color: #888; margin-top: 4px; }
+  
+  /* PRIORITIES */
+  .priorities {
+    background: linear-gradient(135deg, #0f0c29, #302b63);
+    margin: 0 40px 40px;
+    border-radius: 16px;
+    padding: 30px;
+    color: white;
+  }
+  .priorities h3 { font-size: 18px; font-weight: 800; margin-bottom: 20px; }
+  .priority-item {
+    display: flex;
+    align-items: flex-start;
+    gap: 15px;
+    padding: 15px;
+    background: rgba(255,255,255,0.08);
+    border-radius: 10px;
+    margin-bottom: 10px;
+  }
+  .priority-dot {
+    width: 12px; height: 12px;
+    border-radius: 50%;
+    margin-top: 4px;
+    flex-shrink: 0;
+  }
+  .dot-red { background: #ff6b6b; }
+  .dot-orange { background: #ffa94d; }
+  .priority-title { font-size: 14px; font-weight: 700; margin-bottom: 4px; }
+  .priority-desc { font-size: 12px; opacity: 0.7; line-height: 1.7; }
+  
+  /* FOOTER */
+  .footer {
+    background: #f8f9fa;
+    border-top: 1px solid #eee;
+    padding: 20px 40px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+  }
+  .footer p { font-size: 11px; color: #aaa; }
+  .footer .brand { font-size: 13px; font-weight: 800; color: #302b63; }
+  
+  .divider { height: 1px; background: #f0f0f0; margin: 5px 40px 25px; }
+  
+  @media print {
+    body { background: white; }
+    .page { box-shadow: none; }
+  }
+</style>
+</head>
+<body>
+<div class="page">
+
+  <!-- HEADER -->
+  <div class="header">
+    <div class="header-badge">CLOUDFLARE RUM • REAL USER MONITORING</div>
+    <h1>📊 تقرير أداء sabq.org</h1>
+    <p>الثلاثاء 24 فبراير 2026  |  آخر 24 ساعة  |  بيانات المستخدمين الحقيقيين</p>
+    <div class="header-stats">
+      <div class="header-stat red">
+        <div class="num">148.6K</div>
+        <div class="lbl">زيارة ↓17.38%</div>
+      </div>
+      <div class="header-stat red">
+        <div class="num">199K</div>
+        <div class="lbl">مشاهدة صفحة ↓18.72%</div>
+      </div>
+      <div class="header-stat orange">
+        <div class="num">1,807ms</div>
+        <div class="lbl">وقت تحميل الصفحة ↑3.67%</div>
+      </div>
+      <div class="header-stat red">
+        <div class="num">27%</div>
+        <div class="lbl">من الزوار — تجربة سيئة</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ALERT -->
+  <div class="alert">
+    <h3>🔴 تحذير: مشاكل أداء تؤثر على ثلث الزوار</h3>
+    <p>الموقع يعاني من ثلاث مشاكل رئيسية (LCP + INP + CLS) تتزامن مع انخفاض ملحوظ في الزيارات. العلاقة بين تراجع الأداء وتراجع الزيارات علاقة سببية.</p>
+  </div>
+
+  <!-- LCP -->
+  <div class="section">
+    <div class="section-header">
+      <div class="section-icon icon-blue">🖼️</div>
+      <div>
+        <div class="section-title">LCP — Largest Contentful Paint</div>
+        <div class="section-sub">وقت ظهور المحتوى الرئيسي • الحد الأمثل: أقل من 2,500ms</div>
+      </div>
+    </div>
+    
+    <div class="metrics-grid">
+      <div class="metric-card good">
+        <div class="metric-pct">42%</div>
+        <div class="metric-label">✅ جيد (أقل من 2.5s)</div>
+      </div>
+      <div class="metric-card warn">
+        <div class="metric-pct">31%</div>
+        <div class="metric-label">🟡 يحتاج تحسين</div>
+      </div>
+      <div class="metric-card bad">
+        <div class="metric-pct">27%</div>
+        <div class="metric-label">🔴 سيء (أكثر من 4s)</div>
+      </div>
+    </div>
+    
+    <div style="margin-bottom:15px;">
+      <div style="display:flex;justify-content:space-between;font-size:12px;color:#888;margin-bottom:5px;">
+        <span>P50: 2,816ms</span><span>P75: 4,160ms</span><span>P90: 6,280ms</span><span style="color:#c62828;font-weight:700;">P99: 16,812ms ⚠️</span>
+      </div>
+      <div class="progress-bar">
+        <div class="progress-fill">
+          <div class="fill-green" style="width:42%"></div>
+          <div class="fill-orange" style="width:31%"></div>
+          <div class="fill-red" style="width:27%"></div>
+        </div>
+      </div>
+    </div>
+    
+    <div class="issues-list">
+      <div class="issue-item">
+        <div class="issue-badge badge-red">5,091ms 🔴</div>
+        <div class="issue-text">picture>img.object-cover — imagedelivery.net</div>
+        <div class="issue-count">4,400 حالة</div>
+      </div>
+      <div class="issue-item">
+        <div class="issue-badge badge-red">5,660ms 🔴</div>
+        <div class="issue-text">img.group-hover:scale — imagedelivery.net</div>
+        <div class="issue-count">1,669 حالة</div>
+      </div>
+      <div class="issue-item">
+        <div class="issue-badge badge-red">4,824ms 🔴</div>
+        <div class="issue-text">div.aspect-video>img — imagedelivery.net</div>
+        <div class="issue-count">1,400 حالة</div>
+      </div>
+    </div>
+  </div>
+  <div class="divider"></div>
+
+  <!-- INP -->
+  <div class="section">
+    <div class="section-header">
+      <div class="section-icon icon-orange">⚡</div>
+      <div>
+        <div class="section-title">INP — Interaction to Next Paint</div>
+        <div class="section-sub">استجابة التفاعل • الحد الأمثل: أقل من 200ms</div>
+      </div>
+    </div>
+    
+    <div class="metrics-grid">
+      <div class="metric-card good">
+        <div class="metric-pct">76%</div>
+        <div class="metric-label">✅ جيد</div>
+      </div>
+      <div class="metric-card warn">
+        <div class="metric-pct">16%</div>
+        <div class="metric-label">🟡 يحتاج تحسين</div>
+      </div>
+      <div class="metric-card bad">
+        <div class="metric-pct">7%</div>
+        <div class="metric-label">🔴 سيء</div>
+      </div>
+    </div>
+    
+    <div class="progress-bar">
+      <div class="progress-fill">
+        <div class="fill-green" style="width:76%"></div>
+        <div class="fill-orange" style="width:16%"></div>
+        <div class="fill-red" style="width:7%"></div>
+      </div>
+    </div>
+    
+    <div class="issues-list">
+      <div class="issue-item">
+        <div class="issue-badge badge-red">2,912ms 🔴</div>
+        <div class="issue-text">html.font-normal.light — الصفحة تتجمد كاملة!</div>
+        <div class="issue-count">28 حالة</div>
+      </div>
+      <div class="issue-item">
+        <div class="issue-badge badge-red">848ms 🔴</div>
+        <div class="issue-text">html.font-normal.light > body</div>
+        <div class="issue-count">76 حالة</div>
+      </div>
+      <div class="issue-item">
+        <div class="issue-badge badge-orange">552ms 🟡</div>
+        <div class="issue-text">button.inline-flex.rounded-md — أزرار الموقع</div>
+        <div class="issue-count">24 حالة</div>
+      </div>
+    </div>
+  </div>
+  <div class="divider"></div>
+
+  <!-- CLS -->
+  <div class="section">
+    <div class="section-header">
+      <div class="section-icon icon-blue">📐</div>
+      <div>
+        <div class="section-title">CLS — Cumulative Layout Shift</div>
+        <div class="section-sub">اهتزاز التصميم • الحد الأمثل: أقل من 0.1</div>
+      </div>
+    </div>
+    
+    <div class="metrics-grid">
+      <div class="metric-card good">
+        <div class="metric-pct">49%</div>
+        <div class="metric-label">✅ جيد</div>
+      </div>
+      <div class="metric-card warn">
+        <div class="metric-pct">36%</div>
+        <div class="metric-label">🟡 يحتاج تحسين</div>
+      </div>
+      <div class="metric-card bad">
+        <div class="metric-pct">15%</div>
+        <div class="metric-label">🔴 سيء</div>
+      </div>
+    </div>
+    
+    <div class="progress-bar">
+      <div class="progress-fill">
+        <div class="fill-green" style="width:49%"></div>
+        <div class="fill-orange" style="width:36%"></div>
+        <div class="fill-red" style="width:15%"></div>
+      </div>
+    </div>
+    
+    <div class="issues-list">
+      <div class="issue-item">
+        <div class="issue-badge badge-red">CLS 0.656 🔴</div>
+        <div class="issue-text">#main-content > div.min-h-screen > main.flex-1</div>
+        <div class="issue-count">1,101 حالة</div>
+      </div>
+      <div class="issue-item">
+        <div class="issue-badge badge-red">CLS 0.387 🔴</div>
+        <div class="issue-text">main.flex-1 > div.container.max-w-7xl.space-y-8</div>
+        <div class="issue-count">1,384 حالة</div>
+      </div>
+      <div class="issue-item">
+        <div class="issue-badge badge-orange">CLS 0.200 🟡</div>
+        <div class="issue-text">main.container.mx-auto.px-4.max-w-7xl</div>
+        <div class="issue-count">2,899 حالة</div>
+      </div>
+    </div>
+  </div>
+  <div class="divider"></div>
+
+  <!-- VISITS -->
+  <div class="section">
+    <div class="section-header">
+      <div class="section-icon icon-blue">📈</div>
+      <div>
+        <div class="section-title">الزيارات والمشاهدات</div>
+        <div class="section-sub">مقارنة بالفترة السابقة</div>
+      </div>
+    </div>
+    <div class="visits-grid">
+      <div class="visit-card">
+        <div class="visit-num">148,580</div>
+        <div class="visit-change down">↓ 17.38%</div>
+        <div class="visit-label">إجمالي الزيارات</div>
+      </div>
+      <div class="visit-card">
+        <div class="visit-num">199,010</div>
+        <div class="visit-change down">↓ 18.72%</div>
+        <div class="visit-label">مشاهدات الصفحات</div>
+      </div>
+      <div class="visit-card">
+        <div class="visit-num">1,807ms</div>
+        <div class="visit-change up">↑ 3.67%</div>
+        <div class="visit-label">وقت تحميل الصفحة</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- PRIORITIES -->
+  <div class="priorities">
+    <h3>🎯 خلاصة الأولويات والإجراءات المطلوبة</h3>
+    
+    <div class="priority-item">
+      <div class="priority-dot dot-red"></div>
+      <div>
+        <div class="priority-title">🔴 عاجل — إصلاح صور LCP</div>
+        <div class="priority-desc">إضافة fetchpriority="high" للصورة الرئيسية • Lazy Loading للصور خارج الـ viewport • مراجعة ضغط الصور في Cloudflare Images • تفعيل Early Hints</div>
+      </div>
+    </div>
+    
+    <div class="priority-item">
+      <div class="priority-dot dot-red"></div>
+      <div>
+        <div class="priority-title">🔴 عاجل — JavaScript blocking (INP 2,912ms)</div>
+        <div class="priority-desc">تحليل main thread blocking scripts • مراجعة third-party scripts (Analytics, Ads) • defer/async للسكربتات غير الحيوية • web workers للعمليات الثقيلة</div>
+      </div>
+    </div>
+    
+    <div class="priority-item">
+      <div class="priority-dot dot-orange"></div>
+      <div>
+        <div class="priority-title">🟡 مهم — إصلاح CLS (0.656)</div>
+        <div class="priority-desc">إضافة width/height لكل الصور • min-height لمناطق الإعلانات • font-display: swap للخطوط</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- FOOTER -->
+  <div class="footer">
+    <p>تم إعداد هذا التقرير بتاريخ 24 فبراير 2026 • المصدر: Cloudflare RUM Dashboard</p>
+    <div class="brand">صُحبة AI 🧠</div>
+  </div>
+
+</div>
+</body>
+</html>

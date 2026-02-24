@@ -74,5 +74,26 @@
 
 ---
 
+---
+
+## 🗓️ لوحة مواعيد حية (localhost:9898)
+
+**تاريخ البدء:** 23 فبراير 2026 — 8:10 م
+**الحالة:** 🟡 قيد التنفيذ
+
+### الخطة
+- [x] 1. كتابة الخطة هنا (Plan Mode)
+- [x] 2. بناء سيرفر Node.js على port 9898 ✅
+- [x] 3. بناء HTML Dashboard (تصميم داكن + live data) ✅
+- [x] 4. إنشاء LaunchAgent plist — تشغيل تلقائي مع الماك ✅
+- [x] 5. اختبار — 6 مواعيد تظهر صح ✅ (23 فبراير 2026)
+
+### الملفات
+- `dashboard/server.js` — سيرفر Node.js
+- `dashboard/index.html` — الواجهة
+- `~/Library/LaunchAgents/ai.openclaw.dashboard.plist` — auto-start
+
+---
+
 ## 🔜 الخطوة التالية
 **انتظار موافقة أبو محمد على الخطة → ثم بدء المرحلة 1**

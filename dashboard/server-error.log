@@ -1,0 +1,66 @@
+failed to get primary calendar: Get "https://www.googleapis.com/calendar/v3/users/me/calendarList/primary?alt=json&prettyPrint=false": round trip: Post "https://oauth2.googleapis.com/token": dial tcp: lookup oauth2.googleapis.com: no such host
+failed to get primary calendar: Get "https://www.googleapis.com/calendar/v3/users/me/calendarList/primary?alt=json&prettyPrint=false": round trip: Post "https://oauth2.googleapis.com/token": dial tcp: lookup oauth2.googleapis.com: no such host
+failed to get primary calendar: Get "https://www.googleapis.com/calendar/v3/users/me/calendarList/primary?alt=json&prettyPrint=false": round trip: Post "https://oauth2.googleapis.com/token": dial tcp: lookup oauth2.googleapis.com: no such host
+failed to get primary calendar: Get "https://www.googleapis.com/calendar/v3/users/me/calendarList/primary?alt=json&prettyPrint=false": round trip: Post "https://oauth2.googleapis.com/token": dial tcp: lookup oauth2.googleapis.com: no such host
+failed to get primary calendar: Get "https://www.googleapis.com/calendar/v3/users/me/calendarList/primary?alt=json&prettyPrint=false": round trip: Post "https://oauth2.googleapis.com/token": dial tcp: lookup oauth2.googleapis.com: no such host
+failed to get primary calendar: Get "https://www.googleapis.com/calendar/v3/users/me/calendarList/primary?alt=json&prettyPrint=false": round trip: Post "https://oauth2.googleapis.com/token": dial tcp: lookup oauth2.googleapis.com: no such host
+failed to get primary calendar: Get "https://www.googleapis.com/calendar/v3/users/me/calendarList/primary?alt=json&prettyPrint=false": round trip: Post "https://oauth2.googleapis.com/token": dial tcp: lookup oauth2.googleapis.com: no such host
+failed to get primary calendar: Get "https://www.googleapis.com/calendar/v3/users/me/calendarList/primary?alt=json&prettyPrint=false": round trip: Post "https://oauth2.googleapis.com/token": dial tcp: lookup oauth2.googleapis.com: no such host
+failed to get primary calendar: Get "https://www.googleapis.com/calendar/v3/users/me/calendarList/primary?alt=json&prettyPrint=false": round trip: Post "https://oauth2.googleapis.com/token": dial tcp: lookup oauth2.googleapis.com: no such host
+failed to get primary calendar: Get "https://www.googleapis.com/calendar/v3/users/me/calendarList/primary?alt=json&prettyPrint=false": round trip: Post "https://oauth2.googleapis.com/token": dial tcp: lookup oauth2.googleapis.com: no such host
+failed to get primary calendar: Get "https://www.googleapis.com/calendar/v3/users/me/calendarList/primary?alt=json&prettyPrint=false": round trip: Post "https://oauth2.googleapis.com/token": dial tcp: lookup oauth2.googleapis.com: no such host
+node:events:497
+      throw er; // Unhandled 'error' event
+      ^
+
+Error: listen EADDRINUSE: address already in use 127.0.0.1:9898
+    at Server.setupListenHandle [as _listen2] (node:net:1940:16)
+    at listenInCluster (node:net:1997:12)
+    at node:net:2206:7
+    at process.processTicksAndRejections (node:internal/process/task_queues:90:21)
+Emitted 'error' event on Server instance at:
+    at emitErrorNT (node:net:1976:8)
+    at process.processTicksAndRejections (node:internal/process/task_queues:90:21) {
+  code: 'EADDRINUSE',
+  errno: -48,
+  syscall: 'listen',
+  address: '127.0.0.1',
+  port: 9898
+}
+
+Node.js v22.22.0
+node:events:497
+      throw er; // Unhandled 'error' event
+      ^
+
+Error: listen EADDRINUSE: address already in use 127.0.0.1:9898
+    at Server.setupListenHandle [as _listen2] (node:net:1940:16)
+    at listenInCluster (node:net:1997:12)
+    at node:net:2206:7
+    at process.processTicksAndRejections (node:internal/process/task_queues:90:21)
+Emitted 'error' event on Server instance at:
+    at emitErrorNT (node:net:1976:8)
+    at process.processTicksAndRejections (node:internal/process/task_queues:90:21) {
+  code: 'EADDRINUSE',
+  errno: -48,
+  syscall: 'listen',
+  address: '127.0.0.1',
+  port: 9898
+}
+
+Node.js v22.22.0
+failed to get primary calendar: Get "https://www.googleapis.com/calendar/v3/users/me/calendarList/primary?alt=json&prettyPrint=false": round trip: Post "https://oauth2.googleapis.com/token": dial tcp: lookup oauth2.googleapis.com: no such host
+failed to get primary calendar: Get "https://www.googleapis.com/calendar/v3/users/me/calendarList/primary?alt=json&prettyPrint=false": round trip: Post "https://oauth2.googleapis.com/token": dial tcp: lookup oauth2.googleapis.com: no such host
+failed to get primary calendar: Get "https://www.googleapis.com/calendar/v3/users/me/calendarList/primary?alt=json&prettyPrint=false": round trip: Post "https://oauth2.googleapis.com/token": dial tcp: lookup oauth2.googleapis.com: no such host
+failed to get primary calendar: Get "https://www.googleapis.com/calendar/v3/users/me/calendarList/primary?alt=json&prettyPrint=false": round trip: Post "https://oauth2.googleapis.com/token": dial tcp: lookup oauth2.googleapis.com: no such host
+failed to get primary calendar: Get "https://www.googleapis.com/calendar/v3/users/me/calendarList/primary?alt=json&prettyPrint=false": round trip: Post "https://oauth2.googleapis.com/token": dial tcp: lookup oauth2.googleapis.com: no such host
+failed to get primary calendar: Get "https://www.googleapis.com/calendar/v3/users/me/calendarList/primary?alt=json&prettyPrint=false": round trip: Post "https://oauth2.googleapis.com/token": dial tcp: lookup oauth2.googleapis.com: no such host
+failed to get primary calendar: Get "https://www.googleapis.com/calendar/v3/users/me/calendarList/primary?alt=json&prettyPrint=false": round trip: Post "https://oauth2.googleapis.com/token": dial tcp: lookup oauth2.googleapis.com: no such host
+failed to get primary calendar: Get "https://www.googleapis.com/calendar/v3/users/me/calendarList/primary?alt=json&prettyPrint=false": round trip: Post "https://oauth2.googleapis.com/token": dial tcp: lookup oauth2.googleapis.com: no such host
+failed to get primary calendar: Get "https://www.googleapis.com/calendar/v3/users/me/calendarList/primary?alt=json&prettyPrint=false": round trip: Post "https://oauth2.googleapis.com/token": dial tcp: lookup oauth2.googleapis.com: no such host
+failed to get primary calendar: Get "https://www.googleapis.com/calendar/v3/users/me/calendarList/primary?alt=json&prettyPrint=false": round trip: Post "https://oauth2.googleapis.com/token": dial tcp: lookup oauth2.googleapis.com: no such host
+failed to get primary calendar: Get "https://www.googleapis.com/calendar/v3/users/me/calendarList/primary?alt=json&prettyPrint=false": round trip: Post "https://oauth2.googleapis.com/token": dial tcp: lookup oauth2.googleapis.com: no such host
+failed to get primary calendar: Get "https://www.googleapis.com/calendar/v3/users/me/calendarList/primary?alt=json&prettyPrint=false": round trip: Post "https://oauth2.googleapis.com/token": dial tcp: lookup oauth2.googleapis.com: no such host
+failed to get primary calendar: Get "https://www.googleapis.com/calendar/v3/users/me/calendarList/primary?alt=json&prettyPrint=false": round trip: Post "https://oauth2.googleapis.com/token": dial tcp: lookup oauth2.googleapis.com: no such host
+failed to get primary calendar: Get "https://www.googleapis.com/calendar/v3/users/me/calendarList/primary?alt=json&prettyPrint=false": round trip: Post "https://oauth2.googleapis.com/token": dial tcp: lookup oauth2.googleapis.com: no such host
+failed to get primary calendar: Get "https://www.googleapis.com/calendar/v3/users/me/calendarList/primary?alt=json&prettyPrint=false": round trip: Post "https://oauth2.googleapis.com/token": dial tcp: lookup oauth2.googleapis.com: no such host

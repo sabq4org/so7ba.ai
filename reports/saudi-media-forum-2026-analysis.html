@@ -1,0 +1,533 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+<meta charset="UTF-8">
+<title>تقرير تحليل منتدى الإعلام السعودي 2026</title>
+<style>
+@import url('https://fonts.googleapis.com/css2?family=Cairo:wght@300;400;600;700;800;900&display=swap');
+
+* { margin: 0; padding: 0; box-sizing: border-box; }
+
+@page {
+  size: A4;
+  margin: 2.5cm 2cm 2.5cm 2cm;
+  @bottom-center {
+    content: counter(page);
+    font-family: 'Cairo', sans-serif;
+    font-size: 11px;
+    color: #aaa;
+  }
+}
+
+body {
+  font-family: 'Cairo', Arial, sans-serif;
+  font-size: 12pt;
+  line-height: 1.9;
+  color: #1a1a1a;
+  background: #fff;
+  direction: rtl;
+}
+
+/* ── COVER PAGE ── */
+.cover {
+  page-break-after: always;
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  background: linear-gradient(160deg, #1b5e20 0%, #2e7d32 60%, #388e3c 100%);
+  color: #fff;
+  padding: 80px 60px;
+  position: relative;
+  overflow: hidden;
+}
+.cover::before {
+  content: '';
+  position: absolute;
+  width: 400px; height: 400px;
+  background: rgba(255,255,255,.05);
+  border-radius: 50%;
+  top: -120px; left: -100px;
+}
+.cover::after {
+  content: '';
+  position: absolute;
+  width: 300px; height: 300px;
+  background: rgba(255,255,255,.04);
+  border-radius: 50%;
+  bottom: -80px; right: -60px;
+}
+.cover-logo {
+  font-size: 48px;
+  margin-bottom: 20px;
+}
+.cover-tag {
+  font-size: 12px;
+  font-weight: 600;
+  letter-spacing: 3px;
+  text-transform: uppercase;
+  background: rgba(255,255,255,.15);
+  padding: 6px 20px;
+  border-radius: 20px;
+  margin-bottom: 30px;
+  color: #c8e6c9;
+}
+.cover-title {
+  font-size: 34px;
+  font-weight: 900;
+  line-height: 1.4;
+  margin-bottom: 16px;
+  color: #fff;
+}
+.cover-subtitle {
+  font-size: 17px;
+  font-weight: 400;
+  color: #a5d6a7;
+  margin-bottom: 50px;
+  line-height: 1.7;
+}
+.cover-divider {
+  width: 80px; height: 4px;
+  background: rgba(255,255,255,.4);
+  border-radius: 2px;
+  margin: 0 auto 40px;
+}
+.cover-meta {
+  display: flex;
+  gap: 40px;
+  justify-content: center;
+  font-size: 13px;
+  color: #c8e6c9;
+}
+.cover-meta-item { text-align: center; }
+.cover-meta-item strong { display: block; color: #fff; font-size: 15px; font-weight: 700; }
+
+/* ── BODY ── */
+.page { padding: 10px 0; }
+
+/* Header on each body page */
+.page-header {
+  border-bottom: 3px solid #1b5e20;
+  padding-bottom: 10px;
+  margin-bottom: 30px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+.page-header-title { font-size: 11px; color: #888; font-weight: 600; }
+.page-header-logo { font-size: 18px; }
+
+/* ── SECTIONS ── */
+h2 {
+  font-size: 16pt;
+  font-weight: 800;
+  color: #1b5e20;
+  margin: 36px 0 16px;
+  padding: 14px 20px;
+  background: linear-gradient(135deg, #e8f5e9, #f1f8e9);
+  border-right: 6px solid #1b5e20;
+  border-radius: 6px;
+  page-break-after: avoid;
+}
+
+h3 {
+  font-size: 13pt;
+  font-weight: 700;
+  color: #2e7d32;
+  margin: 28px 0 10px;
+  padding-right: 14px;
+  border-right: 4px solid #81c784;
+  page-break-after: avoid;
+}
+
+p {
+  margin-bottom: 14px;
+  text-align: justify;
+  text-justify: inter-word;
+}
+
+/* ── CALLOUT BOXES ── */
+.box-green {
+  background: #e8f5e9;
+  border-right: 5px solid #2e7d32;
+  border-radius: 6px;
+  padding: 16px 20px;
+  margin: 20px 0;
+}
+.box-orange {
+  background: #fff3e0;
+  border-right: 5px solid #e65100;
+  border-radius: 6px;
+  padding: 16px 20px;
+  margin: 20px 0;
+  color: #bf360c;
+}
+.box-blue {
+  background: #e3f2fd;
+  border-right: 5px solid #1565c0;
+  border-radius: 6px;
+  padding: 16px 20px;
+  margin: 20px 0;
+}
+.box-label {
+  font-size: 11px;
+  font-weight: 700;
+  letter-spacing: 1px;
+  text-transform: uppercase;
+  margin-bottom: 6px;
+  opacity: .7;
+}
+
+/* ── TABLES ── */
+table {
+  width: 100%;
+  border-collapse: collapse;
+  margin: 20px 0;
+  font-size: 11pt;
+}
+thead tr {
+  background: #1b5e20;
+  color: #fff;
+}
+thead th {
+  padding: 12px 14px;
+  font-weight: 700;
+  text-align: right;
+}
+tbody tr:nth-child(even) { background: #f1f8e9; }
+tbody tr:nth-child(odd)  { background: #fff; }
+tbody td {
+  padding: 10px 14px;
+  border-bottom: 1px solid #e8f5e9;
+  vertical-align: middle;
+}
+
+/* ── PHASE CARDS ── */
+.phase-card {
+  border-radius: 8px;
+  padding: 18px 22px;
+  margin: 18px 0;
+  page-break-inside: avoid;
+}
+.phase-red    { background: #fff8f8; border-right: 5px solid #c62828; }
+.phase-yellow { background: #fffde7; border-right: 5px solid #f57f17; }
+.phase-green  { background: #e8f5e9; border-right: 5px solid #2e7d32; }
+.phase-blue   { background: #e3f2fd; border-right: 5px solid #1565c0; }
+.phase-title  { font-size: 14px; font-weight: 800; margin-bottom: 8px; }
+.phase-red    .phase-title { color: #c62828; }
+.phase-yellow .phase-title { color: #f57f17; }
+.phase-green  .phase-title { color: #2e7d32; }
+.phase-blue   .phase-title { color: #1565c0; }
+
+/* ── LISTS ── */
+ul, ol {
+  padding-right: 24px;
+  margin-bottom: 14px;
+}
+li {
+  margin-bottom: 6px;
+}
+li::marker { color: #2e7d32; font-weight: 700; }
+
+/* ── ORG CHART (text-based) ── */
+.org-box {
+  background: #f1f8e9;
+  border: 2px solid #81c784;
+  border-radius: 8px;
+  padding: 10px 20px;
+  text-align: center;
+  font-weight: 700;
+  font-size: 12px;
+  color: #1b5e20;
+  display: inline-block;
+  min-width: 160px;
+}
+.org-root {
+  background: #1b5e20;
+  color: #fff;
+  border-color: #1b5e20;
+}
+.org-wrap {
+  text-align: center;
+  margin: 20px 0;
+}
+.org-children {
+  display: flex;
+  justify-content: center;
+  gap: 12px;
+  flex-wrap: wrap;
+  margin-top: 14px;
+}
+
+/* ── KPI GRID ── */
+.kpi-grid {
+  display: grid;
+  grid-template-columns: repeat(3,1fr);
+  gap: 14px;
+  margin: 20px 0;
+}
+.kpi-item {
+  background: #e8f5e9;
+  border-radius: 8px;
+  padding: 16px;
+  text-align: center;
+  border-top: 4px solid #2e7d32;
+}
+.kpi-icon { font-size: 22px; margin-bottom: 4px; }
+.kpi-val  { font-size: 18px; font-weight: 900; color: #1b5e20; }
+.kpi-lbl  { font-size: 10px; color: #555; margin-top: 4px; }
+
+/* ── QUOTE ── */
+.quote {
+  font-size: 14pt;
+  font-weight: 700;
+  color: #1b5e20;
+  text-align: center;
+  padding: 24px 40px;
+  border-top: 3px solid #81c784;
+  border-bottom: 3px solid #81c784;
+  margin: 30px 0;
+  line-height: 1.8;
+  background: #f9fef9;
+  border-radius: 4px;
+}
+
+/* ── FOOTER ── */
+.doc-footer {
+  margin-top: 50px;
+  border-top: 2px solid #c8e6c9;
+  padding-top: 20px;
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-end;
+  font-size: 11px;
+  color: #888;
+  page-break-inside: avoid;
+}
+.doc-footer strong { color: #1b5e20; font-size: 13px; }
+</style>
+</head>
+<body>
+
+<!-- ════════════════ COVER ════════════════ -->
+<div class="cover">
+  <div class="cover-logo">📊</div>
+  <div class="cover-tag">تقرير تحليلي استراتيجي</div>
+  <div class="cover-title">منتدى الإعلام السعودي 2026<br>التحليل والرؤية التطويرية</div>
+  <div class="cover-subtitle">قراءة تشخيصية وخارطة طريق للنسخة القادمة</div>
+  <div class="cover-divider"></div>
+  <div class="cover-meta">
+    <div class="cover-meta-item"><strong>فبراير 2026</strong>تاريخ الإصدار</div>
+    <div class="cover-meta-item"><strong>سري — للاستخدام الداخلي</strong>مستوى التوزيع</div>
+    <div class="cover-meta-item"><strong>صُحبة الذكية</strong>إعداد</div>
+  </div>
+</div>
+
+<!-- ════════════════ BODY ════════════════ -->
+<div class="page">
+
+<div class="page-header">
+  <span class="page-header-title">منتدى الإعلام السعودي 2026 — تقرير تحليلي</span>
+  <span class="page-header-logo">🌿</span>
+</div>
+
+<!-- ── ١ ── -->
+<h2>أولاً: القراءة التشخيصية — جوهر المشكلة</h2>
+
+<p>
+يكشف تقرير التقييم الصادر عن منتدى الإعلام السعودي 2026 عن <strong>فجوة هيكلية</strong> وليست مجرد أخطاء تشغيلية عابرة. نجح المنتدى في بناء محتوى استثنائي ومكانة دولية راسخة، غير أنه يعاني من تناقض جوهري: حجم الحدث يكبر بتسارع ملحوظ، فيما منظومة الحوكمة الإعلامية لم تواكب هذا النمو بالقدر الكافي.
+</p>
+
+<div class="box-orange">
+  <div class="box-label">⚠ المشكلة الجذرية</div>
+  <strong>غياب التخطيط الاستراتيجي المبكر للمكتب الإعلامي</strong> — كل الإشكاليات الأخرى (التداخل، الارتجال، ضعف التنسيق، تفاوت الجودة) هي تفريعات لهذا السبب الواحد.
+</div>
+
+<p>
+بمعنى آخر، المنتدى <strong>ناجح في المحتوى</strong> — والتطوير المطلوب ليس في "ماذا نقول" بل في "كيف نُدير من يقول".
+</p>
+
+<!-- ── ٢ ── -->
+<h2>ثانياً: تحليل الفجوات (Gap Analysis)</h2>
+
+<table>
+  <thead>
+    <tr><th>المجال</th><th>الوضع الحالي</th><th>المستوى المطلوب</th></tr>
+  </thead>
+  <tbody>
+    <tr><td>تشكيل الفريق</td><td>قبيل الحدث بأسابيع</td><td>قبل الحدث بـ 6 أشهر كاملة</td></tr>
+    <tr><td>اختيار الكوادر</td><td>بناءً على التوفر</td><td>بناءً على الكفاءة التخصصية</td></tr>
+    <tr><td>القيادة الإعلامية</td><td>ضمنية وغير معلنة</td><td>رسمية ومركزية ومُعمَّمة</td></tr>
+    <tr><td>التنسيق بين الأقسام</td><td>ارتجالي وعشوائي</td><td>مؤسسي عبر غرفة عمليات</td></tr>
+    <tr><td>مدة المنتدى</td><td>مكثفة وضيقة</td><td>6-7 أيام موزعة ومتوازنة</td></tr>
+    <tr><td>قياس الأداء</td><td>غائب</td><td>KPIs كمية ونوعية واضحة</td></tr>
+  </tbody>
+</table>
+
+<!-- ── ٣ ── -->
+<h2>ثالثاً: خارطة الطريق للنسخة القادمة</h2>
+
+<p>تنقسم خارطة الطريق إلى أربع مراحل زمنية متتالية، كل منها تبني على ما قبلها:</p>
+
+<div class="phase-card phase-red">
+  <div class="phase-title">🔴 المرحلة الأولى — الاستخلاص الفوري (الشهر الأول بعد المنتدى)</div>
+  <ul>
+    <li>عقد جلسة "Post-Mortem" رسمية مع كامل الفريق الإعلامي بحضور الإدارة</li>
+    <li>توثيق كل ما جرى موضوعياً وتحويله لإجراءات تشغيل معتمدة (SOP)</li>
+    <li>تعيين مدير المكتب الإعلامي الدائم — يشغل الدور <strong>طوال العام</strong> وليس فقط أيام المنتدى</li>
+    <li>بناء "Playbook" حي يحتوي هيكل الفريق، توزيع المهام، وقوالب التغطية</li>
+  </ul>
+</div>
+
+<div class="phase-card phase-yellow">
+  <div class="phase-title">🟡 المرحلة الثانية — الإعداد الاستراتيجي (3 إلى 6 أشهر قبل المنتدى)</div>
+  <ul>
+    <li>اعتماد هيكل تنظيمي إعلامي واضح بخمسة أقسام متخصصة</li>
+    <li>وضع معايير مكتوبة لاختيار الفريق: الخبرة، ضغط العمل، الكفاءة الرقمية، اللغات</li>
+    <li>بناء خطة إعلامية ثلاثية المراحل: ما قبل — أثناء — ما بعد المنتدى</li>
+    <li>إجراء تمرين محاكاة (Simulation) للفريق قبل قبوله رسمياً</li>
+  </ul>
+</div>
+
+<div class="phase-card phase-green">
+  <div class="phase-title">🟢 المرحلة الثالثة — التنفيذ خلال المنتدى</div>
+  <ul>
+    <li>تشغيل غرفة عمليات إعلامية مشتركة مع شاشات مراقبة لجميع القاعات</li>
+    <li>جلسة بريفينج يومية صباحية (15 دقيقة) + تقرير أداء يومي مساءً</li>
+    <li>مركزية القرار الإعلامي بلا استثناء — كل محتوى يمر من نقطة واحدة</li>
+    <li>تمديد المنتدى لـ <strong>7 أيام</strong> مع جدول موزع ومريح</li>
+  </ul>
+</div>
+
+<div class="phase-card phase-blue">
+  <div class="phase-title">🔵 المرحلة الرابعة — قياس الأثر (بعد المنتدى)</div>
+  <ul>
+    <li>قياس مؤشرات الأداء المحددة مسبقاً وإصدار تقرير شامل</li>
+    <li>مقارنة النتائج بالدورة السابقة وتحديث الـ Playbook</li>
+    <li>نشر تقرير الأثر الإعلامي خارجياً لتعزيز مكانة المنتدى</li>
+  </ul>
+</div>
+
+<!-- ── ٤ ── -->
+<h2>رابعاً: الهيكل التنظيمي الإعلامي المقترح</h2>
+
+<div class="org-wrap">
+  <div class="org-box org-root">مدير المكتب الإعلامي الدائم</div>
+  <div class="org-children">
+    <div class="org-box">📝 المحتوى المكتوب</div>
+    <div class="org-box">🎥 الإنتاج المرئي والمسموع</div>
+    <div class="org-box">📱 السوشيال ميديا والبث</div>
+    <div class="org-box">🌐 العلاقات الإعلامية الدولية</div>
+    <div class="org-box">⚙️ غرفة العمليات والتنسيق</div>
+  </div>
+</div>
+
+<div class="box-green">
+  <div class="box-label">📌 مبدأ أساسي</div>
+  كل قسم له رئيس، ورئيس كل قسم يرفع لمدير المكتب الإعلامي مباشرةً — لا تعدد مرجعيات، ولا تداخل صلاحيات.
+</div>
+
+<!-- ── ٥ ── -->
+<h2>خامساً: توزيع الأيام السبعة المقترح</h2>
+
+<table>
+  <thead>
+    <tr><th>اليوم</th><th>المحور الرئيسي</th><th>الملاحظة</th></tr>
+  </thead>
+  <tbody>
+    <tr><td>اليوم الأول</td><td>الافتتاح الرسمي + الجلسات الكبرى</td><td>حضور VIP وكبار المسؤولين</td></tr>
+    <tr><td>اليوم الثاني</td><td>الإعلام الرقمي والتحول التقني</td><td>جلسات غير متزامنة</td></tr>
+    <tr><td>اليوم الثالث</td><td>الذكاء الاصطناعي وصناعة المحتوى</td><td>جلسات غير متزامنة</td></tr>
+    <tr><td>اليوم الرابع</td><td>الإعلام الدولي والشراكات العابرة للحدود</td><td>جلسات غير متزامنة</td></tr>
+    <tr><td>اليوم الخامس</td><td>الإعلام التقليدي والمستقبل</td><td>جلسات غير متزامنة</td></tr>
+    <tr><td>اليوم السادس</td><td>ورش عمل تطبيقية مكثفة</td><td>تفاعلية وعملية</td></tr>
+    <tr><td>اليوم السابع</td><td>الختام + التوصيات + الجوائز</td><td>حفل ختامي رسمي</td></tr>
+  </tbody>
+</table>
+
+<!-- ── ٦ ── -->
+<h2>سادساً: مؤشرات الأداء الرئيسية (KPIs)</h2>
+
+<div class="kpi-grid">
+  <div class="kpi-item">
+    <div class="kpi-icon">📰</div>
+    <div class="kpi-val">+50%</div>
+    <div class="kpi-lbl">التغطيات الدولية عن الدورة السابقة</div>
+  </div>
+  <div class="kpi-item">
+    <div class="kpi-icon">⏱️</div>
+    <div class="kpi-val">30 د</div>
+    <div class="kpi-lbl">الحد الأقصى لنشر الخبر منذ وقوعه</div>
+  </div>
+  <div class="kpi-item">
+    <div class="kpi-icon">😊</div>
+    <div class="kpi-val">85%+</div>
+    <div class="kpi-lbl">رضا المشاركين عن التغطية الإعلامية</div>
+  </div>
+  <div class="kpi-item">
+    <div class="kpi-icon">🤝</div>
+    <div class="kpi-val">هدف</div>
+    <div class="kpi-lbl">شراكات إعلامية جديدة محددة مسبقاً</div>
+  </div>
+  <div class="kpi-item">
+    <div class="kpi-icon">📱</div>
+    <div class="kpi-val">هدف</div>
+    <div class="kpi-lbl">مشاهدات المحتوى الرقمي</div>
+  </div>
+  <div class="kpi-item">
+    <div class="kpi-icon">📊</div>
+    <div class="kpi-val">تقرير</div>
+    <div class="kpi-lbl">تقرير أثر إعلامي نهائي خلال أسبوعين</div>
+  </div>
+</div>
+
+<!-- ── ٧ ── -->
+<h2>سابعاً: الفرصة الاستراتيجية الكبرى</h2>
+
+<p>
+يمتلك منتدى الإعلام السعودي مقومات حقيقية لأن يصبح <strong>"دافوس الإعلامي"</strong> للمنطقة العربية، لكن هذا يتطلب التحول من نموذج <em>"مؤتمر سنوي"</em> إلى نموذج <em>"منصة إعلامية مستدامة"</em>.
+</p>
+
+<div class="box-blue">
+  <div class="box-label">💡 مكونات المنصة المستدامة</div>
+  <ul>
+    <li><strong>مجتمع رقمي دائم:</strong> منصة، نشرة شهرية، بودكاست يربط المشاركين بين الدورات</li>
+    <li><strong>رصد مستمر:</strong> تقارير دورية عن مستجدات الإعلام تصدر باسم المنتدى</li>
+    <li><strong>شبكة خريجين:</strong> تضم جميع المشاركين في الدورات السابقة</li>
+    <li><strong>جوائز سنوية:</strong> تُعلن في المنتدى لتعزيز الانتماء والتنافسية</li>
+  </ul>
+</div>
+
+<!-- ── CONCLUSION ── -->
+<h2>الخلاصة التنفيذية</h2>
+
+<div class="quote">
+"منتدى الإعلام السعودي ناجح في المحتوى.<br>
+التطوير المطلوب: الانتقال من <em>حدث كبير</em> إلى <em>منصة مستدامة</em>.<br>
+المفتاح: حوكمة إعلامية مبكرة، ومركزية القرار، وجدولة متوازنة."
+</div>
+
+<p>
+نجاح الدورات القادمة مرهون بالانتقال من نموذج "الحدث عالي الكثافة" إلى "المنصة المستدامة عالية الجودة" — عبر تعزيز التخطيط المبكر، وتوحيد القيادة الإعلامية، وإعادة هندسة الجدولة الزمنية.
+</p>
+
+<!-- FOOTER -->
+<div class="doc-footer">
+  <div>
+    <strong>صُحبة الذكية</strong><br>
+    مساعد التحرير الرقمي — سبق
+  </div>
+  <div style="text-align:center; color:#aaa; font-size:10px;">
+    هذا التقرير سري للاستخدام الداخلي
+  </div>
+  <div style="text-align:left">
+    <strong>فبراير 2026</strong><br>
+    تاريخ الإصدار
+  </div>
+</div>
+
+</div><!-- /page -->
+</body>
+</html>
