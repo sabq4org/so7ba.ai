@@ -1,0 +1,387 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<link href="https://fonts.googleapis.com/css2?family=Cairo:wght@400;600;700;800;900&display=swap" rel="stylesheet">
+<style>
+* { margin: 0; padding: 0; box-sizing: border-box; }
+body {
+  font-family: 'Cairo', sans-serif;
+  background: linear-gradient(135deg, #0a0f1a 0%, #111827 50%, #0a0f1a 100%);
+  color: #fff;
+  min-height: 100vh;
+  padding: 40px 20px;
+  direction: rtl;
+}
+
+.container { max-width: 1100px; margin: 0 auto; }
+
+/* CEO / Owner */
+.ceo-box {
+  text-align: center;
+  margin-bottom: 30px;
+}
+.ceo-card {
+  display: inline-block;
+  background: linear-gradient(135deg, #1e293b, #334155);
+  border: 1px solid rgba(255,255,255,0.15);
+  border-radius: 16px;
+  padding: 20px 40px;
+  position: relative;
+}
+.ceo-name { font-size: 20px; font-weight: 800; color: #fff; }
+.ceo-title { font-size: 13px; color: #94a3b8; margin-top: 2px; }
+
+/* Connector lines */
+.connector-vertical {
+  width: 2px;
+  height: 30px;
+  background: #334155;
+  margin: 0 auto;
+}
+.connector-horizontal {
+  width: 80%;
+  height: 2px;
+  background: #334155;
+  margin: 0 auto;
+}
+
+/* Main agent (Sohba) */
+.main-agent-box { text-align: center; margin-bottom: 20px; }
+.main-agent-card {
+  display: inline-flex;
+  align-items: center;
+  gap: 14px;
+  background: linear-gradient(135deg, #1a1a3e, #2d1b69);
+  border: 1px solid rgba(139, 92, 246, 0.3);
+  border-radius: 14px;
+  padding: 16px 30px;
+  position: relative;
+}
+.main-agent-card::after {
+  content: '';
+  position: absolute;
+  top: 8px;
+  left: 8px;
+  width: 10px;
+  height: 10px;
+  border-radius: 50%;
+  background: #22c55e;
+  box-shadow: 0 0 6px #22c55e;
+}
+.agent-avatar {
+  width: 44px;
+  height: 44px;
+  border-radius: 12px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 16px;
+  font-weight: 800;
+  color: #fff;
+  flex-shrink: 0;
+}
+.agent-info { text-align: right; }
+.agent-name { font-size: 17px; font-weight: 800; }
+.agent-role { font-size: 12px; color: #a5b4fc; }
+.agent-model { font-size: 10px; color: #64748b; margin-top: 2px; }
+.skills-row { display: flex; gap: 6px; margin-top: 6px; flex-wrap: wrap; justify-content: flex-end; }
+.skill-tag {
+  font-size: 9px;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+  padding: 3px 8px;
+  border-radius: 4px;
+  background: rgba(255,255,255,0.08);
+  color: #94a3b8;
+  border: 1px solid rgba(255,255,255,0.06);
+}
+
+/* Department sections */
+.departments {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 16px;
+  margin-top: 20px;
+}
+.dept-card {
+  background: rgba(17, 24, 39, 0.8);
+  border: 1px solid rgba(255,255,255,0.08);
+  border-radius: 14px;
+  padding: 18px;
+}
+.dept-header {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  margin-bottom: 14px;
+  padding-bottom: 10px;
+  border-bottom: 1px solid rgba(255,255,255,0.06);
+}
+.dept-icon { font-size: 16px; }
+.dept-title {
+  font-size: 13px;
+  font-weight: 800;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+}
+
+.agent-card {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  background: rgba(255,255,255,0.03);
+  border: 1px solid rgba(255,255,255,0.06);
+  border-radius: 10px;
+  padding: 12px;
+  margin-bottom: 8px;
+  position: relative;
+}
+.agent-card:last-child { margin-bottom: 0; }
+.agent-card .status-dot {
+  position: absolute;
+  top: 8px;
+  left: 8px;
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+}
+.status-online { background: #22c55e; box-shadow: 0 0 4px #22c55e; }
+.status-standby { background: #f59e0b; box-shadow: 0 0 4px #f59e0b; }
+.status-offline { background: #ef4444; box-shadow: 0 0 4px #ef4444; }
+
+.agent-card .agent-name { font-size: 14px; }
+.agent-card .agent-role { font-size: 11px; }
+
+/* Colors */
+.bg-purple { background: linear-gradient(135deg, #7c3aed, #6d28d9); }
+.bg-blue { background: linear-gradient(135deg, #3b82f6, #2563eb); }
+.bg-green { background: linear-gradient(135deg, #22c55e, #16a34a); }
+.bg-orange { background: linear-gradient(135deg, #f59e0b, #d97706); }
+.bg-pink { background: linear-gradient(135deg, #ec4899, #db2777); }
+.bg-cyan { background: linear-gradient(135deg, #06b6d4, #0891b2); }
+.bg-red { background: linear-gradient(135deg, #ef4444, #dc2626); }
+.bg-indigo { background: linear-gradient(135deg, #6366f1, #4f46e5); }
+.bg-teal { background: linear-gradient(135deg, #14b8a6, #0d9488); }
+.bg-amber { background: linear-gradient(135deg, #f59e0b, #b45309); }
+.bg-rose { background: linear-gradient(135deg, #f43f5e, #e11d48); }
+.bg-emerald { background: linear-gradient(135deg, #10b981, #059669); }
+
+.dept-editorial .dept-title { color: #a5b4fc; }
+.dept-tech .dept-title { color: #67e8f9; }
+.dept-creative .dept-title { color: #f9a8d4; }
+.dept-ops .dept-title { color: #86efac; }
+.dept-marketing .dept-title { color: #fcd34d; }
+.dept-comms .dept-title { color: #c4b5fd; }
+
+/* Footer */
+.footer {
+  text-align: center;
+  margin-top: 30px;
+  padding-top: 20px;
+  border-top: 1px solid rgba(255,255,255,0.06);
+  color: #475569;
+  font-size: 12px;
+}
+.footer span { color: #8b5cf6; font-weight: 700; }
+</style>
+</head>
+<body>
+<div class="container">
+
+  <!-- CEO -->
+  <div class="ceo-box">
+    <div class="ceo-card">
+      <div class="ceo-name">علي الحازمي</div>
+      <div class="ceo-title">أبو محمد · رئيس التحرير</div>
+    </div>
+  </div>
+
+  <div class="connector-vertical"></div>
+
+  <!-- Main Agent -->
+  <div class="main-agent-box">
+    <div class="main-agent-card">
+      <div class="agent-avatar bg-purple">🧠</div>
+      <div class="agent-info">
+        <div class="agent-name">صُحبة · SOHBA</div>
+        <div class="agent-role">المدير التنفيذي · Chief of Staff</div>
+        <div class="agent-model">Claude Opus 4.6 · 200K Context</div>
+        <div class="skills-row">
+          <span class="skill-tag">إدارة الفريق</span>
+          <span class="skill-tag">تنسيق المهام</span>
+          <span class="skill-tag">اتخاذ القرار</span>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="connector-vertical"></div>
+  <div class="connector-horizontal"></div>
+
+  <!-- Departments Row 1 -->
+  <div class="departments">
+
+    <!-- Editorial -->
+    <div class="dept-card dept-editorial">
+      <div class="dept-header">
+        <span class="dept-icon">✍️</span>
+        <span class="dept-title">التحرير</span>
+      </div>
+      <div class="agent-card">
+        <span class="status-dot status-online"></span>
+        <div class="agent-avatar bg-blue" style="width:36px;height:36px;font-size:13px;">كت</div>
+        <div class="agent-info">
+          <div class="agent-name">كاتب</div>
+          <div class="agent-role">صناعة المحتوى الإعلامي</div>
+          <div class="skills-row"><span class="skill-tag">كتابة</span><span class="skill-tag">تحرير</span></div>
+        </div>
+      </div>
+      <div class="agent-card">
+        <span class="status-dot status-online"></span>
+        <div class="agent-avatar bg-cyan" style="width:36px;height:36px;font-size:13px;">سج</div>
+        <div class="agent-info">
+          <div class="agent-name">سجع</div>
+          <div class="agent-role">مصنع التغريدات</div>
+          <div class="skills-row"><span class="skill-tag">تغريدات</span><span class="skill-tag">سوشال</span></div>
+        </div>
+      </div>
+      <div class="agent-card">
+        <span class="status-dot status-online"></span>
+        <div class="agent-avatar bg-teal" style="width:36px;height:36px;font-size:13px;">تر</div>
+        <div class="agent-info">
+          <div class="agent-name">تُرجمان</div>
+          <div class="agent-role">المترجم الذكي</div>
+          <div class="skills-row"><span class="skill-tag">ترجمة</span><span class="skill-tag">تعريب</span></div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Tech -->
+    <div class="dept-card dept-tech">
+      <div class="dept-header">
+        <span class="dept-icon">💻</span>
+        <span class="dept-title">التقنية</span>
+      </div>
+      <div class="agent-card">
+        <span class="status-dot status-online"></span>
+        <div class="agent-avatar bg-green" style="width:36px;height:36px;font-size:13px;">كو</div>
+        <div class="agent-info">
+          <div class="agent-name">كوّدر</div>
+          <div class="agent-role">مطور أول</div>
+          <div class="skills-row"><span class="skill-tag">برمجة</span><span class="skill-tag">مراجعة كود</span></div>
+        </div>
+      </div>
+      <div class="agent-card">
+        <span class="status-dot status-standby"></span>
+        <div class="agent-avatar bg-orange" style="width:36px;height:36px;font-size:13px;">بح</div>
+        <div class="agent-info">
+          <div class="agent-name">باحث</div>
+          <div class="agent-role">بحث وتحليل</div>
+          <div class="skills-row"><span class="skill-tag">بحث عميق</span><span class="skill-tag">تحليل</span></div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Creative -->
+    <div class="dept-card dept-creative">
+      <div class="dept-header">
+        <span class="dept-icon">🎨</span>
+        <span class="dept-title">الإبداع</span>
+      </div>
+      <div class="agent-card">
+        <span class="status-dot status-online"></span>
+        <div class="agent-avatar bg-pink" style="width:36px;height:36px;font-size:13px;">مص</div>
+        <div class="agent-info">
+          <div class="agent-name">مصمم</div>
+          <div class="agent-role">إنفوجرافيك + عروض</div>
+          <div class="skills-row"><span class="skill-tag">تصميم</span><span class="skill-tag">إنفوجرافيك</span></div>
+        </div>
+      </div>
+      <div class="agent-card">
+        <span class="status-dot status-online"></span>
+        <div class="agent-avatar bg-amber" style="width:36px;height:36px;font-size:13px;">شر</div>
+        <div class="agent-info">
+          <div class="agent-name">شرارة</div>
+          <div class="agent-role">مطبخ الأفكار</div>
+          <div class="skills-row"><span class="skill-tag">أفكار</span><span class="skill-tag">إبداع</span></div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Departments Row 2 -->
+  <div class="departments" style="margin-top: 16px;">
+
+    <!-- Operations -->
+    <div class="dept-card dept-ops">
+      <div class="dept-header">
+        <span class="dept-icon">⚙️</span>
+        <span class="dept-title">العمليات</span>
+      </div>
+      <div class="agent-card">
+        <span class="status-dot status-standby"></span>
+        <div class="agent-avatar bg-emerald" style="width:36px;height:36px;font-size:13px;">نظ</div>
+        <div class="agent-info">
+          <div class="agent-name">منظّم</div>
+          <div class="agent-role">بريد وجدولة</div>
+          <div class="skills-row"><span class="skill-tag">بريد</span><span class="skill-tag">تقويم</span></div>
+        </div>
+      </div>
+      <div class="agent-card">
+        <span class="status-dot status-standby"></span>
+        <div class="agent-avatar bg-indigo" style="width:36px;height:36px;font-size:13px;">مت</div>
+        <div class="agent-info">
+          <div class="agent-name">متابع</div>
+          <div class="agent-role">غرفة المتابعة</div>
+          <div class="skills-row"><span class="skill-tag">متابعة</span><span class="skill-tag">تنسيق</span></div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Marketing -->
+    <div class="dept-card dept-marketing">
+      <div class="dept-header">
+        <span class="dept-icon">📈</span>
+        <span class="dept-title">التسويق</span>
+      </div>
+      <div class="agent-card">
+        <span class="status-dot status-standby"></span>
+        <div class="agent-avatar bg-rose" style="width:36px;height:36px;font-size:13px;">مس</div>
+        <div class="agent-info">
+          <div class="agent-name">مسوّق</div>
+          <div class="agent-role">تسويق رقمي + SEO</div>
+          <div class="skills-row"><span class="skill-tag">SEO</span><span class="skill-tag">تسويق</span></div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Memory -->
+    <div class="dept-card dept-comms">
+      <div class="dept-header">
+        <span class="dept-icon">🧠</span>
+        <span class="dept-title">المعرفة</span>
+      </div>
+      <div class="agent-card">
+        <span class="status-dot status-online"></span>
+        <div class="agent-avatar bg-purple" style="width:36px;height:36px;font-size:13px;">ذك</div>
+        <div class="agent-info">
+          <div class="agent-name">ذاكرة</div>
+          <div class="agent-role">حفظ واسترجاع المعرفة</div>
+          <div class="skills-row"><span class="skill-tag">ذاكرة</span><span class="skill-tag">أرشفة</span></div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="footer">
+    <span>صُحبة AI</span> · فريق الوكلاء · 12 وكيل · 6 أقسام<br>
+    Claude Opus 4.6 + Claude Sonnet 4.6 + Gemini Flash<br>
+    رمضان ١٤٤٨ هـ · فبراير ٢٠٢٦
+  </div>
+
+</div>
+</body>
+</html>
