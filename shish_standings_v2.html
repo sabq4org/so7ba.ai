@@ -1,0 +1,168 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<link href="https://fonts.googleapis.com/css2?family=Cairo:wght@400;600;700;800;900&display=swap" rel="stylesheet">
+<style>
+* { margin: 0; padding: 0; box-sizing: border-box; }
+body {
+  font-family: 'Cairo', sans-serif;
+  background: linear-gradient(180deg, #0D1B2A 0%, #1B2838 50%, #0D1B2A 100%);
+  color: #fff;
+  width: 800px;
+  min-height: 1200px;
+  padding: 40px 30px;
+  position: relative;
+  overflow: hidden;
+}
+.moon-top { position: absolute; top: 20px; left: 30px; width: 60px; height: 60px; border-radius: 50%; box-shadow: inset -15px 0 0 0 #3A6A5A; opacity: 0.4; }
+.moon-bottom { position: absolute; bottom: 40px; right: 40px; width: 35px; height: 35px; border-radius: 50%; box-shadow: inset -10px 0 0 0 #3A6A5A; opacity: 0.3; }
+.star { position: absolute; color: #3A6A5A; opacity: 0.4; font-size: 14px; }
+.star1 { top: 80px; left: 50px; }
+.star2 { top: 60px; right: 80px; }
+.star3 { bottom: 120px; right: 60px; }
+.star4 { top: 200px; left: 20px; }
+.header { text-align: center; margin-bottom: 25px; }
+.header-icons { font-size: 32px; margin-bottom: 10px; }
+.badge { display: inline-block; background: linear-gradient(135deg, #2A6A5A, #3A8A6A); padding: 5px 18px; border-radius: 20px; font-size: 13px; font-weight: 600; margin-bottom: 12px; }
+.main-title { font-size: 42px; font-weight: 900; color: #fff; margin-bottom: 5px; letter-spacing: 1px; }
+.subtitle { font-size: 20px; font-weight: 700; color: #E8A838; margin-bottom: 8px; }
+.date-line { font-size: 13px; color: #6A8A9A; font-weight: 400; }
+.table-container { background: rgba(22, 34, 50, 0.8); border-radius: 16px; padding: 20px 15px; margin-bottom: 20px; }
+table { width: 100%; border-collapse: collapse; }
+thead th { color: #5A7A8A; font-size: 12px; font-weight: 600; padding: 8px 5px 15px; text-align: center; border-bottom: 1px solid #2A3A4A; }
+thead th:nth-child(2) { text-align: right; }
+tbody tr { border-bottom: 1px solid #1A2A3A; }
+tbody tr.separator-before { border-top: 2px dashed #3A4A5A; }
+tbody td { padding: 14px 5px; text-align: center; font-weight: 700; font-size: 17px; vertical-align: middle; }
+tbody td:nth-child(2) { text-align: right; font-size: 16px; }
+.rank-circle { display: inline-flex; align-items: center; justify-content: center; width: 32px; height: 32px; border-radius: 50%; font-size: 15px; font-weight: 800; }
+.rank-1 { background: linear-gradient(135deg, #D4A03C, #E8B84C); color: #1a1a1a; }
+.rank-2 { background: linear-gradient(135deg, #8A8A8A, #B0B0B0); color: #1a1a1a; }
+.rank-3 { background: linear-gradient(135deg, #CD7F32, #D4943C); color: #1a1a1a; }
+.rank-4 { background: #2A3A4A; color: #8A9AAA; }
+.rank-low { background: #1A2A3A; color: #5A6A7A; }
+.bar-container { width: 100%; height: 10px; background: #1A2A3A; border-radius: 5px; overflow: hidden; min-width: 80px; }
+.bar-fill-green { height: 100%; background: linear-gradient(90deg, #27AE60, #2ECC71); border-radius: 5px; }
+.bar-fill-red { height: 100%; background: linear-gradient(90deg, #8B3A3A, #C0392B); border-radius: 5px; }
+.text-red { color: #E74C3C; }
+.text-white { color: #fff; }
+.points { font-size: 26px; font-weight: 900; }
+.footer { background: rgba(22, 34, 50, 0.8); border-radius: 12px; padding: 15px 20px; font-size: 13px; line-height: 2; }
+.footer .gold { color: #E8A838; font-weight: 700; }
+</style>
+</head>
+<body>
+<div class="moon-top"></div>
+<div class="moon-bottom"></div>
+<div class="star star1">✦</div>
+<div class="star star2">✦</div>
+<div class="star star3">✦</div>
+<div class="star star4">✦</div>
+
+<div class="header">
+  <div class="header-icons">🔥 🎲</div>
+  <div class="badge">📊 ترتيب الفرق — محدَّث</div>
+  <div class="main-title">صفوة المهيدب</div>
+  <div class="subtitle">البطولة الرمضانية للشيش — جدول الترتيب</div>
+  <div class="date-line">رمضان ١٤٤٨ هـ • آخر تحديث: ٧ رمضان — ٢٥ فبراير ٢٠٢٦</div>
+</div>
+
+<div class="table-container">
+  <table>
+    <thead>
+      <tr>
+        <th style="width:50px">#</th>
+        <th>الفريق</th>
+        <th style="width:55px">لعب</th>
+        <th style="width:55px">فوز</th>
+        <th style="width:55px">خسارة</th>
+        <th style="width:120px">نسبة الفوز</th>
+        <th style="width:70px">النقاط</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><span class="rank-circle rank-1">1</span></td>
+        <td>أبوحمد — زياد</td>
+        <td>4</td>
+        <td>3</td>
+        <td>1</td>
+        <td><div class="bar-container"><div class="bar-fill-green" style="width:75%"></div></div></td>
+        <td class="points text-white">9</td>
+      </tr>
+      <tr>
+        <td><span class="rank-circle rank-2">2</span></td>
+        <td>بندر الجلعود</td>
+        <td>6</td>
+        <td>3</td>
+        <td class="text-red">3</td>
+        <td><div class="bar-container"><div class="bar-fill-green" style="width:50%"></div></div></td>
+        <td class="points text-white">9</td>
+      </tr>
+      <tr>
+        <td><span class="rank-circle rank-3">3</span></td>
+        <td>القاسم — الحسين</td>
+        <td>3</td>
+        <td>3</td>
+        <td>0</td>
+        <td><div class="bar-container"><div class="bar-fill-green" style="width:100%"></div></div></td>
+        <td class="points text-white">9</td>
+      </tr>
+      <tr class="separator-before">
+        <td><span class="rank-circle rank-4">4</span></td>
+        <td>تركي الدوسري</td>
+        <td>3</td>
+        <td>2</td>
+        <td>1</td>
+        <td><div class="bar-container"><div class="bar-fill-green" style="width:67%"></div></div></td>
+        <td class="points text-white">6</td>
+      </tr>
+      <tr>
+        <td><span class="rank-circle rank-low">5</span></td>
+        <td>فريق قفاري</td>
+        <td>3</td>
+        <td>1</td>
+        <td class="text-red">2</td>
+        <td><div class="bar-container"><div class="bar-fill-green" style="width:33%"></div></div></td>
+        <td class="points text-white">3</td>
+      </tr>
+      <tr>
+        <td><span class="rank-circle rank-low">6</span></td>
+        <td>أبودبيك — أبوحلى</td>
+        <td>3</td>
+        <td>1</td>
+        <td class="text-red">2</td>
+        <td><div class="bar-container"><div class="bar-fill-green" style="width:33%"></div></div></td>
+        <td class="points text-white">3</td>
+      </tr>
+      <tr>
+        <td><span class="rank-circle rank-low">7</span></td>
+        <td>فضل — عصام</td>
+        <td>2</td>
+        <td>0</td>
+        <td class="text-red">2</td>
+        <td><div class="bar-container"><div class="bar-fill-red" style="width:100%"></div></div></td>
+        <td class="points text-red">0</td>
+      </tr>
+      <tr>
+        <td><span class="rank-circle rank-low">8</span></td>
+        <td>بدر الدريس — عبدالله المهيدب</td>
+        <td>2</td>
+        <td>0</td>
+        <td class="text-red">2</td>
+        <td><div class="bar-container"><div class="bar-fill-red" style="width:100%"></div></div></td>
+        <td class="points text-red">0</td>
+      </tr>
+    </tbody>
+  </table>
+</div>
+
+<div class="footer">
+  👑 <strong>المتصدر:</strong> أبوحمد وزياد بـ 9 نقاط من 4 مباريات &nbsp;•&nbsp; 🔥 <span class="gold">100% فوز: القاسم والحسين (3 من 3)</span><br>
+  ⚠️ <span class="gold">3 فرق على 9 نقاط في القمة — المنافسة مشتعلة وكل مباراة فارقة!</span>
+</div>
+
+</body>
+</html>
