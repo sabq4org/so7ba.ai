@@ -1,0 +1,165 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<style>
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  body { background: #1a1a1a; display: flex; gap: 40px; padding: 40px; flex-wrap: wrap; align-items: center; justify-content: center; min-height: 100vh; }
+  canvas { border-radius: 22%; display: block; }
+  .label { color: white; text-align: center; font-family: sans-serif; font-size: 12px; margin-top: 8px; opacity: 0.6; }
+</style>
+</head>
+<body>
+
+<div>
+  <canvas id="icon1024" width="1024" height="1024"></canvas>
+  <div class="label">1024 × 1024</div>
+</div>
+
+<script>
+function drawIcon(canvas, size) {
+  const ctx = canvas.getContext('2d');
+  const s = size / 1024; // scale factor
+
+  // ── Background gradient
+  const bg = ctx.createLinearGradient(0, 0, size, size);
+  bg.addColorStop(0, '#1B4332');
+  bg.addColorStop(0.5, '#2D6A4F');
+  bg.addColorStop(1, '#40916C');
+  ctx.fillStyle = bg;
+  ctx.fillRect(0, 0, size, size);
+
+  // ── Subtle texture circle
+  const glow = ctx.createRadialGradient(size*0.35, size*0.3, 0, size*0.5, size*0.5, size*0.7);
+  glow.addColorStop(0, 'rgba(255,255,255,0.08)');
+  glow.addColorStop(1, 'rgba(0,0,0,0)');
+  ctx.fillStyle = glow;
+  ctx.fillRect(0, 0, size, size);
+
+  ctx.save();
+  ctx.translate(size/2, size/2);
+  ctx.scale(s, s);
+
+  // ── Two houses (neighbors)
+  function drawHouse(x, y, w, h, color, roofColor) {
+    const hw = w / 2;
+    const roofH = h * 0.45;
+    const bodyH = h * 0.65;
+
+    // Shadow
+    ctx.save();
+    ctx.shadowColor = 'rgba(0,0,0,0.3)';
+    ctx.shadowBlur = 20;
+    ctx.shadowOffsetY = 8;
+
+    // Roof
+    ctx.beginPath();
+    ctx.moveTo(x - hw - 18, y - bodyH/2 + 5);
+    ctx.lineTo(x, y - bodyH/2 - roofH);
+    ctx.lineTo(x + hw + 18, y - bodyH/2 + 5);
+    ctx.closePath();
+    ctx.fillStyle = roofColor;
+    ctx.fill();
+
+    // Body
+    ctx.beginPath();
+    ctx.roundRect(x - hw, y - bodyH/2, w, bodyH, 14);
+    ctx.fillStyle = color;
+    ctx.fill();
+
+    ctx.restore();
+
+    // Door
+    const doorW = w * 0.28;
+    const doorH = bodyH * 0.42;
+    const doorX = x - doorW/2;
+    const doorY = y + bodyH/2 - doorH;
+    ctx.beginPath();
+    ctx.roundRect(doorX, doorY, doorW, doorH, [doorW/2, doorW/2, 0, 0]);
+    ctx.fillStyle = 'rgba(0,0,0,0.25)';
+    ctx.fill();
+
+    // Window
+    const winSize = w * 0.22;
+    const winX = x - hw + w * 0.2;
+    const winY = y - bodyH * 0.1;
+    ctx.beginPath();
+    ctx.roundRect(winX, winY, winSize, winSize, 5);
+    ctx.fillStyle = 'rgba(255,220,100,0.85)';
+    ctx.fill();
+
+    const winX2 = x + hw - w * 0.2 - winSize;
+    ctx.beginPath();
+    ctx.roundRect(winX2, winY, winSize, winSize, 5);
+    ctx.fillStyle = 'rgba(255,220,100,0.85)';
+    ctx.fill();
+  }
+
+  // Left house
+  drawHouse(-155, 60, 230, 300, 'rgba(255,255,255,0.92)', '#F4A261');
+  // Right house
+  drawHouse(155, 60, 230, 300, 'rgba(255,255,255,0.80)', '#E76F51');
+
+  // ── Handshake / exchange arrow between houses
+  // Two curved arrows going between the houses
+  ctx.strokeStyle = 'rgba(255,255,255,0.9)';
+  ctx.lineWidth = 14;
+  ctx.lineCap = 'round';
+
+  // Top arrow left→right
+  ctx.beginPath();
+  ctx.moveTo(-55, -10);
+  ctx.quadraticCurveTo(0, -55, 55, -10);
+  ctx.stroke();
+
+  // Arrowhead right
+  ctx.beginPath();
+  ctx.moveTo(55, -10);
+  ctx.lineTo(38, -28);
+  ctx.moveTo(55, -10);
+  ctx.lineTo(38, 8);
+  ctx.stroke();
+
+  // Bottom arrow right→left
+  ctx.beginPath();
+  ctx.moveTo(55, 30);
+  ctx.quadraticCurveTo(0, 75, -55, 30);
+  ctx.stroke();
+
+  // Arrowhead left
+  ctx.beginPath();
+  ctx.moveTo(-55, 30);
+  ctx.lineTo(-38, 12);
+  ctx.moveTo(-55, 30);
+  ctx.lineTo(-38, 48);
+  ctx.stroke();
+
+  // ── App name "جار"
+  ctx.font = 'bold 148px -apple-system, "SF Arabic", "Helvetica Neue", Arial';
+  ctx.textAlign = 'center';
+  ctx.textBaseline = 'middle';
+  ctx.fillStyle = 'rgba(255,255,255,0.95)';
+  ctx.shadowColor = 'rgba(0,0,0,0.4)';
+  ctx.shadowBlur = 16;
+  ctx.fillText('جار', 0, 310);
+  ctx.shadowBlur = 0;
+
+  ctx.restore();
+}
+
+// Draw 1024
+const c1024 = document.getElementById('icon1024');
+c1024.style.width = '300px';
+c1024.style.height = '300px';
+drawIcon(c1024, 1024);
+
+// Auto download
+c1024.toBlob(function(blob) {
+  const a = document.createElement('a');
+  a.href = URL.createObjectURL(blob);
+  a.download = 'jar-icon-1024.png';
+  document.body.appendChild(a);
+}, 'image/png');
+</script>
+</body>
+</html>
