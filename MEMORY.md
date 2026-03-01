@@ -332,6 +332,20 @@
 - ⚠️ الإنفوجرافيك العربي: ضعيف جداً - الأفضل HTML + screenshot
 - تاريخ الإضافة: 2026-02-10 | آخر تحديث: 2026-02-18
 
+## Gemini API (محدّث 2026-02-28)
+- API Key جديد: `AIzaSyA8U2Zpwv8axRzPGtp-iTnxPk0DcVsKKD8`
+- المفتاح القديم (`AIzaSyBd...`) انتهى
+- Model: `gemini-2.5-flash` (الأرخص والأسرع)
+
+## SocialData.tools (2026-02-28)
+- ⚠️ **الرصيد خلص** — يحتاج شحن من https://dashboard.socialdata.tools
+- API Key: `5091|WoCZQVXWEiBw0annXZyv8DiivaNaIybdjoyiaw5d7e3be216`
+
+## بصيرة Dashboard (2026-02-28)
+- **باكند v4.1:** port 8000 — 26 endpoint — SocialData + Gemini + NewsData
+- **لوحة تحكم ويب:** port 3000 — Next.js 14 — 7 صفحات — فيها bugs تحتاج إصلاح
+- **ملف الإصلاح جاهز:** `FIX_DASHBOARD.md` — لم يُعطَ لـ Cowork بعد
+
 ## ElevenLabs TTS ✅ (2026-02-24)
 - صوت: **ماجد** | ID: `oJCdZCYaJobw2GlrIQm5`
 - API Key: Pro account (ElevenCreative) `9a2cda21af0960b5930a4b465058c36e3f43a500da7f16744bfb38cca2f3639c`
@@ -556,3 +570,4 @@
 
 MEMORY.md = خلاصة الحكمة
 مو دفتر يوميات
+- 2026-03-01 → إطلاق تطبيق **مونتير (Monteer)** لتسجيل وتفريغ المقابلات بالذكاء الاصطناعي ورفعه للـ App Store وربط دومين monteer.net
