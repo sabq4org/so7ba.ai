@@ -1,10 +1,18 @@
-# Sensitive files
-*.env
-.env.*
-secrets.*
-credentials.*
-*.key
-*.pem
+# Dependencies
+node_modules/
+npm-debug.log*
+
+# Images & media (temp files)
+*.png
+*.jpg
+*.jpeg
+*.gif
+*.pdf
+tmp_pdf/
+wallpapers/
+wallpapers-*/
+shish_tournament/
+shish-tournament/
 
 # Logs
 *.log
@@ -12,3 +20,18 @@ dashboard/server.log
 
 # OS
 .DS_Store
+Thumbs.db
+
+# Sensitive
+*.env
+.env.*
+secrets.*
+credentials.*
+*.key
+*.pem
+
+# Submodules
+publisher-credits/
+
+# Workspace subfolder (duplicate)
+workspace/
