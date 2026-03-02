@@ -286,7 +286,7 @@
 - GOG_KEYRING_PASSWORD: [REDACTED:KEYRING_PW]
 
 ## Google AI / Gemini + Imagen (توليد صور)
-- API Key: `AIzaSyBdYDklEGPGV0I7XOyCYmxl27_7D4Nh2mA` (مفتاح جديد 2026-02-18)
+- API Key: `[REDACTED:GEMINI_KEY_OLD]` (مفتاح جديد 2026-02-18)
 - النماذج المتاحة: gemini-2.5-flash-image, gemini-3-pro-image-preview, imagen-4.0-generate-001, imagen-4.0-ultra-generate-001, imagen-4.0-fast-generate-001
 - ⚠️ الإنفوجرافيك العربي: ضعيف جداً — الأفضل HTML + screenshot
 - تاريخ الإضافة: 2026-02-10 | آخر تحديث: 2026-02-18

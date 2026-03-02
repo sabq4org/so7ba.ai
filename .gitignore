@@ -1,27 +1,14 @@
-# Node
-node_modules/
+# Sensitive files
+*.env
+.env.*
+secrets.*
+credentials.*
+*.key
+*.pem
 
-# Temp files
-*.tmp
-*.swp
+# Logs
+*.log
+dashboard/server.log
+
+# OS
 .DS_Store
-
-# Media (too large)
-*.png
-*.jpg
-*.jpeg
-*.gif
-*.mp3
-*.mp4
-*.wav
-*.ogg
-
-# Build artifacts
-__pycache__/
-*.pyc
-
-# Sensitive (handled separately)
-.openclaw/
-publisher-credits/
-api-dashboard/.env
-**/.env

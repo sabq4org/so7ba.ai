@@ -327,19 +327,19 @@
 - GOG_KEYRING_PASSWORD: [REDACTED:KEYRING_PW]
 
 ## Google AI / Gemini + Imagen (توليد صور)
-- API Key: `AIzaSyBdYDklEGPGV0I7XOyCYmxl27_7D4Nh2mA` (مفتاح جديد 2026-02-18)
+- API Key: `[REDACTED:GEMINI_KEY_OLD]` (مفتاح جديد 2026-02-18)
 - النماذج المتاحة: gemini-2.5-flash-image, gemini-3-pro-image-preview, imagen-4.0-generate-001, imagen-4.0-ultra-generate-001, imagen-4.0-fast-generate-001
 - ⚠️ الإنفوجرافيك العربي: ضعيف جداً - الأفضل HTML + screenshot
 - تاريخ الإضافة: 2026-02-10 | آخر تحديث: 2026-02-18
 
 ## Gemini API (محدّث 2026-02-28)
-- API Key جديد: `AIzaSyA8U2Zpwv8axRzPGtp-iTnxPk0DcVsKKD8`
+- API Key جديد: `[REDACTED:GEMINI_KEY]`
 - المفتاح القديم (`AIzaSyBd...`) انتهى
 - Model: `gemini-2.5-flash` (الأرخص والأسرع)
 
 ## SocialData.tools (2026-02-28)
 - ⚠️ **الرصيد خلص** — يحتاج شحن من https://dashboard.socialdata.tools
-- API Key: `5091|WoCZQVXWEiBw0annXZyv8DiivaNaIybdjoyiaw5d7e3be216`
+- API Key: `[REDACTED:SOCIALDATA_KEY]`
 
 ## بصيرة Dashboard (2026-02-28)
 - **باكند v4.1:** port 8000 — 26 endpoint — SocialData + Gemini + NewsData
@@ -348,7 +348,7 @@
 
 ## ElevenLabs TTS ✅ (2026-02-24)
 - صوت: **ماجد** | ID: `oJCdZCYaJobw2GlrIQm5`
-- API Key: Pro account (ElevenCreative) `9a2cda21af0960b5930a4b465058c36e3f43a500da7f16744bfb38cca2f3639c`
+- API Key: Pro account (ElevenCreative) `[REDACTED:ELEVENLABS_KEY]`
 - Model: eleven_multilingual_v2 | Stability: 0.50 | Similarity: 0.75 | Style: 0.75 | Speaker Boost: ON
 - ⚠️ لا تضيف `speed` في voiceSettings — يسبب 400 → fallback لـ Edge TTS
 - ⚠️ تغيير API Key يحتاج **full restart** (مو SIGUSR1)
