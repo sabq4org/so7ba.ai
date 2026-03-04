@@ -1,0 +1,673 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>سبق | استبيان تحديد المسار الصحفي</title>
+    <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@400;600;700;800;900&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --sabq-blue: #4AACE3;
+            --sabq-blue-dark: #2B8BC4;
+            --sabq-blue-light: #E8F4FC;
+            --sabq-gray: #6B7280;
+            --sabq-dark: #1F2937;
+            --sabq-bg: #F8FAFB;
+            --sabq-white: #FFFFFF;
+            --sabq-border: #E5E7EB;
+            --sabq-success: #10B981;
+            --sabq-accent: #F59E0B;
+            --radius: 16px;
+            --shadow: 0 4px 24px rgba(74, 172, 227, 0.08);
+            --shadow-hover: 0 8px 32px rgba(74, 172, 227, 0.15);
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Cairo', sans-serif;
+            background: var(--sabq-bg);
+            color: var(--sabq-dark);
+            line-height: 1.8;
+            min-height: 100vh;
+        }
+
+        /* Header */
+        .header {
+            background: linear-gradient(135deg, var(--sabq-blue-dark), var(--sabq-blue));
+            padding: 2rem 1rem;
+            text-align: center;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .header::before {
+            content: '';
+            position: absolute;
+            top: -50%;
+            left: -50%;
+            width: 200%;
+            height: 200%;
+            background: radial-gradient(circle, rgba(255,255,255,0.08) 0%, transparent 60%);
+            animation: pulse 8s ease-in-out infinite;
+        }
+
+        @keyframes pulse {
+            0%, 100% { transform: scale(1); opacity: 0.5; }
+            50% { transform: scale(1.1); opacity: 1; }
+        }
+
+        .header-content {
+            position: relative;
+            z-index: 1;
+            max-width: 700px;
+            margin: 0 auto;
+        }
+
+        .logo {
+            width: 180px;
+            margin-bottom: 1.5rem;
+            filter: brightness(0) invert(1);
+        }
+
+        .header h1 {
+            color: white;
+            font-size: 1.75rem;
+            font-weight: 800;
+            margin-bottom: 0.5rem;
+        }
+
+        .header p {
+            color: rgba(255,255,255,0.85);
+            font-size: 1rem;
+            font-weight: 400;
+        }
+
+        /* Container */
+        .container {
+            max-width: 720px;
+            margin: -2rem auto 3rem;
+            padding: 0 1rem;
+            position: relative;
+            z-index: 2;
+        }
+
+        /* Card */
+        .card {
+            background: var(--sabq-white);
+            border-radius: var(--radius);
+            box-shadow: var(--shadow);
+            padding: 2rem;
+            margin-bottom: 1.5rem;
+            border: 1px solid var(--sabq-border);
+            transition: box-shadow 0.3s ease;
+        }
+
+        .card:hover {
+            box-shadow: var(--shadow-hover);
+        }
+
+        .card-title {
+            font-size: 1.25rem;
+            font-weight: 800;
+            color: var(--sabq-blue-dark);
+            margin-bottom: 1.5rem;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        .card-title .icon {
+            font-size: 1.5rem;
+        }
+
+        /* Welcome card */
+        .welcome-card {
+            background: linear-gradient(135deg, var(--sabq-blue-light), var(--sabq-white));
+            border: 2px solid var(--sabq-blue);
+            text-align: center;
+            padding: 2.5rem 2rem;
+        }
+
+        .welcome-card p {
+            font-size: 1.05rem;
+            color: var(--sabq-gray);
+            max-width: 600px;
+            margin: 0 auto;
+        }
+
+        .welcome-card .highlight {
+            color: var(--sabq-blue-dark);
+            font-weight: 700;
+        }
+
+        /* Form elements */
+        .form-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 1rem;
+        }
+
+        .form-group {
+            margin-bottom: 1rem;
+        }
+
+        .form-group.full-width {
+            grid-column: 1 / -1;
+        }
+
+        .form-group label {
+            display: block;
+            font-weight: 700;
+            font-size: 0.9rem;
+            color: var(--sabq-dark);
+            margin-bottom: 0.4rem;
+        }
+
+        .form-group label .required {
+            color: #EF4444;
+            margin-right: 2px;
+        }
+
+        .form-group input,
+        .form-group select {
+            width: 100%;
+            padding: 0.75rem 1rem;
+            border: 2px solid var(--sabq-border);
+            border-radius: 12px;
+            font-family: 'Cairo', sans-serif;
+            font-size: 0.95rem;
+            color: var(--sabq-dark);
+            background: var(--sabq-bg);
+            transition: border-color 0.2s ease, box-shadow 0.2s ease;
+            outline: none;
+        }
+
+        .form-group input:focus,
+        .form-group select:focus {
+            border-color: var(--sabq-blue);
+            box-shadow: 0 0 0 4px rgba(74, 172, 227, 0.15);
+            background: white;
+        }
+
+        .form-group input::placeholder {
+            color: #9CA3AF;
+        }
+
+        /* Question styling */
+        .question {
+            margin-bottom: 1.5rem;
+            padding-bottom: 1.5rem;
+            border-bottom: 1px solid var(--sabq-border);
+        }
+
+        .question:last-child {
+            border-bottom: none;
+            margin-bottom: 0;
+            padding-bottom: 0;
+        }
+
+        .question-title {
+            font-size: 1rem;
+            font-weight: 700;
+            color: var(--sabq-dark);
+            margin-bottom: 0.75rem;
+            display: flex;
+            gap: 0.5rem;
+        }
+
+        .question-number {
+            background: var(--sabq-blue);
+            color: white;
+            width: 28px;
+            height: 28px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 0.8rem;
+            font-weight: 800;
+            flex-shrink: 0;
+            margin-top: 2px;
+        }
+
+        /* Radio options */
+        .options {
+            display: flex;
+            flex-direction: column;
+            gap: 0.5rem;
+        }
+
+        .option {
+            position: relative;
+        }
+
+        .option input[type="radio"] {
+            position: absolute;
+            opacity: 0;
+            width: 0;
+            height: 0;
+        }
+
+        .option label {
+            display: flex;
+            align-items: center;
+            gap: 0.75rem;
+            padding: 0.85rem 1rem;
+            border: 2px solid var(--sabq-border);
+            border-radius: 12px;
+            cursor: pointer;
+            transition: all 0.2s ease;
+            font-size: 0.95rem;
+            background: var(--sabq-bg);
+        }
+
+        .option label:hover {
+            border-color: var(--sabq-blue);
+            background: var(--sabq-blue-light);
+        }
+
+        .option input[type="radio"]:checked + label {
+            border-color: var(--sabq-blue);
+            background: var(--sabq-blue-light);
+            box-shadow: 0 0 0 3px rgba(74, 172, 227, 0.15);
+        }
+
+        .option label .radio-circle {
+            width: 20px;
+            height: 20px;
+            border: 2px solid var(--sabq-border);
+            border-radius: 50%;
+            flex-shrink: 0;
+            position: relative;
+            transition: all 0.2s ease;
+        }
+
+        .option input[type="radio"]:checked + label .radio-circle {
+            border-color: var(--sabq-blue);
+            background: var(--sabq-blue);
+        }
+
+        .option input[type="radio"]:checked + label .radio-circle::after {
+            content: '';
+            position: absolute;
+            width: 8px;
+            height: 8px;
+            background: white;
+            border-radius: 50%;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+        }
+
+        /* Submit button */
+        .submit-btn {
+            width: 100%;
+            padding: 1rem;
+            background: linear-gradient(135deg, var(--sabq-blue-dark), var(--sabq-blue));
+            color: white;
+            border: none;
+            border-radius: 12px;
+            font-family: 'Cairo', sans-serif;
+            font-size: 1.1rem;
+            font-weight: 800;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .submit-btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 8px 24px rgba(74, 172, 227, 0.35);
+        }
+
+        .submit-btn:active {
+            transform: translateY(0);
+        }
+
+        /* Footer */
+        .footer {
+            text-align: center;
+            padding: 2rem 1rem;
+            color: var(--sabq-gray);
+            font-size: 0.85rem;
+        }
+
+        .footer a {
+            color: var(--sabq-blue-dark);
+            text-decoration: none;
+            font-weight: 600;
+        }
+
+        /* Responsive */
+        @media (max-width: 640px) {
+            .form-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .header h1 {
+                font-size: 1.35rem;
+            }
+
+            .card {
+                padding: 1.5rem;
+            }
+
+            .logo {
+                width: 140px;
+            }
+        }
+
+        /* Success state */
+        .success-message {
+            display: none;
+            text-align: center;
+            padding: 3rem 2rem;
+        }
+
+        .success-message .check-icon {
+            width: 80px;
+            height: 80px;
+            background: var(--sabq-success);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin: 0 auto 1.5rem;
+            font-size: 2.5rem;
+            color: white;
+        }
+
+        .success-message h2 {
+            color: var(--sabq-success);
+            font-size: 1.5rem;
+            margin-bottom: 0.5rem;
+        }
+
+        .success-message p {
+            color: var(--sabq-gray);
+        }
+    </style>
+</head>
+<body>
+
+    <!-- Header -->
+    <div class="header">
+        <div class="header-content">
+            <img src="sabq-logo.png" alt="صحيفة سبق الإلكترونية" class="logo">
+            <h1>🎯 استبيان تحديد المسار الصحفي</h1>
+            <p>للمتدربين والمتدربات في صحيفة سبق الإلكترونية</p>
+        </div>
+    </div>
+
+    <!-- Content -->
+    <div class="container">
+
+        <!-- Welcome Card -->
+        <div class="card welcome-card">
+            <p>
+                مرحباً بك في <span class="highlight">صحيفة سبق</span> ☀️
+                <br>
+                نحن لا نبحث عن شخص يسدّ فراغاً، بل نبحث عن <span class="highlight">موهبة تضع بصمتها</span>.
+                <br>
+                لكي نضعك في المكان الذي تتألّق فيه، أجب عن الأسئلة التالية بعفوية.
+            </p>
+        </div>
+
+        <form action="https://formsubmit.co/so7ba.ai@gmail.com" method="POST" id="surveyForm">
+            <!-- FormSubmit settings -->
+            <input type="hidden" name="_subject" value="📋 استبيان متدرب جديد — سبق">
+            <input type="hidden" name="_captcha" value="false">
+            <input type="hidden" name="_template" value="table">
+            <input type="hidden" name="_next" value="">
+            <input type="text" name="_honey" style="display:none">
+
+            <!-- Personal Info -->
+            <div class="card">
+                <div class="card-title">
+                    <span class="icon">📝</span>
+                    البيانات الشخصية
+                </div>
+
+                <div class="form-grid">
+                    <div class="form-group full-width">
+                        <label><span class="required">*</span> الاسم الكامل</label>
+                        <input type="text" name="الاسم الكامل" placeholder="أدخل اسمك الرباعي" required>
+                    </div>
+
+                    <div class="form-group">
+                        <label><span class="required">*</span> تاريخ الميلاد</label>
+                        <input type="date" name="تاريخ الميلاد" required>
+                    </div>
+
+                    <div class="form-group">
+                        <label><span class="required">*</span> رقم الجوال</label>
+                        <input type="tel" name="رقم الجوال" placeholder="05XXXXXXXX" pattern="[0-9]{10}" required>
+                    </div>
+
+                    <div class="form-group full-width">
+                        <label><span class="required">*</span> البريد الإلكتروني</label>
+                        <input type="email" name="البريد الإلكتروني" placeholder="example@email.com" required>
+                    </div>
+
+                    <div class="form-group">
+                        <label><span class="required">*</span> الجامعة</label>
+                        <input type="text" name="الجامعة" placeholder="مثال: جامعة الملك سعود" required>
+                    </div>
+
+                    <div class="form-group">
+                        <label><span class="required">*</span> الكلية</label>
+                        <input type="text" name="الكلية" placeholder="مثال: كلية الإعلام" required>
+                    </div>
+
+                    <div class="form-group full-width">
+                        <label><span class="required">*</span> التخصص</label>
+                        <input type="text" name="التخصص" placeholder="مثال: الصحافة والنشر الإلكتروني" required>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Question 1 -->
+            <div class="card">
+                <div class="card-title">
+                    <span class="icon">📋</span>
+                    أسئلة تحديد المسار
+                </div>
+
+                <div class="question">
+                    <div class="question-title">
+                        <span class="question-number">1</span>
+                        <span>لما تفتح جوالك الصباح، وش أول نوع من الأخبار يوقفك؟</span>
+                    </div>
+                    <div class="options">
+                        <div class="option">
+                            <input type="radio" name="سؤال_1" id="q1a" value="الأخبار السياسية والاقتصادية" required>
+                            <label for="q1a">
+                                <span class="radio-circle"></span>
+                                الأخبار السياسية والاقتصادية (القرارات الكبرى)
+                            </label>
+                        </div>
+                        <div class="option">
+                            <input type="radio" name="سؤال_1" id="q1b" value="القصص الإنسانية والمجتمعية والترند">
+                            <label for="q1b">
+                                <span class="radio-circle"></span>
+                                القصص الإنسانية والمجتمعية والترند
+                            </label>
+                        </div>
+                        <div class="option">
+                            <input type="radio" name="سؤال_1" id="q1c" value="التقنية والألعاب والابتكارات">
+                            <label for="q1c">
+                                <span class="radio-circle"></span>
+                                التقنية، الألعاب، والابتكارات
+                            </label>
+                        </div>
+                        <div class="option">
+                            <input type="radio" name="سؤال_1" id="q1d" value="الرياضة والأحداث التنافسية">
+                            <label for="q1d">
+                                <span class="radio-circle"></span>
+                                الرياضة والأحداث التنافسية
+                            </label>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="question">
+                    <div class="question-title">
+                        <span class="question-number">2</span>
+                        <span>كيف تفضّل يكون يومك الصحفي؟</span>
+                    </div>
+                    <div class="options">
+                        <div class="option">
+                            <input type="radio" name="سؤال_2" id="q2a" value="في الميدان: مقابلات وتصوير وتغطية أحداث حية" required>
+                            <label for="q2a">
+                                <span class="radio-circle"></span>
+                                في الميدان: مقابلات، تصوير، وتغطية أحداث حية
+                            </label>
+                        </div>
+                        <div class="option">
+                            <input type="radio" name="سؤال_2" id="q2b" value="خلف الشاشة: صياغة أخبار وتدقيق لغوي وصناعة عناوين">
+                            <label for="q2b">
+                                <span class="radio-circle"></span>
+                                خلف الشاشة: صياغة أخبار، تدقيق لغوي، وصناعة عناوين جذابة
+                            </label>
+                        </div>
+                        <div class="option">
+                            <input type="radio" name="سؤال_2" id="q2c" value="في السوشيال ميديا: صناعة محتوى سريع ومتابعة الترند">
+                            <label for="q2c">
+                                <span class="radio-circle"></span>
+                                في السوشيال ميديا: صناعة محتوى سريع، تغريدات، ومتابعة الترند
+                            </label>
+                        </div>
+                        <div class="option">
+                            <input type="radio" name="سؤال_2" id="q2d" value="في الاستوديو/التصميم: مونتاج فيديو وتصميم إنفوجرافيك">
+                            <label for="q2d">
+                                <span class="radio-circle"></span>
+                                في الاستوديو/التصميم: مونتاج فيديو، تصميم إنفوجرافيك، وتعديل صور
+                            </label>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="question">
+                    <div class="question-title">
+                        <span class="question-number">3</span>
+                        <span>تخيل صار حدث "ترند" مفاجئ الآن، وش أول دور تتمنى تسويه؟</span>
+                    </div>
+                    <div class="options">
+                        <div class="option">
+                            <input type="radio" name="سؤال_3" id="q3a" value="أبحث عن المصدر وأتأكد من صحة المعلومة وأكتب الخبر العاجل" required>
+                            <label for="q3a">
+                                <span class="radio-circle"></span>
+                                أبحث عن المصدر وأتأكد من صحة المعلومة وأكتب الخبر العاجل
+                            </label>
+                        </div>
+                        <div class="option">
+                            <input type="radio" name="سؤال_3" id="q3b" value="أصيغ تغريدة قوية وجذابة للنشر فوراً على حسابات الصحيفة">
+                            <label for="q3b">
+                                <span class="radio-circle"></span>
+                                أصيغ تغريدة قوية وجذابة للنشر فوراً على حسابات الصحيفة
+                            </label>
+                        </div>
+                        <div class="option">
+                            <input type="radio" name="سؤال_3" id="q3c" value="أصمم صورة توضيحية أو أقص فيديو سريع يلخص الحدث">
+                            <label for="q3c">
+                                <span class="radio-circle"></span>
+                                أصمم صورة توضيحية أو أقص فيديو سريع يلخص الحدث
+                            </label>
+                        </div>
+                        <div class="option">
+                            <input type="radio" name="سؤال_3" id="q3d" value="أجهز تقرير مفصل يُنشر لاحقاً يقرأ ما وراء الحدث">
+                            <label for="q3d">
+                                <span class="radio-circle"></span>
+                                أجهّز تقرير مفصل يُنشر لاحقاً يقرأ ما وراء هذا الحدث
+                            </label>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="question">
+                    <div class="question-title">
+                        <span class="question-number">4</span>
+                        <span>وين تشوف نقطة قوتك الحالية (حتى لو كانت بسيطة)؟</span>
+                    </div>
+                    <div class="options">
+                        <div class="option">
+                            <input type="radio" name="سؤال_4" id="q4a" value="لغتي العربية ممتازة وعندي قدرة على التعبير والكتابة" required>
+                            <label for="q4a">
+                                <span class="radio-circle"></span>
+                                لغتي العربية ممتازة وعندي قدرة على التعبير والكتابة
+                            </label>
+                        </div>
+                        <div class="option">
+                            <input type="radio" name="سؤال_4" id="q4b" value="جريء وأقدر أوقف قدام الكاميرا أو أسوي مقابلات مع الناس">
+                            <label for="q4b">
+                                <span class="radio-circle"></span>
+                                جريء وأقدر أوقف قدام الكاميرا أو أسوي مقابلات مع الناس
+                            </label>
+                        </div>
+                        <div class="option">
+                            <input type="radio" name="سؤال_4" id="q4c" value="أفهم خوارزميات المنصات وأعرف وش يضرب">
+                            <label for="q4c">
+                                <span class="radio-circle"></span>
+                                أفهم خوارزميات المنصات (إكس، تيك توك، إنستقرام) وأعرف وش يضرب
+                            </label>
+                        </div>
+                        <div class="option">
+                            <input type="radio" name="سؤال_4" id="q4d" value="عندي لمسة فنية في برامج التصميم أو المونتاج">
+                            <label for="q4d">
+                                <span class="radio-circle"></span>
+                                عندي لمسة فنية في برامج التصميم أو المونتاج (Canva, Premiere, وغيرها)
+                            </label>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="question">
+                    <div class="question-title">
+                        <span class="question-number">5</span>
+                        <span>في بيئة الأخبار، هل تفضل:</span>
+                    </div>
+                    <div class="options">
+                        <div class="option">
+                            <input type="radio" name="سؤال_5" id="q5a" value="الإيقاع السريع جداً — الأخبار العاجلة واللحظية" required>
+                            <label for="q5a">
+                                <span class="radio-circle"></span>
+                                الإيقاع السريع جداً (الأخبار العاجلة واللحظية) ⚡
+                            </label>
+                        </div>
+                        <div class="option">
+                            <input type="radio" name="سؤال_5" id="q5b" value="الإيقاع الهادئ والعميق — التقارير والتحقيقات والقصص الطويلة">
+                            <label for="q5b">
+                                <span class="radio-circle"></span>
+                                الإيقاع الهادئ والعميق (التقارير، التحقيقات، والقصص الطويلة) 📖
+                            </label>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Submit -->
+            <div class="card" style="text-align: center;">
+                <button type="submit" class="submit-btn">
+                    إرسال الاستبيان ✨
+                </button>
+                <p style="margin-top: 1rem; color: var(--sabq-gray); font-size: 0.85rem;">
+                    بياناتك سرية ولن تُستخدم إلا لأغراض التدريب
+                </p>
+            </div>
+        </form>
+
+    </div>
+
+    <!-- Footer -->
+    <div class="footer">
+        <p>© 2026 صحيفة سبق الإلكترونية — <a href="https://sabq.org" target="_blank">sabq.org</a></p>
+    </div>
+
+</body>
+</html>
